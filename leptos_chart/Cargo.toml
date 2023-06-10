@@ -1,0 +1,21 @@
+[package]
+name = "leptos_chart"
+version = { workspace = true }
+edition = "2021"
+authors = ["LangPham"]
+license = "MIT"
+repository = "https://github.com/theta-vn/leptos_chart"
+description = "Chart library for leptos"
+readme = "../README.md"
+
+[dependencies]
+leptos = {version = "0.3.0", optional = true}
+theta-chart = {path = "../theta-chart", version = "0.0.2"}
+
+[features]
+default = ["csr", "stable"]
+core = []
+PieChart = ["core"]
+stable = ["leptos/stable"]
+csr = ["leptos/default"]
+
