@@ -7,4 +7,4 @@ edition = "2021"
 
 [dependencies]
 leptos = {version = "0.3.0", features=["stable"]}
-leptos_chart = {path = "../../leptos_chart", features = ["PieChart"]}
+leptos_chart = {path = "../../leptos_chart", features = ["stable", "PieChart"]}
