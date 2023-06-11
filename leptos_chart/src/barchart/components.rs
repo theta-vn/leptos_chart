@@ -1,23 +1,20 @@
+#[cfg(feature = "PieChart")]
 use crate::core::SvgChart;
 
 use leptos::{component, view, IntoView, Scope};
 
 use theta_chart::chart::{Draw, ScaleLabel, ScaleNumber};
-const REM: f32 = 16.;
-const LHEIGHT: f32 = 1.5;
 
 #[allow(non_snake_case)]
 #[component]
 pub fn PieChart(cx: Scope, data: crate::DataPie) -> impl IntoView {
     let chart = data.get_chart();
-    log::debug!("{:#?}", chart);
     let view = chart.get_view();
-    let origin = view.get_origin();
     let inner = view.get_inner();
     // Flip SVG vertically using an unusual viewbox
     let translate_chart = format!(
-        "translate({},{}) scale(-1,-1) ",
-        inner.get_x() + origin.get_x() * 2.,
+        "translate({},{}) scale(-1,-1)",
+        inner.get_x(),
         inner.get_y()
     );
 
@@ -39,15 +36,18 @@ pub fn PieChart(cx: Scope, data: crate::DataPie) -> impl IntoView {
     let slabel = chart.get_ay();
 
     view! { cx,
+
         <SvgChart view={view}>
+
             <g class="labels" transform={translate_label}>
+
                 {
                     slabel.labels().into_iter().enumerate().map(|(index, label)|  {
                         let color = &slabel.colors()[index];
-                        let py = index as f32 * LHEIGHT * REM;
+                        let py = index * 26;
                         view! {cx,
-                            <text x={LHEIGHT * REM} y={py} dominant-baseline="text-before-edge">{label}</text>
-                            <rect x={0} y={py + (LHEIGHT - 1.0) * REM / 2.} width=REM height=REM fill={color.to_string_hex()}></rect>
+                            <text x="20" y={py} dominant-baseline="text-before-edge">{label}</text>
+                            <rect x={0} y={py+4} width="1rem" height="1rem" fill={color.to_string_hex()}></rect>
                         }
                     })
                     .collect::<Vec<_>>()
