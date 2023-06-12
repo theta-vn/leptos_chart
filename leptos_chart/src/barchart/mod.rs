@@ -1,8 +1,5 @@
-#[cfg(feature = "PieChart")]
 mod components;
-#[cfg(feature = "PieChart")]
-pub use self::components::*;
-#[cfg(feature = "PieChart")]
+pub use self::components::BarChart;
+
 mod data;
-#[cfg(feature = "PieChart")]
-pub use self::data::DataPie;
+pub use self::data::DataBar;

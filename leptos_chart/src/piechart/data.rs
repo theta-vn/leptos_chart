@@ -25,6 +25,12 @@ impl DataPie {
         Self(chart.clone().set_ax(linear))
     }
 
+    pub fn set_data_u64(&self, data: Vec<u64>) -> Self {
+        let linear = SNumber::from(data);
+        let chart = &self.0;
+        Self(chart.clone().set_ax(linear))
+    }
+
     pub fn set_view(&self, view: Vec<u64>) -> Self {
         let view = CView::from(view);
         let chart = &self.0;

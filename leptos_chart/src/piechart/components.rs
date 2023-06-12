@@ -35,7 +35,6 @@ pub fn PieChart(cx: Scope, data: crate::DataPie) -> impl IntoView {
     let radius = view.get_radius();
     let vec_arc = data.gen_pie(center, radius - 5.);
     let series = data.series();
-    
 
     // For processing SLabel
     let slabel = chart.get_ay();
@@ -45,7 +44,7 @@ pub fn PieChart(cx: Scope, data: crate::DataPie) -> impl IntoView {
             <g class="labels" transform={translate_label}>
                 {
                     slabel.labels().into_iter().enumerate().map(|(index, label)|  {
-                        let color = &slabel.colors()[index];                        
+                        let color = &slabel.colors()[index];
                         let py = index as f32 * LHEIGHT * REM;
                         view! {cx,
                             <text x={LHEIGHT * REM} y={py} dominant-baseline="text-before-edge">{format!("{}: {}",label, series[index])}</text>
