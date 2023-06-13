@@ -35,28 +35,13 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
 
     // For processing SNumber
     let data = chart.get_ay();
-    let (distance_up, step, distance_down) = data.count_distance_step();
-    let domain = data.domain();
     let mut len_snumber = inner.get_y();
     if !is_vertical {
         len_snumber = inner.get_x()
     };
     let interval_snumber = data.get_interval(len_snumber);
-
-    log::debug!(
-        "Step::{:#?}:::DOMAIN::{:#?}:::INTERVAL::{:#?}:::DISTANCE::{:#?}",
-        step,
-        domain,
-        interval_snumber,
-        distance_up + distance_down
-    );
-
-    let mut vec_string: Vec<String> = vec![];
-    for index in 0..(distance_up + distance_down + 1) {
-        vec_string.push(format!("{}", index as f64 * step));
-    }
-
-    log::debug!("{:#?}", vec_string);
+    let (vec_string, step) = data.gen_sticks_label_step();
+    
 
     // For processing SLabel
     let slabel = chart.get_ax();

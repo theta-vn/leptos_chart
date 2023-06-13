@@ -1,0 +1,57 @@
+use theta_chart::{coord::*, series::*};
+
+#[derive(Debug)]
+pub struct DataLine(Chart<SNumber, SNumber>);
+
+impl DataLine {
+    // pub fn new(data: Vec<f64>, label: Vec<&str>, view: Vec<u64>) -> Self {
+    //     let linear = SNumber::new(data);
+    //     let category = SLabel::from(label);
+    //     let view = CView::from(view);
+    //     let chart = Chart::default()
+    //         .set_ay(linear.clone())
+    //         .set_ax(category.clone())
+    //         .set_view(view);
+    //     Self(chart)
+    // }
+
+    pub fn get_chart(&self) -> Chart<SNumber, SNumber> {
+        self.0.clone()
+    }
+
+    pub fn set_data_x(&self, data: Vec<f64>) -> Self {
+        let linear = SNumber::new(data);
+        let chart = &self.0;
+        Self(chart.clone().set_ax(linear))
+    }
+
+    pub fn set_data_y(&self, data: Vec<f64>) -> Self {
+        let linear = SNumber::new(data);
+        let chart = &self.0;
+        Self(chart.clone().set_ay(linear))
+    }
+
+    // new(width: u64, height: u64, position_axes: u64, padding: u64, margin: u64)
+    pub fn set_view(
+        &self,
+        width: u64,
+        height: u64,        
+        padding: u64,
+        margin: u64,
+    ) -> Self {        
+        let  position_axes = 0b1100;        
+
+        let view = CView::new(width, height, position_axes, padding, margin);
+        let chart = &self.0;
+        Self(chart.clone().set_view(view))
+    }
+
+
+
+}
+
+impl Default for DataLine {
+    fn default() -> Self {
+        Self(Default::default())
+    }
+}
