@@ -11,8 +11,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 
     let data_h = DataBar::default()        
         .set_view(800, 600, false, 50, 15)
-        .set_data(vec![370.0, 200.0, 175.0])
-        .set_label(vec!["A", "B", "C"]);
+        .set_data(vec![370.0, 200.0, 175.0, 82., 54.])
+        .set_label(vec!["A", "B", "C", "D", "E"]);
     
     let data_v = DataBar::default()        
         .set_view(800, 600, true, 50, 10)

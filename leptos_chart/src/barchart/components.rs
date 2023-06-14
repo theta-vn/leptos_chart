@@ -3,7 +3,7 @@ use crate::{axes::YAxis, SvgChart, XAxis};
 use leptos::{component, view, IntoView, Scope};
 
 use theta_chart::{
-    chart::{Draw, ScaleLabel, ScaleNumber, ScaleType},
+    chart::{Draw, ScaleLabel, ScaleNumber}, //, ScaleType},
     color::Color,
     // series::SLabel
 };
@@ -13,7 +13,7 @@ use theta_chart::{
 pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
     let is_vertical = data.get_vertical();
     let chart = data.get_chart();
-    log::debug!("CHART:::{:#?}", chart);
+    // log::debug!("CHART:::{:#?}", chart);
     let view = chart.get_view();
     let origin = view.get_origin();
     let inner = view.get_inner();
@@ -39,8 +39,8 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
     if !is_vertical {
         len_snumber = inner.get_x()
     };
-    let interval_snumber = data.get_interval(len_snumber);
-    let (vec_string, step) = data.gen_sticks_label_step();
+    let intervale_snumber = data.get_intervale(len_snumber);    
+    let axes_number = data.gen_axes();
     
 
     // For processing SLabel
@@ -49,25 +49,29 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
     if !is_vertical {
         len_slabel = inner.get_y()
     };
-    let interval_label = slabel.get_interval(len_slabel);
+    let intervale_label = slabel.get_intervale(len_slabel);
+    let axes_label = slabel.gen_axes();
 
     // For position
     let position_axes = view.get_position_axes();
 
-    let mut interval_x = interval_label;
-    let mut interval_y = interval_snumber;
-    let mut vec_string_x = slabel.labels();
-    let mut vec_string_y = vec_string.clone();
-    vec_string_y.reverse();
-    let mut scale_type_x = slabel.scale_type();
-    let mut scale_type_y = data.scale_type();
+    let mut intervale_x = intervale_label;
+    let mut intervale_y = intervale_snumber;
+    let mut axes_x = axes_label.clone();
+    let mut axes_y = axes_number.clone();
+    // log::debug!("{:#?}", &axes_y);
+    axes_y = axes_y.reverse();
+    // log::debug!("{:#?}", &axes_y);
+    // let mut scale_type_x = slabel.scale_type();
+    // let mut scale_type_y = data.scale_type();
     if !is_vertical {
-        interval_y = interval_label;
-        interval_x = interval_snumber;
-        vec_string_y = slabel.labels();
-        vec_string_x = vec_string;
-        scale_type_y = slabel.scale_type();
-        scale_type_x = data.scale_type();
+        intervale_y = intervale_label;
+        intervale_x = intervale_snumber;
+        axes_y = axes_label.clone();
+        axes_x = axes_number.clone();
+        // scale_type_y = slabel.scale_type();
+        
+        // scale_type_x = data.scale_type();
     };
 
     view! { cx,
@@ -76,17 +80,17 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
 
             <g class="axes" transform={translate_axes}>
                 <g class="x-axis">
-                    <XAxis len_x={inner.get_x()} len_y={inner.get_y()} position={position_axes} interval=interval_x sticks=vec_string_x scale_type=scale_type_x />
+                    <XAxis len_x={inner.get_x()} len_y={inner.get_y()} position={position_axes} intervale=intervale_x axes=axes_x /> //scale_type=scale_type_x />
                 </g>
                 <g class="y-axis">
-                    <YAxis len_x={inner.get_x()} len_y={inner.get_y()} position={position_axes} interval=interval_y sticks=vec_string_y scale_type=scale_type_y />
+                    <YAxis len_x={inner.get_x()} len_y={inner.get_y()} position={position_axes} intervale=intervale_y axes=axes_y /> //scale_type=scale_type_y />
                 </g>
             </g>
             <g class="inner-chart" transform={translate_chart} >
                 {
                     data.series().into_iter().enumerate().map(|(index, data)|  {
                         view! {cx,
-                            <rect x={interval_label * index as f64 +  interval_label * 0.05} width={interval_label*0.9} height={data * interval_snumber / step} fill={Color::default().to_string_hex()} />
+                            <rect x={intervale_label * index as f64 +  intervale_label * 0.05} width={intervale_label*0.9} height={data * intervale_snumber / axes_number.step} fill={Color::default().to_string_hex()} />
                         }
                     })
                     .collect::<Vec<_>>()

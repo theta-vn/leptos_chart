@@ -18,6 +18,6 @@ pub use self::axes::XAxis;
 
 
 // #[cfg(feature = "LineChart")]
-mod linechart;
+// mod linechart;
 // #[cfg(feature = "LineChart")]
-pub use self::linechart::*;
+// pub use self::linechart::*;
