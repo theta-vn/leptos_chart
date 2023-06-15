@@ -18,7 +18,7 @@ wasm-logger = "0.2.0"
 # theta-chart = {path = "../../theta-chart", version = "0.0.3"}
 
 [features]
-default = ["csr", "stable", "LineChart", "BarChart"]
+default = ["csr", "stable"]
 core = []
 Axes = []
 PieChart = ["core"]

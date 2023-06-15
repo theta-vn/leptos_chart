@@ -1,7 +1,7 @@
 use leptos::{component, view, IntoView, Scope};
-use theta_chart::{get_bit_at, coord::Axes};
+use theta_chart::{coord::Axes, get_bit_at};
 
-use crate::REM;
+use crate::core::REM;
 
 #[allow(non_snake_case)]
 #[component]
@@ -12,8 +12,8 @@ pub fn YAxis(
     position: usize,
     axes: Axes,
     intervale: f64,
-    
 ) -> impl IntoView {
+    let mut reverse = false;
     let mut mark_origin_x = -REM as f64;
     let mut mark_origin_y = 0.;
     let mut translate = format!("translate({},{})", 0, 0);
@@ -24,7 +24,8 @@ pub fn YAxis(
     }
 
     if get_bit_at(position, 2) {
-        mark_origin_y = len_y
+        mark_origin_y = len_y;
+        reverse = true;
     }
 
     view! {cx,
@@ -33,7 +34,7 @@ pub fn YAxis(
             <line x1="0" y1={mark_origin_y} y2={mark_origin_y} x2={mark_origin_x} style="stroke:rgb(0,0,255)" />
                     {
                         axes.sticks.into_iter().map(|stick|  {
-                            let dy = stick.value * intervale;
+                            let dy = if reverse {intervale - stick.value * intervale} else {stick.value * intervale};
                             view! {cx,
 
                                 <line x1="0" y1={dy} x2={mark_origin_x/2.} y2={dy} style="stroke:rgb(0,0,255)" />

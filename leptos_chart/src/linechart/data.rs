@@ -3,8 +3,7 @@ use theta_chart::{coord::*, series::*};
 #[derive(Debug)]
 pub struct DataLine(Chart<STime, SNumber>);
 
-impl DataLine {    
-
+impl DataLine {
     pub fn get_chart(&self) -> Chart<STime, SNumber> {
         self.0.clone()
     }
@@ -22,22 +21,13 @@ impl DataLine {
     }
 
     // new(width: u64, height: u64, position_axes: u64, padding: u64, margin: u64)
-    pub fn set_view(
-        &self,
-        width: u64,
-        height: u64,        
-        padding: u64,
-        margin: u64,
-    ) -> Self {        
-        let  position_axes = 0b1100;        
+    pub fn set_view(&self, width: u64, height: u64, padding: u64, margin: u64) -> Self {
+        let position_axes = 0b1100;
 
         let view = CView::new(width, height, position_axes, padding, margin);
         let chart = &self.0;
         Self(chart.clone().set_view(view))
     }
-
-
-
 }
 
 impl Default for DataLine {

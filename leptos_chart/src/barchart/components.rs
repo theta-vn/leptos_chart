@@ -1,7 +1,8 @@
-use crate::{axes::YAxis, SvgChart, XAxis};
-
+use crate::{
+    axes::{XAxis, YAxis},
+    core::SvgChart,
+};
 use leptos::{component, view, IntoView, Scope};
-
 use theta_chart::{
     chart::{Draw, ScaleLabel, ScaleNumber}, //, ScaleType},
     color::Color,
@@ -13,7 +14,7 @@ use theta_chart::{
 pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
     let is_vertical = data.get_vertical();
     let chart = data.get_chart();
-    // log::debug!("CHART:::{:#?}", chart);
+    log::debug!("CHART:::{:#?}", chart);
     let view = chart.get_view();
     let origin = view.get_origin();
     let inner = view.get_inner();
@@ -27,7 +28,7 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
 
     if !is_vertical {
         translate_chart = format!(
-            "translate({},{}) rotate(90) scale(1,-1)",
+            "translate({},{}) rotate(0) scale(1,-1)",
             origin.get_x(),
             origin.get_y()
         );
@@ -39,9 +40,8 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
     if !is_vertical {
         len_snumber = inner.get_x()
     };
-    let intervale_snumber = data.get_intervale(len_snumber);    
+    let intervale_snumber = len_snumber;
     let axes_number = data.gen_axes();
-    
 
     // For processing SLabel
     let slabel = chart.get_ax();
@@ -49,7 +49,7 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
     if !is_vertical {
         len_slabel = inner.get_y()
     };
-    let intervale_label = slabel.get_intervale(len_slabel);
+    let intervale_label = len_slabel;
     let axes_label = slabel.gen_axes();
 
     // For position
@@ -60,7 +60,7 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
     let mut axes_x = axes_label.clone();
     let mut axes_y = axes_number.clone();
     // log::debug!("{:#?}", &axes_y);
-    axes_y = axes_y.reverse();
+    // axes_y = axes_y.reverse();
     // log::debug!("{:#?}", &axes_y);
     // let mut scale_type_x = slabel.scale_type();
     // let mut scale_type_y = data.scale_type();
@@ -70,7 +70,7 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
         axes_y = axes_label.clone();
         axes_x = axes_number.clone();
         // scale_type_y = slabel.scale_type();
-        
+
         // scale_type_x = data.scale_type();
     };
 
@@ -88,9 +88,9 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
             </g>
             <g class="inner-chart" transform={translate_chart} >
                 {
-                    data.series().into_iter().enumerate().map(|(index, data)|  {
+                    data.series().into_iter().enumerate().map(|(index, da)|  {
                         view! {cx,
-                            <rect x={intervale_label * index as f64 +  intervale_label * 0.05} width={intervale_label*0.9} height={data * intervale_snumber / axes_number.step} fill={Color::default().to_string_hex()} />
+                            <rect x={slabel.scale(index as f64 + 0.1) * intervale_label } width={slabel.scale(0.8) * intervale_label} height={ data.scale(da) * intervale_snumber} fill={Color::default().to_string_hex()} />
                         }
                     })
                     .collect::<Vec<_>>()
