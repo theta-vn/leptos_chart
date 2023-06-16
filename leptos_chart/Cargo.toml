@@ -31,4 +31,3 @@ csr = ["leptos/csr"]
 hydrate = ["leptos/hydrate"]
 ssr = ["leptos/ssr"]
 stable = ["leptos/stable"]
-

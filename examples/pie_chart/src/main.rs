@@ -7,25 +7,25 @@ fn main() {
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
-    let data_r = DataPie::new(
-        vec![9.0, 50.0, 72.0],
-        vec!["Apples", "Bananas", "Cherries"],
-        vec![800, 600, 0b0010, 200, 10],
-    );
+pub fn App(cx: Scope) -> impl IntoView {   
+
+    let data_r = DataPie::default()        
+        .set_view(800, 600, 0b0010, 200, 10)
+        .set_data(vec![9.0, 50.0, 72.0])
+        .set_label(vec!["Apples", "Bananas", "Cherries"]);
 
     let data_l = DataPie::default()        
-        .set_view(vec![800, 600, 0b1000, 200, 10])
+        .set_view(800, 600, 0b1000, 200, 10)
         .set_data(vec![350.0, 200.0, 175.0])
         .set_label(vec!["Apples", "Bananas", "Cherries"]);
 
     let data_t = DataPie::default()        
-        .set_view(vec![600, 800, 0b0001, 200, 10])
+        .set_view(600, 800, 0b0001, 200, 10)
         .set_data(vec![2.0, 1.0, 1.5])
         .set_label(vec!["Apples", "Bananas", "Cherries"]);
 
     let data_b = DataPie::default()        
-        .set_view(vec![600, 800, 0b0100, 200, 10])
+        .set_view(600, 800, 0b0100, 200, 10)
         .set_data_u64(vec![22, 47, 15])
         .set_label(vec!["Apples", "Bananas", "Cherries"]);
 

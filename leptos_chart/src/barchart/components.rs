@@ -1,17 +1,37 @@
 use crate::{
     axes::{XAxis, YAxis},
     core::SvgChart,
+    DataBar,
 };
 use leptos::{component, view, IntoView, Scope};
 use theta_chart::{
-    chart::{Draw, ScaleLabel, ScaleNumber}, //, ScaleType},
-    color::Color,
-    // series::SLabel
+    chart::{Draw, ScaleLabel, ScaleNumber},
+    color::Color,    
 };
 
+/// Component BarChart for leptos
+///
+/// # Examples
+///
+/// ```ignore
+/// use leptos::*;
+/// use leptos_chart::*;
+/// 
+/// #[component]
+/// pub fn App(cx: Scope) -> impl IntoView {
+///     let data = DataBar::default()        
+///         .set_view(800, 600, true, 50, 10)
+///         .set_data(vec![350.0, 200.0, 175.0])
+///         .set_label(vec!["Apples", "Bananas", "Cherries"]);
+///
+///     view!{ cx,
+///         <BarChart data=data />
+///     }
+/// }
+/// ```
 #[allow(non_snake_case)]
 #[component]
-pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
+pub fn BarChart(cx: Scope, data: DataBar) -> impl IntoView {
     let is_vertical = data.get_vertical();
     let chart = data.get_chart();
     log::debug!("CHART:::{:#?}", chart);
@@ -28,7 +48,7 @@ pub fn BarChart(cx: Scope, data: crate::DataBar) -> impl IntoView {
 
     if !is_vertical {
         translate_chart = format!(
-            "translate({},{}) rotate(0) scale(1,-1)",
+            "translate({},{}) rotate(90) scale(1,-1)",
             origin.get_x(),
             origin.get_y()
         );

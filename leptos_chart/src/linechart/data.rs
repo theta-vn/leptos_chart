@@ -20,7 +20,6 @@ impl DataLine {
         Self(chart.clone().set_ay(linear))
     }
 
-    // new(width: u64, height: u64, position_axes: u64, padding: u64, margin: u64)
     pub fn set_view(&self, width: u64, height: u64, padding: u64, margin: u64) -> Self {
         let position_axes = 0b1100;
 

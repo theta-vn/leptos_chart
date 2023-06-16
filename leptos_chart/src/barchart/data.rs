@@ -1,37 +1,53 @@
 use theta_chart::{coord::*, series::*};
 
+/// # Support for creating and store data for BarChart
+///
+/// # Examples
+///
+/// ```ignore
+/// let data = DataBar::default()        
+///     .set_view(800, 600, true, 50, 10)
+///     .set_data(vec![350.0, 200.0, 175.0])
+///     .set_label(vec!["Apples", "Bananas", "Cherries"]);
+/// ```
+///
+/// ## Set view for BarChart
+/// ```ignore
+///     ...
+///     .set_view(800, 600, true, 50, 10)
+///     ...
+/// ```
+/// ## Arguments
+/// - `width` : The width of SGV
+/// - `height` : The height of SGV
+/// - `vertical` : Bar is vertical or horizontal
+/// - `padding` : Distance for axes
+/// - `margin` : Margin for actual chart
 #[derive(Debug)]
 pub struct DataBar(Chart<SLabel, SNumber>, bool);
 
 impl DataBar {
-    // pub fn new(data: Vec<f64>, label: Vec<&str>, view: Vec<u64>) -> Self {
-    //     let linear = SNumber::new(data);
-    //     let category = SLabel::from(label);
-    //     let view = CView::from(view);
-    //     let chart = Chart::default()
-    //         .set_ay(linear.clone())
-    //         .set_ax(category.clone())
-    //         .set_view(view);
-    //     Self(chart)
-    // }
-
-    pub fn get_chart(&self) -> Chart<SLabel, SNumber> {
-        self.0.clone()
-    }
-
+    /// Set data for BarChart
     pub fn set_data(&self, data: Vec<f64>) -> Self {
         let linear = SNumber::new(data);
         let chart = &self.0;
         Self(chart.clone().set_ay(linear), self.1)
     }
 
-    // pub fn set_data_i64(&self, data: Vec<i64>) -> Self {
-    //     let linear = SNumber::from(data);
-    //     let chart = &self.0;
-    //     Self(chart.clone().set_ay(linear))
-    // }
+    /// Set labels for BarChart
+    pub fn set_label(&self, label: Vec<&str>) -> Self {
+        let category = SLabel::from(label);
+        let chart = &self.0;
+        Self(chart.clone().set_ax(category), self.1)
+    }
 
-    // new(width: u64, height: u64, position_axes: u64, padding: u64, margin: u64)
+    /// Set view for SVG of BarChart
+    /// # Arguments
+    /// - `width` : The width of SGV
+    /// - `height` : The height of SGV
+    /// - `vertical` : Bar is vertical or horizontal
+    /// - `padding` : Distance for axes
+    /// - `margin` : Margin for actual chart
     pub fn set_view(
         &self,
         width: u64,
@@ -50,14 +66,11 @@ impl DataBar {
         Self(chart.clone().set_view(view), vertical)
     }
 
-    pub fn set_label(&self, label: Vec<&str>) -> Self {
-        let category = SLabel::from(label);
-        let chart = &self.0;
-        Self(chart.clone().set_ax(category), self.1)
-    }
-
-    pub fn get_vertical(&self) -> bool {
+    pub(crate) fn get_vertical(&self) -> bool {
         self.1
+    }
+    pub(crate) fn get_chart(&self) -> Chart<SLabel, SNumber> {
+        self.0.clone()
     }
 }
 

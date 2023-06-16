@@ -1,8 +1,7 @@
 use leptos::*;
 use leptos_chart::*;
 
-fn main() {    
-    wasm_logger::init(wasm_logger::Config::default());
+fn main() {        
     leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
 }
 
@@ -22,11 +21,11 @@ pub fn App(cx: Scope) -> impl IntoView {
     view! {cx,
         <div class="mx-auto p-8">            
 
-            <h1>"Bar chart example"</h1>
+            <h1>"Bar chart horizontal"</h1>
             <BarChart data=data_h />
 
 
-            <h1>"Bar chart example"</h1>
+            <h1>"Bar chart vertical"</h1>
             <BarChart data=data_v />
         </div>
     }

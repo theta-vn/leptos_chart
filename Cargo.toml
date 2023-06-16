@@ -1,15 +1,11 @@
 [workspace]
 members = [  
   "leptos_chart",
-
-  # # libraries
-  # "theta-chart",  
 ]
 exclude = ["examples"]
 
 [workspace.package]
 version = "0.0.2"
 
-# [workspace.dependencies]
-# leptos = { path = "./leptos", default-features = false, version = "0.3.0" }
+
 

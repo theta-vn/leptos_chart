@@ -1,16 +1,33 @@
-use crate::core::SvgChart;
-
+use crate::{core::{SvgChart, LHEIGHT, REM}, DataPie};
 use leptos::{component, view, IntoView, Scope};
 
 use theta_chart::chart::{Draw, ScaleLabel, ScaleNumber};
-const REM: f32 = 16.;
-const LHEIGHT: f32 = 1.5;
 
+
+/// Component PieChart for leptos
+/// 
+/// # Examples
+///
+/// ```ignore
+/// use leptos::*;
+/// use leptos_chart::*;
+/// 
+/// #[component]
+/// pub fn App(cx: Scope) -> impl IntoView {
+///     let data = DataPie::default()        
+///         .set_view(800, 600, 0b0010, 200, 10)
+///         .set_data(vec![350.0, 200.0, 175.0])
+///         .set_label(vec!["Apples", "Bananas", "Cherries"]);
+///
+///     view!{ cx,
+///         <PieChart data=data />
+///     }
+/// }
+/// ```
 #[allow(non_snake_case)]
 #[component]
-pub fn PieChart(cx: Scope, data: crate::DataPie) -> impl IntoView {
-    let chart = data.get_chart();
-    log::debug!("{:#?}", chart);
+pub fn PieChart(cx: Scope, data: DataPie) -> impl IntoView {
+    let chart = data.get_chart();    
     let view = chart.get_view();
     let origin = view.get_origin();
     let inner = view.get_inner();

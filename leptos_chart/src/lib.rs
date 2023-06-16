@@ -1,20 +1,36 @@
-#[cfg(feature = "core")]
+//! # A visualization library for leptos.
+//!
+//! The project provides chart types to draw for leptos.
+//!
+//! - [x] PieChart
+//! - [x] BarChart
+//! - [ ] LineChart
+//! - [ ] AreaChart
+//! - [ ] Scatter Chart
+//!
+//! ## Examples and Usage
+//!
+//! Check out the examples folder for helpful snippets of code, as well as minimal configurations that fit some of the most
+//! popular chart types. For more explanation, see the crate documentation.
+
+#![warn(missing_docs)]
+
+#[cfg(any(doc, feature = "core"))]
 mod core;
-#[cfg(feature = "core")]
-pub use self::core::*;
+// #[cfg(any(doc, feature = "core"))]
+// pub(crate) use self::core::*;
 
-#[cfg(feature = "Axes")]
+#[cfg(any(doc, feature = "Axes"))]
 mod axes;
-#[cfg(feature = "Axes")]
-pub use self::axes::XAxis;
 
-#[cfg(feature = "PieChart")]
+#[cfg(any(doc, feature = "PieChart"))]
 mod piechart;
-#[cfg(feature = "PieChart")]
+#[cfg(any(doc, feature = "PieChart"))]
 pub use self::piechart::*;
-#[cfg(feature = "BarChart")]
+
+#[cfg(any(doc, feature = "BarChart"))]
 mod barchart;
-#[cfg(feature = "BarChart")]
+#[cfg(any(doc, feature = "BarChart"))]
 pub use self::barchart::*;
 
 #[cfg(feature = "LineChart")]
