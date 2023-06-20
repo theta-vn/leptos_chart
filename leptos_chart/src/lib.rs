@@ -23,15 +23,15 @@ mod core;
 #[cfg(any(doc, feature = "Axes"))]
 mod axes;
 
-#[cfg(any(doc, feature = "PieChart"))]
-mod piechart;
-#[cfg(any(doc, feature = "PieChart"))]
-pub use self::piechart::*;
+// #[cfg(any(doc, feature = "PieChart"))]
+// mod piechart;
+// #[cfg(any(doc, feature = "PieChart"))]
+// pub use self::piechart::*;
 
-#[cfg(any(doc, feature = "BarChart"))]
-mod barchart;
-#[cfg(any(doc, feature = "BarChart"))]
-pub use self::barchart::*;
+// #[cfg(any(doc, feature = "BarChart"))]
+// mod barchart;
+// #[cfg(any(doc, feature = "BarChart"))]
+// pub use self::barchart::*;
 
 #[cfg(feature = "LineChart")]
 mod linechart;
