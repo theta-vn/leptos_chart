@@ -2,10 +2,10 @@
 //!
 //! The project provides chart types to draw for leptos.
 //!
-//! - [x] PieChart
 //! - [x] BarChart
-//! - [ ] LineChart
+//! - [x] LineChart
 //! - [ ] AreaChart
+//! - [ ] PieChart
 //! - [ ] Scatter Chart
 //!
 //! ## Examples and Usage
@@ -17,8 +17,8 @@
 
 #[cfg(any(doc, feature = "core"))]
 mod core;
-// #[cfg(any(doc, feature = "core"))]
-// pub(crate) use self::core::*;
+#[cfg(any(doc, feature = "core"))]
+pub use self::core::{Chart, Series};
 
 #[cfg(any(doc, feature = "Axes"))]
 mod axes;
@@ -28,10 +28,10 @@ mod axes;
 // #[cfg(any(doc, feature = "PieChart"))]
 // pub use self::piechart::*;
 
-// #[cfg(any(doc, feature = "BarChart"))]
-// mod barchart;
-// #[cfg(any(doc, feature = "BarChart"))]
-// pub use self::barchart::*;
+#[cfg(any(doc, feature = "BarChart"))]
+mod barchart;
+#[cfg(any(doc, feature = "BarChart"))]
+pub use self::barchart::*;
 
 #[cfg(feature = "LineChart")]
 mod linechart;

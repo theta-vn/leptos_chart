@@ -1,7 +1,6 @@
 use leptos::{component, view, IntoView, Scope};
 use theta_chart::{
-    coord::{Axes, Rec},
-    get_bit_at,
+    coord::{Axes, Rec}    
 };
 
 use crate::core::REM;

@@ -8,5 +8,9 @@ pub use self::svg_chart::*;
 pub(crate) const REM: f32 = 16.;
 
 // Line-height for text in SVG
-#[cfg(any(doc, feature = "core"))]
-pub(crate) const LHEIGHT: f32 = 1.5;
+// #[cfg(any(doc, feature = "core"))]
+// pub(crate) const LHEIGHT: f32 = 1.5;
+
+
+pub use theta_chart::coord::Chart;
+pub use theta_chart::series::Series;

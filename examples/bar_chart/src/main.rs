@@ -1,32 +1,34 @@
 use leptos::*;
 use leptos_chart::*;
 
-// fn main() {        
-//     leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
-// }
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
+    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+}
 
-// #[component]
-// pub fn App(cx: Scope) -> impl IntoView {    
+#[component]
+pub fn App(cx: Scope) -> impl IntoView {
+    let chart_v = Chart::new(
+        Series::from(vec!["A", "B", "C"]),
+        Series::from(vec![1.0, 6.0, 9.]),
+    )
+    .set_view(820, 620, 3, 100, 100, 20);
 
-//     let data_h = DataBar::default()        
-//         .set_view(800, 600, false, 50, 15)
-//         .set_data(vec![370.0, 200.0, 175.0, 82., 54.])
-//         .set_label(vec!["A", "B", "C", "D", "E"]);
-    
-//     let data_v = DataBar::default()        
-//         .set_view(800, 600, true, 50, 10)
-//         .set_data(vec![2.0, 5., 7.])
-//         .set_label(vec!["Apples", "Bananas", "Cherries"]);
+    let chart_h = Chart::new(
+        Series::from(vec![0.7, 1.5, 2.]),
+        Series::from(vec!["A", "B", "C"]),
+    )
+    .set_view(820, 620, 3, 100, 100, 20);
 
-//     view! {cx,
-//         <div class="mx-auto p-8">            
+    view! {cx,
+        <div class="mx-auto p-8" style="background:#00000077">
 
-//             <h1>"Bar chart horizontal"</h1>
-//             <BarChart data=data_h />
+            <h1>"Bar chart example"</h1>
+            <BarChart chart=chart_v />
 
+            <h1>"Bar chart example"</h1>
+            <BarChart chart=chart_h />
 
-//             <h1>"Bar chart vertical"</h1>
-//             <BarChart data=data_v />
-//         </div>
-//     }
-// }
+        </div>
+    }
+}

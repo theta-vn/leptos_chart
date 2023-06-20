@@ -1,6 +1,5 @@
 use leptos::*;
 use leptos_chart::*;
-use theta_chart::{series::*, coord::Chart};
 
 fn main() {    
     wasm_logger::init(wasm_logger::Config::default());
@@ -8,8 +7,7 @@ fn main() {
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {    
-    // let mut data: Chart<STime, SNumber> = Chart::default();
+pub fn App(cx: Scope) -> impl IntoView {        
     let chart = Chart::new(Series::from(vec![1.0, 6.0, 9.]), Series::from(vec![1.0, 3.0, 5.]))
         .set_view(820, 620,3, 100, 100, 20);
     // let data = DataLine::default()        

@@ -1,5 +1,5 @@
 use leptos::*;
-use theta_chart::{chart::Draw, coord::*};
+use theta_chart::{coord::*};
 
 // Wrap chart in SVG
 #[cfg(any(doc, feature = "core"))]
