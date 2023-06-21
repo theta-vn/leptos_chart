@@ -5,7 +5,7 @@ The project provides chart types to draw for leptos.
 
 - [x] PieChart
 - [x] BarChart
-- [ ] LineChart
+- [x] LineChart
 - [ ] AreaChart
 - [ ] Scatter Chart
 
@@ -13,86 +13,127 @@ The project provides chart types to draw for leptos.
 
 ## PieChart
 
-`Cargo.toml`
+### `Cargo.toml`
+
 ```toml
 leptos = {version = "0.3.0"}
 leptos_chart = {version = "0.0.2", features = ["PieChart"]}
 ```
 
-`main.rs`
+### `main.rs`
+
 ```rust
 use leptos::*;
 use leptos_chart::*;
 
-fn main() {     
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
     leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView { 
-
-    let data = DataPie::default()        
-            .set_view(800, 600, 0b0010, 200, 10)
-            .set_data(vec![9.0, 50.0, 72.0])
-            .set_label(vec!["Apples", "Bananas", "Cherries"]);
+pub fn App(cx: Scope) -> impl IntoView {
+    let chart = Polar::new(
+        Series::from(vec![1.0, 2.0, 3.]),
+        Series::from(vec!["A", "B", "C"]),
+    )
+    .set_view(740, 540, 1, 200, 20);
 
     view! {cx,
-        <div class="mx-auto p-8">
+        <div class="mx-auto p-8" style="background:#00000077">
             <h1>"Pie chart example with right label"</h1>
-            <PieChart data=data_r />
+            <PieChart chart=chart />
         </div>
-    } 
-}   
+    }
+}
 ```
+
+### Result
+
+![Frequency Of English Letters](./examples/assets/pie_chart_label_right.png)
 
 ## BarChart
 
-`Cargo.toml`
+### `Cargo.toml`
+
 ```toml
 leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.2", features = ["PieChart"]}
+leptos_chart = {version = "0.0.2", features = ["BarChart"]}
 ```
 
-`main.rs`
+### `main.rs`
+
 ```rust
 use leptos::*;
 use leptos_chart::*;
 
-fn main() {        
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
     leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {    
+pub fn App(cx: Scope) -> impl IntoView {
+    let chart_v = Cartesian::new(
+        Series::from(vec!["A", "B", "C"]),
+        Series::from(vec![1.0, 6.0, 9.]),
+    )
+    .set_view(820, 620, 3, 50, 50, 20);
 
-    let data_h = DataBar::default()        
-        .set_view(800, 600, false, 50, 15)
-        .set_data(vec![370.0, 200.0, 175.0, 82., 54.])
-        .set_label(vec!["A", "B", "C", "D", "E"]);
-    
-    let data_v = DataBar::default()        
-        .set_view(800, 600, true, 50, 10)
-        .set_data(vec![2.0, 5., 7.])
-        .set_label(vec!["Apples", "Bananas", "Cherries"]);
+    let chart_h = Cartesian::new(
+        Series::from(vec![0.7, 1.5, 1.9]),
+        Series::from(vec!["A", "B", "C"]),
+    )
+    .set_view(820, 620, 3, 30, 30, 20);
 
     view! {cx,
-        <div class="mx-auto p-8">            
+        <div class="mx-auto p-8" style="background:#00000077">
 
-            <h1>"Bar chart horizontal"</h1>
-            <BarChart data=data_h />
+            <h1>"Bar chart example"</h1>
+            <BarChart chart=chart_v />
 
-
-            <h1>"Bar chart vertical"</h1>
-            <BarChart data=data_v />
+            <h1>"Bar chart example"</h1>
+            <BarChart chart=chart_h />
         </div>
     }
 }
 
 ```
 
-![Frequency Of English Letters](./examples/assets/pie_chart_label_right.png)
 
-Check out the examples folder for helpful snippets of code, as well as minimal configurations that fit some of the most popular chart types. For more explanation, see the crate documentation.
+## LineChart
 
+### `Cargo.toml`
 
-// TODO: add title for x-axis and y-axis
+```toml
+leptos = {version = "0.3.0"}
+leptos_chart = {version = "0.0.2", features = ["LineChart"]}
+```
+
+### `main.rs`
+
+```rust
+use leptos::*;
+use leptos_chart::*;
+
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
+    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+}
+
+#[component]
+pub fn App(cx: Scope) -> impl IntoView {
+    let chart = Cartesian::new(
+        Series::from(vec![0., 1.0, 2.]),
+        Series::from(vec![3.0, 1.0, 5.]),
+    )
+    .set_view(820, 620, 3, 100, 100, 20);
+
+    view! {cx,
+        <div class="mx-auto p-8" style="background:#00000077">
+            <h1>"Line chart example"</h1>
+            <LineChart chart=chart />
+        </div>
+    }
+}
+```

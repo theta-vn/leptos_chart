@@ -3,31 +3,65 @@ use crate::{
     core::SvgChart,
 };
 use leptos::{component, view, IntoView, Scope};
-use theta_chart::{color::Color, coord, series::Series};
+use theta_chart::coord;
 
 /// Component BarChart for leptos
 ///
 /// # Examples
 ///
+/// ## Cargo.toml
+///
+/// ```toml
+/// [dependencies]
+/// leptos = {version = "0.3.0"}
+/// leptos_chart = {version = "0.0.2", features = ["BarChart"]}
+/// ```
+///
+/// ## Component
 /// ```ignore
 /// use leptos::*;
 /// use leptos_chart::*;
 ///
 /// #[component]
 /// pub fn App(cx: Scope) -> impl IntoView {
-///     let data = DataBar::default()        
-///         .set_view(800, 600, true, 50, 10)
-///         .set_data(vec![350.0, 200.0, 175.0])
-///         .set_label(vec!["Apples", "Bananas", "Cherries"]);
+///     let chart_v = Cartesian::new(
+///         Series::from(vec!["A", "B", "C"]),
+///         Series::from(vec![1.0, 6.0, 9.]),
+///     )
+///     .set_view(820, 620, 3, 50, 50, 20);
 ///
 ///     view!{ cx,
 ///         <BarChart data=data />
 ///     }
 /// }
 /// ```
+///
+/// ## Set view for BarChart
+///
+/// ```ignore
+///     ...
+///     .set_view(820, 620, 3, 100, 100, 20);
+///     ...
+/// ```
+///
+/// ## Arguments
+/// - `width` : The width of SGV
+/// - `height` : The height of SGV
+/// - `position_origin` : Positions for origin of chart xOy
+/// - `height_x_axis` : Height x_axis
+/// - `width_y_axis` : Width y_axis
+/// - `margin` : Margin for actual chart
+///
+/// ## About position_axes
+///
+/// - Top Left: 0
+/// - Top Right: 1
+/// - Bottom Right: 2
+/// - Bottom Left: 3
+///
 #[allow(non_snake_case)]
 #[component]
-pub fn BarChart(cx: Scope, chart: coord::Chart) -> impl IntoView {
+pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -150,7 +184,7 @@ pub fn BarChart(cx: Scope, chart: coord::Chart) -> impl IntoView {
                             }
                         })
                         .collect::<Vec<_>>()
-                    } else {                        
+                    } else {
                         let width_col = yseries.scale(0.9) * vector.get_y();
                         let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
                         xsticks.into_iter().enumerate().map(|(index, data)|  {

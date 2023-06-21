@@ -1,64 +1,104 @@
-use crate::{core::{SvgChart, LHEIGHT, REM}, DataPie};
+use crate::core::{SvgPolar, LHEIGHT, REM};
 use leptos::{component, view, IntoView, Scope};
-
-use theta_chart::chart::{Draw, ScaleLabel, ScaleNumber};
-
+use theta_chart::{
+    chart::{ScaleLabel, ScaleNumber},
+    coord,
+};
 
 /// Component PieChart for leptos
-/// 
+///
 /// # Examples
 ///
+/// ## Cargo.toml
+///
+/// ```toml
+/// [dependencies]
+/// leptos = {version = "0.3.0"}
+/// leptos_chart = {version = "0.0.2", features = ["PieChart"]}
+/// ```
+///
+/// ## Component
 /// ```ignore
 /// use leptos::*;
 /// use leptos_chart::*;
-/// 
+///
 /// #[component]
 /// pub fn App(cx: Scope) -> impl IntoView {
-///     let data = DataPie::default()        
-///         .set_view(800, 600, 0b0010, 200, 10)
-///         .set_data(vec![350.0, 200.0, 175.0])
-///         .set_label(vec!["Apples", "Bananas", "Cherries"]);
+///     let chart = Polar::new(
+///         Series::from(vec![1.0, 2.0, 3.]),
+///         Series::from(vec!["A", "B", "C"])
+///     )
+///     .set_view(740, 540, 0b0010, 200, 20);
 ///
 ///     view!{ cx,
-///         <PieChart data=data />
+///         <PieChart chart=chart />
 ///     }
 /// }
 /// ```
+/// ## Set view for PieChart
+/// ```ignore
+///     ...
+///     .set_view(740, 540, 2, 200, 20);
+///     ...
+/// ```
+/// ## Arguments
+/// - `width` : The width of SGV
+/// - `height` : The height of SGV
+/// - `position_label` : Positions for label
+/// - `len_label` : Distance for label
+/// - `margin` : Margin for actual chart
+///
+/// ## About position_label
+///
+/// Top: 0
+/// Right: 1
+/// Bottom: 2
+/// Left: 3
+///
 #[allow(non_snake_case)]
 #[component]
-pub fn PieChart(cx: Scope, data: DataPie) -> impl IntoView {
-    let chart = data.get_chart();    
-    let view = chart.get_view();
-    let origin = view.get_origin();
-    let inner = view.get_inner();
-    // Flip SVG vertically using an unusual viewbox
-    let translate_chart = format!(
-        "translate({},{}) scale(-1,-1) ",
-        inner.get_x() + origin.get_x() * 2.,
-        inner.get_y() + origin.get_y() * 2.
-    );
-
-    let label_region = view.get_region_axes_first();
-
-    let translate_label = format!(
-        "translate({},{})",
-        &label_region.get_origin().get_x() + 5.,
-        label_region.get_origin().get_y() + 5.
-    );
+pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
+    let pview = chart.get_view();
+    log::debug!("{:#?}", chart);
 
     // For processing SNumber
-    let data = chart.get_ax();
-    let center = view.get_center();
-    let radius = view.get_radius();
-    let vec_arc = data.gen_pie(center, radius - 5.);
+    let data = chart.get_data();
+    let vec_arc = data.gen_pie();
     let series = data.series();
 
     // For processing SLabel
-    let slabel = chart.get_ay();
+    let slabel = chart.get_label();
+
+    // For Chart
+    let circle_chart = pview.get_circle_chart();
+    let translate_chart = format!(
+        "translate({},{})",
+        circle_chart.get_origin().get_x(),
+        circle_chart.get_origin().get_y()
+    );
+
+    // For label
+    let rec_label = pview.get_rec_label();
+    let translate_label = format!(
+        "translate({},{})",
+        rec_label.get_origin().get_x(),
+        rec_label.get_origin().get_y(),
+    );
 
     view! { cx,
-        <SvgChart view={view}>
+        <SvgPolar pview={pview}>
+
             <g class="labels" transform={translate_label}>
+                // For draw region of x-axis
+                {
+                    let vector = rec_label.get_vector();
+                    let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
+                    view! {cx,
+                        <circle id="origin" cx="0" cy="0" r="3" />
+                        <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#ff000033;stroke-width:1" />
+                        <path id="regionX" d=path  fill="#ff000033" />
+                    }
+                }
                 {
                     slabel.labels().into_iter().enumerate().map(|(index, label)|  {
                         let color = &slabel.colors()[index];
@@ -72,16 +112,27 @@ pub fn PieChart(cx: Scope, data: DataPie) -> impl IntoView {
                 }
             </g>
             <g class="inner-chart" transform={translate_chart} >
+                 // For draw region of chart
+                 {
+                    // let origin = circle_chart.get_origin();
+                    let radius = circle_chart.get_radius();
+                    view! {cx,
+                        <circle id="origin" cx=0 cy=0 r=3 />
+                        <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"/>
+                        <line x1="0" y1="0" x2=0 y2=-radius style="stroke:#00ff0033;stroke-width:2" />
+                    }
+                }
                 {
                     vec_arc.into_iter().enumerate().map(|(index, data)|  {
                         let color = &slabel.colors()[index];
+                        let radius = circle_chart.get_radius();
                         view! {cx,
-                            <path fill={color.to_string_hex()} stroke="#ffffff" stroke-width="1" d={data.gen_path()} />
+                            <path  fill={color.to_string_hex()} stroke="#ffffff" stroke-width="1" d={data.gen_path(radius)} />
                         }
                     })
                     .collect::<Vec<_>>()
                 }
             </g>
-        </SvgChart>
+        </SvgPolar>
     }
 }

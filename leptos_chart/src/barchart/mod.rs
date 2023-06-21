@@ -1,5 +1,4 @@
 mod components;
 pub use self::components::BarChart;
 
-// mod data;
-// pub use self::data::DataBar;
+pub use theta_chart::coord::Cartesian;

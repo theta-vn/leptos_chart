@@ -8,27 +8,26 @@ fn main() {
 
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
-    let chart_v = Chart::new(
+    let chart_v = Cartesian::new(
         Series::from(vec!["A", "B", "C"]),
         Series::from(vec![1.0, 6.0, 9.]),
     )
-    .set_view(820, 620, 3, 100, 100, 20);
+    .set_view(820, 620, 3, 50, 50, 20);
 
-    let chart_h = Chart::new(
-        Series::from(vec![0.7, 1.5, 2.]),
+    let chart_h = Cartesian::new(
+        Series::from(vec![0.7, 1.5, 1.9]),
         Series::from(vec!["A", "B", "C"]),
     )
-    .set_view(820, 620, 3, 100, 100, 20);
+    .set_view(820, 620, 3, 30, 30, 20);
 
     view! {cx,
-        <div class="mx-auto p-8" style="background:#00000077">
+        <div class="mx-auto p-8">
 
             <h1>"Bar chart example"</h1>
             <BarChart chart=chart_v />
 
             <h1>"Bar chart example"</h1>
             <BarChart chart=chart_h />
-
         </div>
     }
 }

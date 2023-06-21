@@ -1,7 +1,5 @@
 use leptos::{component, view, IntoView, Scope};
-use theta_chart::{
-    coord::{Axes, Rec}    
-};
+use theta_chart::coord::{Axes, Rec};
 
 use crate::core::REM;
 
@@ -18,7 +16,7 @@ pub fn XAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
     }
 
     view! {cx,
-        <g class="stick"> // transform={translate}>
+        <g class="stick">
             <line x1="0" y1="0" x2=vector.get_x() y2="0" style="stroke:rgb(255,0,0)" />
             <line x1="0" y1="0" x2="0" y2={mark_origin_y} style="stroke:rgb(255,0,0)" />
                 {
