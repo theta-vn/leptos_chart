@@ -8,16 +8,16 @@ fn main() {
 
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
-    let chart = Polar::new(
-        Series::from(vec![1.0, 2.0, 3.]),
-        Series::from(vec!["A", "B", "C"]),
+    let chart = Cartesian::new(
+        Series::from(vec![0., 1.0, 2.]),
+        Series::from(vec![3.0, 1.0, 5.]),
     )
-    .set_view(740, 540, 1, 200, 20);
+    .set_view(820, 620, 3, 100, 100, 20);
 
     view! {cx,
         <div class="mx-auto p-8">
-            <h1>"Pie chart example with right label"</h1>
-            <PieChart chart=chart />
+            <h1>"Line chart example"</h1>
+            <LineChart chart=chart />
         </div>
     }
 }

@@ -9,13 +9,21 @@ description = "Chart library for leptos"
 readme = "../README.md"
 
 [dependencies]
-leptos = {version = "0.3.0", optional = true}
-theta-chart = {path = "../theta-chart", version = "0.0.2"}
+leptos = {version = "0.3.0",  default-features = false, optional = true}
+theta-chart = {version = "0.0.3"}
+log = "0.4.6"
+wasm-logger = "0.2.0"
 
 [features]
 default = ["csr", "stable"]
 core = []
+Axes = []
+debug = []
 PieChart = ["core"]
-stable = ["leptos/stable"]
-csr = ["leptos/default"]
+BarChart = ["core", "Axes"]
+LineChart = ["core", "Axes"]
 
+csr = ["leptos/csr"]
+hydrate = ["leptos/hydrate"]
+ssr = ["leptos/ssr"]
+stable = ["leptos/stable"]
