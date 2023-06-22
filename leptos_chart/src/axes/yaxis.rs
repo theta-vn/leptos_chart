@@ -7,7 +7,7 @@ use crate::core::REM;
 #[component]
 pub fn YAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
     let vector = region.get_vector();
-    let mut mark_origin_x = REM as f64;
+    let mut mark_origin_x = REM;
     let mut text_anchor = "start";
 
     if vector.get_x() < 0. {
@@ -16,7 +16,20 @@ pub fn YAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
     }
 
     view! {cx,
-       <g class="stick">
+        // Draw region of y-axis
+        {
+            #[cfg(feature = "debug")]
+            {
+                let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
+                view! {cx,
+                    <circle id="originY" cx="0" cy="0" r="3" />
+                    <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#0000ff33;stroke-width:2" />
+                    <path id="regionY" d=path  fill="#0000ff33" />
+                }
+            }
+        }
+        // Draw y-axis
+        <g class="stick">
             <line x1="0" y1="0" x2="0" y2=vector.get_y() style="stroke:rgb(0,0,255)" />
             <line x1="0" y1="0" x2=mark_origin_x y2="0" style="stroke:rgb(0,0,255)" />
 

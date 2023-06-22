@@ -7,7 +7,7 @@ use crate::core::REM;
 #[component]
 pub fn XAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
     let vector = region.get_vector();
-    let mut mark_origin_y = REM as f64;
+    let mut mark_origin_y = REM;
     let mut baseline = "text-before-edge";
 
     if vector.get_y() < 0. {
@@ -16,6 +16,19 @@ pub fn XAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
     }
 
     view! {cx,
+        // Draw region of x-axis
+        {
+            #[cfg(feature = "debug")]
+            {
+                let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
+                view! {cx,
+                    <circle id="originX" cx="0" cy="0" r="3" />
+                    <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#ff000033;stroke-width:1" />
+                    <path id="regionX" d=path  fill="#ff000033" />
+                }
+            }
+        }
+        // Draw x-axis
         <g class="stick">
             <line x1="0" y1="0" x2=vector.get_x() y2="0" style="stroke:rgb(255,0,0)" />
             <line x1="0" y1="0" x2="0" y2={mark_origin_y} style="stroke:rgb(255,0,0)" />

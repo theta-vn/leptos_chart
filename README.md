@@ -50,7 +50,12 @@ pub fn App(cx: Scope) -> impl IntoView {
 
 ### Result
 
-![Frequency Of English Letters](./examples/assets/pie_chart_label_right.png)
+![PieChart](./examples/assets/pie_chart.png)
+
+### With feature debug
+
+![PieChart with debug](./examples/assets/pie_chart_debug.png)
+
 
 ## BarChart
 
@@ -99,7 +104,11 @@ pub fn App(cx: Scope) -> impl IntoView {
 }
 
 ```
+### Result (debug)
 
+![BarChartV](./examples/assets/bar_chart_v.png)
+
+![BarChartH](./examples/assets/bar_chart_h.png)
 
 ## LineChart
 
@@ -137,3 +146,10 @@ pub fn App(cx: Scope) -> impl IntoView {
     }
 }
 ```
+### Result (debug)
+![LineChart](./examples/assets/line_chart.png)
+
+
+# Next Steps
+
+This is still a work in progress, so the next steps are going to be implementing more views and improving on existing functionality.

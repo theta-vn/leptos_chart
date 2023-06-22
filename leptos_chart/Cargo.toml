@@ -10,17 +10,15 @@ readme = "../README.md"
 
 [dependencies]
 leptos = {version = "0.3.0",  default-features = false, optional = true}
-theta-chart = {path = "../../theta-chart", version = "0.0.3"}
+theta-chart = {version = "0.0.3"}
 log = "0.4.6"
 wasm-logger = "0.2.0"
-
-# [patch.crates-io]
-# theta-chart = {path = "../../theta-chart", version = "0.0.3"}
 
 [features]
 default = ["csr", "stable"]
 core = []
 Axes = []
+debug = []
 PieChart = ["core"]
 BarChart = ["core", "Axes"]
 LineChart = ["core", "Axes"]

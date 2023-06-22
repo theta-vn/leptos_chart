@@ -1,4 +1,4 @@
-use crate::core::{SvgPolar, LHEIGHT, REM};
+use crate::core::{SvgPolar, REM};
 use leptos::{component, view, IntoView, Scope};
 use theta_chart::{
     chart::{ScaleLabel, ScaleNumber},
@@ -59,7 +59,6 @@ use theta_chart::{
 #[component]
 pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
     let pview = chart.get_view();
-    log::debug!("{:#?}", chart);
 
     // For processing SNumber
     let data = chart.get_data();
@@ -89,39 +88,44 @@ pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
         <SvgPolar pview={pview}>
 
             <g class="labels" transform={translate_label}>
-                // For draw region of x-axis
+                // For draw region of label
                 {
-                    let vector = rec_label.get_vector();
-                    let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                    view! {cx,
-                        <circle id="origin" cx="0" cy="0" r="3" />
-                        <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#ff000033;stroke-width:1" />
-                        <path id="regionX" d=path  fill="#ff000033" />
+                    #[cfg(feature = "debug")]
+                    {
+                        let vector = rec_label.get_vector();
+                        let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
+                        view! {cx,
+                            <circle id="origin" cx="0" cy="0" r="3" />
+                            <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#005bbe33;stroke-width:1" />
+                            <path id="regionX" d=path  fill="#005bbe33" />
+                        }
                     }
                 }
                 {
                     slabel.labels().into_iter().enumerate().map(|(index, label)|  {
                         let color = &slabel.colors()[index];
-                        let py = index as f32 * LHEIGHT * REM;
+                        let py = index as f64 * 1.5 * REM;
                         view! {cx,
-                            <text x={LHEIGHT * REM} y={py} dominant-baseline="text-before-edge">{format!("{}: {}",label, series[index])}</text>
-                            <rect x={0} y={py + (LHEIGHT - 1.0) * REM / 2.} width=REM height=REM fill={color.to_string_hex()}></rect>
+                            <text x={1.5 * REM} y={py} dominant-baseline="text-before-edge">{format!("{}: {}",label, series[index])}</text>
+                            <rect x={0} y={py + (1.5 - 1.0) * REM / 2.} width=REM height=REM fill={color.to_string_hex()}></rect>
                         }
                     })
                     .collect::<Vec<_>>()
                 }
             </g>
             <g class="inner-chart" transform={translate_chart} >
-                 // For draw region of chart
-                 {
-                    // let origin = circle_chart.get_origin();
-                    let radius = circle_chart.get_radius();
-                    view! {cx,
-                        <circle id="origin" cx=0 cy=0 r=3 />
-                        <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"/>
-                        <line x1="0" y1="0" x2=0 y2=-radius style="stroke:#00ff0033;stroke-width:2" />
+                {
+                    #[cfg(all(feature = "debug"))]
+                    {
+                        let radius = circle_chart.get_radius() / 0.95;
+                        view! {cx,
+                            <circle id="origin" cx=0 cy=0 r=3 />
+                            <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"/>
+                            <line x1="0" y1="0" x2=0 y2=-radius style="stroke:#00ff0033;stroke-width:2" />
+                        }
                     }
                 }
+
                 {
                     vec_arc.into_iter().enumerate().map(|(index, data)|  {
                         let color = &slabel.colors()[index];

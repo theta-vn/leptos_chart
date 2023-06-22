@@ -100,42 +100,24 @@ pub fn LineChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
         <SvgChart cview={cview}>
             <g class="axes">
                 <g class="x-axis" transform={translate_xa}>
-                    // For draw region of x-axis
-                    {
-                        let vector = rec_xa.get_vector();
-                        let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                        view! {cx,
-                            <circle id="originX" cx="0" cy="0" r="3" />
-                            <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#ff000033;stroke-width:1" />
-                            <path id="regionX" d=path  fill="#ff000033" />
-                        }
-                    }
-
                     <XAxis region=rec_xa axes=axes_x />
                 </g>
                 <g class="y-axis" transform={translate_ya}>
-                    // For draw region of y-axis
-                    {
-                        let vector = rec_ya.get_vector();
-                        let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                        view! {cx,
-                            <circle id="originY" cx="0" cy="0" r="3" />
-                            <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#0000ff33;stroke-width:2" />
-                            <path id="regionY" d=path  fill="#0000ff33" />
-                        }
-                    }
                     <YAxis region=rec_ya axes=axes_y />
                 </g>
             </g>
             <g class="inner-chart"  transform={translate_chart}>
                 // For draw region of chart
-                {
-                    let vector = rec_chart.get_vector();
-                    let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                    view! {cx,
-                        <circle id="originY" cx="0" cy="0" r="3" />
-                        <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#00ff0033;stroke-width:2" />
-                        <path id="regionY" d=path  fill="#00ff0033" />
+               {
+                    #[cfg(feature = "debug")]
+                    {
+                        let vector = rec_chart.get_vector();
+                        let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
+                        view! {cx,
+                            <circle id="originY" cx="0" cy="0" r="3" />
+                            <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#00ff0033;stroke-width:2" />
+                            <path id="regionY" d=path  fill="#00ff0033" />
+                        }
                     }
                 }
                 {

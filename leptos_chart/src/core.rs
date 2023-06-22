@@ -8,11 +8,11 @@ pub use self::svg_polar::*;
 
 // Font size for text in SVG
 #[cfg(any(doc, feature = "core"))]
-pub(crate) const REM: f32 = 16.;
+pub(crate) const REM: f64 = 16.;
 
-// Line-height for text in SVG
-#[cfg(any(doc, feature = "core"))]
-pub(crate) const LHEIGHT: f32 = 1.5;
+// // Line-height for text in SVG
+// #[cfg(any(doc, feature = "core"))]
+// pub(crate) const LHEIGHT: f64 = 1.5;
 
 #[cfg(any(doc, feature = "core"))]
 pub use theta_chart::series::Series;

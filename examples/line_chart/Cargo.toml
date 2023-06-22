@@ -7,7 +7,7 @@ edition = "2021"
 
 [dependencies]
 leptos = {version = "0.3.0", features=["stable"]}
-leptos_chart = {path = "../../leptos_chart", version = "0.0.2", features = ["LineChart"]}
+leptos_chart = {path = "../../leptos_chart", version = "0.0.2", features = ["LineChart", "debug"]}
 theta-chart = {path = "../../../theta-chart", version = "0.0.3"}
 log = "0.4.6"
 wasm-logger = "0.2.0"

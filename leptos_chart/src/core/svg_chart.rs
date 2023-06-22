@@ -12,7 +12,14 @@ pub fn SvgChart(cx: Scope, cview: CView, children: Children) -> impl IntoView {
     let view_box = format!("0 0 {} {}", vec_chart.get_x(), vec_chart.get_y());
     view! { cx,
         <svg class="chart" viewBox=view_box>
-            // <rect  width={vec_chart.get_x()} height={vec_chart.get_y()}></rect>
+            {
+                #[cfg(feature = "debug")]
+                {
+                    view! {cx,
+                        <rect width={vec_chart.get_x()} height={vec_chart.get_y()} fill="#005bbe11"></rect>
+                    }
+                }
+            }
             <g class="inner-view" transform={translate_chart} >
 
                 {children(cx)}
