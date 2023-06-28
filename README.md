@@ -6,8 +6,11 @@ The project provides chart types to draw for leptos.
 - [x] PieChart
 - [x] BarChart
 - [x] LineChart
-- [ ] AreaChart
-- [ ] Scatter Chart
+- [x] RadarChart
+- [x] Scatter Chart
+- [ ] BarChart (Stack)
+- [ ] LineChart (Multi line)
+- [ ] RadarChart (Multi data)
 
 # Examples and Usage
 
@@ -17,7 +20,7 @@ The project provides chart types to draw for leptos.
 
 ```toml
 leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.2", features = ["PieChart"]}
+leptos_chart = {version = "0.0.3", features = ["PieChart"]}
 ```
 
 ### `main.rs`
@@ -63,7 +66,7 @@ pub fn App(cx: Scope) -> impl IntoView {
 
 ```toml
 leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.2", features = ["BarChart"]}
+leptos_chart = {version = "0.0.3", features = ["BarChart"]}
 ```
 
 ### `main.rs`
@@ -116,7 +119,7 @@ pub fn App(cx: Scope) -> impl IntoView {
 
 ```toml
 leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.2", features = ["LineChart"]}
+leptos_chart = {version = "0.0.3", features = ["LineChart"]}
 ```
 
 ### `main.rs`
@@ -149,6 +152,89 @@ pub fn App(cx: Scope) -> impl IntoView {
 ### Result (debug)
 ![LineChart](./examples/assets/line_chart.png)
 
+## RadarChart
+
+### `Cargo.toml`
+
+```toml
+leptos = {version = "0.3.0"}
+leptos_chart = {version = "0.0.3", features = ["RadarChart"]}
+```
+
+### `main.rs`
+
+```rust
+use leptos::*;
+use leptos_chart::*;
+
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
+    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+}
+
+#[component]
+pub fn App(cx: Scope) -> impl IntoView {
+    let chart = Polar::new(
+        Series::from(vec![85.0, 55.0, 45., 60., 40.]),
+        Series::from(vec!["Reading", "Writing", "Listening", "Speaking", "React"]),
+    )
+    .set_view(740, 540, 1, 0, 20);
+
+    view! {cx,
+        <div class="mx-auto p-8">
+            <h1>"Radar chart example"</h1>
+            <RadarChart chart=chart />
+        </div>
+    }
+}
+```
+
+### Result (debug)
+
+![RadarChart](./examples/assets/radar_chart.png)
+
+## ScatterChart
+
+### `Cargo.toml`
+
+```toml
+leptos = {version = "0.3.0"}
+leptos_chart = {version = "0.0.3", features = ["ScatterChart"]}
+```
+
+### `main.rs`
+
+```rust
+use leptos::*;
+use leptos_chart::*;
+
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
+    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+}
+
+#[component]
+pub fn App(cx: Scope) -> impl IntoView {
+    let chart = Cartesian::new(
+        Series::from(vec![50,60,70,80,90,100,110,120,130,140,150])
+            .set_range(40., 160.),
+        Series::from(vec![7,8,8,9,9,9,10,11,14,14,15])
+            .set_range(6., 16.),
+    )
+    .set_view(820, 620, 3, 100, 100, 20);
+
+    view! {cx,
+        <div class="mx-auto p-8">
+            <h1>"Scatter chart example"</h1>
+            <ScatterChart chart=chart />
+        </div>
+    }
+}
+```
+
+### Result (debug)
+
+![ScatterChart](./examples/assets/scatter_chart.png)
 
 # Next Steps
 
