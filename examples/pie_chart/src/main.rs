@@ -9,7 +9,7 @@ fn main() {
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
     let chart = Polar::new(
-        Series::from(vec![1.0, 2.0, 3.]),
+        Series::from(vec![1.0, 2.0, 5.]),
         Series::from(vec!["A", "B", "C"]),
     )
     .set_view(740, 540, 1, 200, 20);

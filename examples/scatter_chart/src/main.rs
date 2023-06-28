@@ -9,15 +9,15 @@ fn main() {
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
     let chart = Cartesian::new(
-        Series::from(vec![0., 1.0, 2., 3. , 4.]),
-        Series::from(vec![3.0, 1.0, 5., 8., 7.]),
+        Series::from(vec![50,60,70,80,90,100,110,120,130,140,150]).set_range(40., 160.),
+        Series::from(vec![7,8,8,9,9,9,10,11,14,14,15]).set_range(6., 16.),
     )
     .set_view(820, 620, 3, 100, 100, 20);
 
     view! {cx,
         <div class="mx-auto p-8">
-            <h1>"Line chart example"</h1>
-            <LineChart chart=chart />
+            <h1>"Scatter chart example"</h1>
+            <ScatterChart chart=chart />
         </div>
     }
 }

@@ -3,9 +3,9 @@ use crate::{
     core::SvgChart,
 };
 use leptos::{component, view, IntoView, Scope};
-use theta_chart::{color::Color, coord, series::Series};
+use theta_chart::{coord, color::Color};
 
-/// Component BarChart for leptos
+/// Component ScatterChart for leptos
 ///
 /// # Examples
 ///
@@ -14,7 +14,7 @@ use theta_chart::{color::Color, coord, series::Series};
 /// ```toml
 /// [dependencies]
 /// leptos = {version = "0.3.0"}
-/// leptos_chart = {version = "0.0.2", features = ["BarChart"]}
+/// leptos_chart = {version = "0.0.2", features = ["ScatterChart"]}
 /// ```
 ///
 /// ## Component
@@ -24,26 +24,23 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// #[component]
 /// pub fn App(cx: Scope) -> impl IntoView {
-///     let chart_v = Cartesian::new(
-///         Series::from(vec!["A", "B", "C"]),
+///     let chart = Cartesian::new(
 ///         Series::from(vec![1.0, 6.0, 9.]),
+///         Series::from(vec![1.0, 3.0, 5.])
 ///     )
-///     .set_view(820, 620, 3, 50, 50, 20);
+///     .set_view(820, 620, 0b0011, 100, 100, 20);
 ///
 ///     view!{ cx,
-///         <BarChart data=data />
+///         <ScatterChart chart=chart />
 ///     }
 /// }
 /// ```
-///
-/// ## Set view for BarChart
-///
+/// ## Set view for ScatterChart
 /// ```ignore
 ///     ...
 ///     .set_view(820, 620, 3, 100, 100, 20);
 ///     ...
 /// ```
-///
 /// ## Arguments
 /// - `width` : The width of SGV
 /// - `height` : The height of SGV
@@ -61,8 +58,9 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
+pub fn ScatterChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     let cview = chart.get_view();
+    log::debug!("{:#?}",cview);
 
     // For Chart
     let rec_chart = cview.get_rec_chart();
@@ -98,12 +96,6 @@ pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     let xsticks = xseries.to_stick();
     let ysticks = yseries.to_stick();
 
-    let mut x_is_label = true;
-    match xseries {
-        Series::Label(_) => (),
-        _ => x_is_label = false,
-    }
-
     view! { cx,
 
         <SvgChart cview={cview}>
@@ -117,7 +109,7 @@ pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
             </g>
             <g class="inner-chart"  transform={translate_chart}>
                 // For draw region of chart
-                {
+               {
                     #[cfg(feature = "debug")]
                     {
                         let vector = rec_chart.get_vector();
@@ -129,35 +121,23 @@ pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
                         }
                     }
                 }
-
                 {
-                    let vector = rec_chart.get_vector();
                     let color = Color::default();
-                    if x_is_label {
-                        let width_col = xseries.scale(0.9) * vector.get_x();
-                        let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
-                        xsticks.into_iter().enumerate().map(|(index, data)|  {
-                            let x: f64 = xseries.scale(data.value + 0.5) * vector.get_x();
-                            let y: f64 = yseries.scale(ysticks[index].value) *vector.get_y();
+                    let vector = rec_chart.get_vector();
+                    // let mut line = "M".to_string();
+                    let point = xsticks.into_iter().enumerate().map(|(index, data)|  {
+                        let x: f64 = xseries.scale(data.value) * vector.get_x();
+                        let y: f64 = yseries.scale(ysticks[index].value) *vector.get_y();
+                        // line.push_str(format!(" {:.0},{:.0} ", x, y).as_str());
+                        view! {cx,
+                            <circle cx={x} cy={y}  r="4" fill=color.to_string_hex() />
+                        }
+                    }).collect::<Vec<_>>();
 
-                            view! {cx,
-                                <line x1=x y1="0" x2=x y2=y style=style.clone() />
-                            }
-                        })
-                        .collect::<Vec<_>>()
-                    } else {
-                        let width_col = yseries.scale(0.9) * vector.get_y();
-                        let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
-                        xsticks.into_iter().enumerate().map(|(index, data)|  {
-                            let x: f64 = xseries.scale(data.value) * vector.get_x();
-                            let y: f64 = yseries.scale(ysticks[index].value +0.5) * vector.get_y();
-                            view! {cx,
-                                <line x1="0" y1=y x2=x y2=y style=style.clone() />
-                            }
-                        })
-                        .collect::<Vec<_>>()
+                    view! {cx,
+                        {point}
+                        // <path d={line} stroke="red" fill="none"/>
                     }
-
                 }
             </g>
         </SvgChart>

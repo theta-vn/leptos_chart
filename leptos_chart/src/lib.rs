@@ -40,3 +40,9 @@ pub use self::barchart::*;
 mod linechart;
 #[cfg(any(doc, feature = "LineChart"))]
 pub use self::linechart::*;
+
+
+#[cfg(any(doc, feature = "ScatterChart"))]
+mod scatterchart;
+#[cfg(any(doc, feature = "ScatterChart"))]
+pub use self::scatterchart::*;
