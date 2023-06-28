@@ -14,7 +14,7 @@ use theta_chart::{
 /// ```toml
 /// [dependencies]
 /// leptos = {version = "0.3.0"}
-/// leptos_chart = {version = "0.0.2", features = ["PieChart"]}
+/// leptos_chart = {version = "0.0.3", features = ["PieChart"]}
 /// ```
 ///
 /// ## Component
@@ -28,7 +28,7 @@ use theta_chart::{
 ///         Series::from(vec![1.0, 2.0, 3.]),
 ///         Series::from(vec!["A", "B", "C"])
 ///     )
-///     .set_view(740, 540, 0b0010, 200, 20);
+///     .set_view(740, 540, 2, 200, 20);
 ///
 ///     view!{ cx,
 ///         <PieChart chart=chart />
@@ -49,11 +49,10 @@ use theta_chart::{
 /// - `margin` : Margin for actual chart
 ///
 /// ## About position_label
-///
-/// Top: 0
-/// Right: 1
-/// Bottom: 2
-/// Left: 3
+/// - Top: 0
+/// - Right: 1
+/// - Bottom: 2
+/// - Left: 3
 ///
 #[allow(non_snake_case)]
 #[component]
@@ -117,7 +116,7 @@ pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
                 {
                     #[cfg(all(feature = "debug"))]
                     {
-                        let radius = circle_chart.get_radius() / 0.95;
+                        let radius = circle_chart.get_radius();
                         view! {cx,
                             <circle id="origin" cx=0 cy=0 r=3 />
                             <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"/>

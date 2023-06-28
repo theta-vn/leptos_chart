@@ -3,7 +3,7 @@ use crate::{
     core::SvgChart,
 };
 use leptos::{component, view, IntoView, Scope};
-use theta_chart::{coord, color::Color};
+use theta_chart::{color::Color, coord};
 
 /// Component ScatterChart for leptos
 ///
@@ -14,7 +14,7 @@ use theta_chart::{coord, color::Color};
 /// ```toml
 /// [dependencies]
 /// leptos = {version = "0.3.0"}
-/// leptos_chart = {version = "0.0.2", features = ["ScatterChart"]}
+/// leptos_chart = {version = "0.0.3", features = ["ScatterChart"]}
 /// ```
 ///
 /// ## Component
@@ -25,10 +25,10 @@ use theta_chart::{coord, color::Color};
 /// #[component]
 /// pub fn App(cx: Scope) -> impl IntoView {
 ///     let chart = Cartesian::new(
-///         Series::from(vec![1.0, 6.0, 9.]),
-///         Series::from(vec![1.0, 3.0, 5.])
+///         Series::from(vec![50,60,70,80,90,100,110,120,130,140,150]).set_range(40., 160.),
+///         Series::from(vec![7,8,8,9,9,9,10,11,14,14,15]).set_range(6., 16.),
 ///     )
-///     .set_view(820, 620, 0b0011, 100, 100, 20);
+///     .set_view(820, 620, 3, 100, 100, 20);
 ///
 ///     view!{ cx,
 ///         <ScatterChart chart=chart />
@@ -60,7 +60,7 @@ use theta_chart::{coord, color::Color};
 #[component]
 pub fn ScatterChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     let cview = chart.get_view();
-    log::debug!("{:#?}",cview);
+    log::debug!("{:#?}", cview);
 
     // For Chart
     let rec_chart = cview.get_rec_chart();

@@ -14,7 +14,7 @@ use theta_chart::coord;
 /// ```toml
 /// [dependencies]
 /// leptos = {version = "0.3.0"}
-/// leptos_chart = {version = "0.0.2", features = ["LineChart"]}
+/// leptos_chart = {version = "0.0.3", features = ["LineChart"]}
 /// ```
 ///
 /// ## Component
@@ -28,7 +28,7 @@ use theta_chart::coord;
 ///         Series::from(vec![1.0, 6.0, 9.]),
 ///         Series::from(vec![1.0, 3.0, 5.])
 ///     )
-///     .set_view(820, 620, 0b0011, 100, 100, 20);
+///     .set_view(820, 620, 3, 100, 100, 20);
 ///
 ///     view!{ cx,
 ///         <LineChart chart=chart />
