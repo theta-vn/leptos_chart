@@ -9,13 +9,12 @@ description = "Chart library for leptos"
 readme = "../README.md"
 
 [dependencies]
-leptos = {version = "0.3.0",  default-features = false, optional = true}
-theta-chart = {version = "0.0.4"}
+leptos = {version = "0.3.1",  default-features = false, optional = true}
+theta-chart = { path="../../theta-chart" ,version = "0.0.4"}
 log = "0.4.6"
-wasm-logger = "0.2.0"
 
 [features]
-default = ["csr", "stable"]
+default = ["csr", "stable", "LineChart"]
 core = []
 Axes = []
 debug = []

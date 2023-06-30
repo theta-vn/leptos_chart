@@ -9,8 +9,8 @@ fn main() {
 #[component]
 pub fn App(cx: Scope) -> impl IntoView {
     let chart = Cartesian::new(
-        Series::from(vec![0., 1.0, 2., 3. , 4.]),
-        Series::from(vec![3.0, 1.0, 5., 8., 7.]),
+        Series::from((vec!["1982-04", "1986-02", "2017-02", "2020-05"], "%Y-%m", "month")),
+        Series::from(vec![0., 1.0, 2., 3.]),        
     )
     .set_view(820, 620, 3, 100, 100, 20);
 
