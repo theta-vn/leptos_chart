@@ -51,8 +51,6 @@ mod linechart_group;
 // #[cfg(any(doc, feature = "LineChartGroup"))]
 pub use self::linechart_group::*;
 
-
-
 #[cfg(any(doc, feature = "ScatterChart"))]
 mod scatterchart;
 #[cfg(any(doc, feature = "ScatterChart"))]

@@ -9,12 +9,12 @@ description = "Chart library for leptos"
 readme = "../README.md"
 
 [dependencies]
-leptos = {version = "0.3.1",  default-features = false, optional = true}
+leptos = {version = "0.4.1",  features = ["csr"]}
 theta-chart = { path="../../theta-chart" ,version = "0.0.4"}
 log = "0.4.6"
 
 [features]
-default = ["csr", "stable", "LineChart"]
+default = ["csr", "LineChart"]
 core = []
 Axes = []
 debug = []
@@ -29,4 +29,3 @@ ScatterChart = ["core", "Axes"]
 csr = ["leptos/csr"]
 hydrate = ["leptos/hydrate"]
 ssr = ["leptos/ssr"]
-stable = ["leptos/stable"]

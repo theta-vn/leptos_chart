@@ -58,7 +58,7 @@ use theta_chart::coord;
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn LineChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {    
+pub fn LineChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -94,7 +94,7 @@ pub fn LineChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     let yseries = chart.get_ay();
     let xsticks = xseries.to_stick();
     let ysticks = yseries.to_stick();
-    
+
     if chart.get_error() == String::default() {
         view! { cx,
 
@@ -132,7 +132,7 @@ pub fn LineChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
                                 <circle cx={x} cy={y}  r="2" stroke="black" stroke-width="1" fill="red" />
                             }
                         }).collect::<Vec<_>>();
-    
+
                         view! {cx,
                             {point}
                             <path d={line} stroke="red" fill="none"/>
@@ -144,12 +144,10 @@ pub fn LineChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     } else {
         let err = chart.get_error();
         log::error!("{}", err);
-        view! {cx, 
+        view! {cx,
             <SvgChart cview={cview} >
                 <g></g>
             </SvgChart>
         }
     }
-
-    
 }

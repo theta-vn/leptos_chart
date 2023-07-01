@@ -59,7 +59,6 @@ use theta_chart::{color::Color, coord, series::Series};
 #[allow(non_snake_case)]
 #[component]
 pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView {
-    
     let cview = chart.get_view();
 
     // For Chart
@@ -79,7 +78,6 @@ pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView 
     );
     let series_x_group = chart.get_ax_group();
     let axes_x = series_x_group.gen_axes();
-    
 
     // For y-axis
     let rec_ya = cview.get_rec_y_axis();
@@ -89,7 +87,7 @@ pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView 
         rec_ya.get_origin().get_y()
     );
     let series_y_group = chart.get_ay_group();
-    
+
     let axes_y = series_y_group.gen_axes();
 
     // For chart
@@ -137,7 +135,7 @@ pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView 
                         }
 
                         let xsticks = datax.to_stick();
-                        let ysticks = yseries[index].to_stick();                        
+                        let ysticks = yseries[index].to_stick();
                         let mut line = "M".to_string();
                         let point =  xsticks.iter().enumerate().map(|(i,d)|{
                             let x: f64 = series_x_group.scale(d.value) * vector.get_x();
