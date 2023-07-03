@@ -5,12 +5,12 @@ use crate::core::REM;
 
 #[allow(non_snake_case)]
 #[component]
-pub fn XAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {    
+pub fn XAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
     let vector = region.get_vector();
     let mut mark_origin_y = REM;
     let mut baseline = "text-before-edge";
     let mut style = "";
-    let mut text_anchor="middle";
+    let mut text_anchor = "middle";
 
     if vector.get_y() < 0. {
         mark_origin_y *= -1.;
@@ -49,7 +49,7 @@ pub fn XAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
                                 y={mark_origin_y}
                                 x={dx}
                                 dominant-baseline={baseline}
-                                text-anchor=text_anchor                                
+                                text-anchor=text_anchor
                                 style=style
                             >
                                 {stick.label}
