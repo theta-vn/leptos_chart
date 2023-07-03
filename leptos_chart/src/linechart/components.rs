@@ -93,6 +93,7 @@ pub fn LineChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     let xseries = chart.get_ax();
     let yseries = chart.get_ay();
     let xsticks = xseries.to_stick();
+
     let ysticks = yseries.to_stick();
 
     if chart.get_error() == String::default() {
@@ -125,6 +126,7 @@ pub fn LineChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
                         let vector = rec_chart.get_vector();
                         let mut line = "M".to_string();
                         let point = xsticks.clone().into_iter().enumerate().map(|(index, data)|  {
+
                             let x: f64 = xseries.scale(data.value) * vector.get_x();
                             let y: f64 = yseries.scale(ysticks[index].value) *vector.get_y();
                             line.push_str(format!(" {:.0},{:.0} ", x, y).as_str());
