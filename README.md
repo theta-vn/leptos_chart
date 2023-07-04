@@ -158,7 +158,7 @@ pub fn App(cx: Scope) -> impl IntoView {
 ```
 ### Result (debug)
 
-![BarChartGroup](./examples/assets/bar_chart_.png)
+![BarChartGroup](./examples/assets/bar_chart_group.png)
 
 ## LineChart
 
