@@ -13,8 +13,8 @@ use theta_chart::coord;
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.3.0"}
-/// leptos_chart = {version = "0.0.3", features = ["LineChart"]}
+/// leptos = {version = "0.4.1"}
+/// leptos_chart = {version = "0.1.0", features = ["LineChart"]}
 /// ```
 ///
 /// ## Component

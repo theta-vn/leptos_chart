@@ -13,8 +13,8 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.3.0"}
-/// leptos_chart = {version = "0.0.3", features = ["LineChart"]}
+/// leptos = {version = "0.4.1"}
+/// leptos_chart = {version = "0.1.0", features = ["LineChartGroup"]}
 /// ```
 ///
 /// ## Component
@@ -24,14 +24,19 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// #[component]
 /// pub fn App(cx: Scope) -> impl IntoView {
-///     let chart = Cartesian::new(
-///         Series::from(vec![1.0, 6.0, 9.]),
-///         Series::from(vec![1.0, 3.0, 5.])
-///     )
-///     .set_view(820, 620, 3, 100, 100, 20);
+///     let chart = CartesianGroup::new()    
+///         .set_view(840, 640, 3, 50, 50, 20)   
+///         .add_data(
+///             Series::from((vec!["1982", "1986", "2010", "2020", ], "%Y", "year")),
+///             Series::from(vec![3., 2.0, 1., 4.]),        
+///         )
+///         .add_data(
+///             Series::from((vec!["1982", "1986", "2017", "2020"], "%Y", "year")),
+///             Series::from(vec![0., 1.0, 2., 3.]),        
+///         );
 ///
 ///     view!{ cx,
-///         <LineChart chart=chart />
+///         <LineChartGroup chart=chart />
 ///     }
 /// }
 /// ```

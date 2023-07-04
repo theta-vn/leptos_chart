@@ -7,10 +7,10 @@ The project provides chart types to draw for leptos.
 - [x] BarChart
 - [x] LineChart
 - [x] RadarChart
-- [x] Scatter Chart
-- [ ] BarChart (Stack)
-- [ ] LineChart (Multi line)
-- [ ] RadarChart (Multi data)
+- [x] ScatterChart
+- [x] LineChartGroup
+- [x] BarChartGroup
+
 
 # Examples and Usage
 
@@ -19,8 +19,8 @@ The project provides chart types to draw for leptos.
 ### `Cargo.toml`
 
 ```toml
-leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.3", features = ["PieChart"]}
+leptos = {version = "0.4.1"}
+leptos_chart = {version = "0.1.0", features = ["PieChart"]}
 ```
 
 ### `main.rs`
@@ -65,8 +65,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 ### `Cargo.toml`
 
 ```toml
-leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.3", features = ["BarChart"]}
+leptos = {version = "0.4.1"}
+leptos_chart = {version = "0.1.0", features = ["BarChart"]}
 ```
 
 ### `main.rs`
@@ -113,13 +113,60 @@ pub fn App(cx: Scope) -> impl IntoView {
 
 ![BarChartH](./examples/assets/bar_chart_h.png)
 
+
+## BarChartGroup
+
+### `Cargo.toml`
+
+```toml
+leptos = {version = "0.4.1"}
+leptos_chart = {version = "0.1.0", features = ["BarChart"]}
+```
+
+### `main.rs`
+
+```rust
+use leptos::*;
+use leptos_chart::*;
+
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
+    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+}
+
+#[component]
+pub fn App(cx: Scope) -> impl IntoView {
+    let chart = CartesianGroup::new()
+        .set_view(840, 640, 3, 50, 50, 20)
+        .add_data(
+            Series::from(vec!["A", "B", "C"]),
+            Series::from(vec![0.7, 1.5, 1.9]),
+        )
+        .add_data(
+            Series::from(vec!["A", "B", "C"]),
+            Series::from(vec![0.3, 0.5, 0.9]),
+        );
+
+    view! {cx,
+        <div class="mx-auto p-8">
+            <h1>"Bar chart stack example"</h1>
+            <BarChartGroup chart=chart />
+        </div>
+    }
+}
+
+```
+### Result (debug)
+
+![BarChartGroup](./examples/assets/bar_chart_.png)
+
 ## LineChart
 
 ### `Cargo.toml`
 
 ```toml
-leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.3", features = ["LineChart"]}
+leptos = {version = "0.4.1"}
+leptos_chart = {version = "0.1.0", features = ["LineChart"]}
 ```
 
 ### `main.rs`
@@ -152,13 +199,58 @@ pub fn App(cx: Scope) -> impl IntoView {
 ### Result (debug)
 ![LineChart](./examples/assets/line_chart.png)
 
+## LineChartGroup
+
+### `Cargo.toml`
+
+```toml
+leptos = {version = "0.4.1"}
+leptos_chart = {version = "0.1.0", features = ["LineChartGroup"]}
+```
+
+### `main.rs`
+
+```rust
+use leptos::*;
+use leptos_chart::*;
+
+fn main() {
+    wasm_logger::init(wasm_logger::Config::default());
+    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+}
+
+#[component]
+pub fn App(cx: Scope) -> impl IntoView {
+    
+    let chart = CartesianGroup::new()    
+    .set_view(840, 640, 3, 50, 50, 20)   
+    .add_data(
+        Series::from((vec!["1982", "1986", "2010", "2020", ], "%Y", "year")),
+        Series::from(vec![3., 2.0, 1., 4.]),        
+    )
+    .add_data(
+        Series::from((vec!["1982", "1986", "2017", "2020"], "%Y", "year")),
+        Series::from(vec![0., 1.0, 2., 3.]),        
+    );
+
+    view! {cx,
+        <div class="mx-auto p-8">
+            <h1>"Line chart group example"</h1>
+            <LineChartGroup chart=chart />
+        </div>
+    }
+}
+```
+### Result (debug)
+![LineChart](./examples/assets/line_chart_group.png)
+
 ## RadarChart
 
 ### `Cargo.toml`
 
 ```toml
-leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.3", features = ["RadarChart"]}
+leptos = {version = "0.4.1"}
+leptos_chart = {version = "0.1.0", features = ["RadarChart"]}
 ```
 
 ### `main.rs`
@@ -198,8 +290,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 ### `Cargo.toml`
 
 ```toml
-leptos = {version = "0.3.0"}
-leptos_chart = {version = "0.0.3", features = ["ScatterChart"]}
+leptos = {version = "0.4.1"}
+leptos_chart = {version = "0.1.0", features = ["ScatterChart"]}
 ```
 
 ### `main.rs`
@@ -235,7 +327,3 @@ pub fn App(cx: Scope) -> impl IntoView {
 ### Result (debug)
 
 ![ScatterChart](./examples/assets/scatter_chart.png)
-
-# Next Steps
-
-This is still a work in progress, so the next steps are going to be implementing more views and improving on existing functionality.

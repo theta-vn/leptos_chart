@@ -10,11 +10,11 @@ readme = "../README.md"
 
 [dependencies]
 leptos = {version = "0.4.1",  features = ["csr"]}
-theta-chart = { path="../../theta-chart" ,version = "0.0.4"}
+theta-chart = { version = "0.0.5"}
 log = "0.4.6"
 
 [features]
-default = ["csr", "LineChart"]
+default = ["csr"]
 core = []
 Axes = []
 debug = []
@@ -23,7 +23,9 @@ PieChart = ["core"]
 RadarChart = ["core"]
 
 BarChart = ["core", "Axes"]
+BarChartGroup = ["core", "Axes"]
 LineChart = ["core", "Axes"]
+LineChartGroup = ["core", "Axes"]
 ScatterChart = ["core", "Axes"]
 
 csr = ["leptos/csr"]
