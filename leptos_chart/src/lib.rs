@@ -7,9 +7,8 @@
 //! - [x] LineChart
 //! - [x] RadarChart
 //! - [x] ScatterChart
-//! - [ ] BarChart (Stack)
-//! - [ ] LineChart (Multi line)
-//! - [ ] RadarChart (Multi data)
+//! - [x] BarChartGroup
+//! - [x] LineChartGroup
 //!
 //! ## Examples and Usage
 //! - [`PieChart`]
@@ -17,6 +16,8 @@
 //! - [`LineChart`]
 //! - [`RadarChart`]
 //! - [`ScatterChart`]
+//! - [`BarChartGroup`]
+//! - [`LineChartGroup`]
 //!
 //! Check out the examples folder for helpful snippets of code, as well as minimal configurations that fit some of the most
 //! popular chart types. For more explanation, see the crate documentation.
@@ -41,10 +42,20 @@ mod barchart;
 #[cfg(any(doc, feature = "BarChart"))]
 pub use self::barchart::*;
 
+#[cfg(any(doc, feature = "BarChartGroup"))]
+mod barchart_group;
+#[cfg(any(doc, feature = "BarChartGroup"))]
+pub use self::barchart_group::*;
+
 #[cfg(any(doc, feature = "LineChart"))]
 mod linechart;
 #[cfg(any(doc, feature = "LineChart"))]
 pub use self::linechart::*;
+
+#[cfg(any(doc, feature = "LineChartGroup"))]
+mod linechart_group;
+#[cfg(any(doc, feature = "LineChartGroup"))]
+pub use self::linechart_group::*;
 
 #[cfg(any(doc, feature = "ScatterChart"))]
 mod scatterchart;

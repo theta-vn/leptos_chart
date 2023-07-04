@@ -13,8 +13,8 @@ use theta_chart::{color::Color, coord};
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.3.0"}
-/// leptos_chart = {version = "0.0.3", features = ["ScatterChart"]}
+/// leptos = {version = "0.4.1"}
+/// leptos_chart = {version = "0.1.0", features = ["ScatterChart"]}
 /// ```
 ///
 /// ## Component
@@ -60,7 +60,6 @@ use theta_chart::{color::Color, coord};
 #[component]
 pub fn ScatterChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
     let cview = chart.get_view();
-    log::debug!("{:#?}", cview);
 
     // For Chart
     let rec_chart = cview.get_rec_chart();
@@ -124,20 +123,13 @@ pub fn ScatterChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
                 {
                     let color = Color::default();
                     let vector = rec_chart.get_vector();
-                    // let mut line = "M".to_string();
-                    let point = xsticks.into_iter().enumerate().map(|(index, data)|  {
+                    xsticks.into_iter().enumerate().map(|(index, data)|  {
                         let x: f64 = xseries.scale(data.value) * vector.get_x();
                         let y: f64 = yseries.scale(ysticks[index].value) *vector.get_y();
-                        // line.push_str(format!(" {:.0},{:.0} ", x, y).as_str());
                         view! {cx,
                             <circle cx={x} cy={y}  r="4" fill=color.to_string_hex() />
                         }
-                    }).collect::<Vec<_>>();
-
-                    view! {cx,
-                        {point}
-                        // <path d={line} stroke="red" fill="none"/>
-                    }
+                    }).collect::<Vec<_>>()
                 }
             </g>
         </SvgChart>

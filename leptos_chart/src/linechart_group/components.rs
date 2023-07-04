@@ -5,7 +5,7 @@ use crate::{
 use leptos::{component, view, IntoView, Scope};
 use theta_chart::{color::Color, coord, series::Series};
 
-/// Component BarChart for leptos
+/// Component LineChart for leptos
 ///
 /// # Examples
 ///
@@ -14,7 +14,7 @@ use theta_chart::{color::Color, coord, series::Series};
 /// ```toml
 /// [dependencies]
 /// leptos = {version = "0.4.1"}
-/// leptos_chart = {version = "0.1.0", features = ["BarChart"]}
+/// leptos_chart = {version = "0.1.0", features = ["LineChartGroup"]}
 /// ```
 ///
 /// ## Component
@@ -24,26 +24,28 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// #[component]
 /// pub fn App(cx: Scope) -> impl IntoView {
-///     let chart_v = Cartesian::new(
-///         Series::from(vec!["A", "B", "C"]),
-///         Series::from(vec![1.0, 6.0, 9.]),
-///     )
-///     .set_view(820, 620, 3, 50, 50, 20);
+///     let chart = CartesianGroup::new()    
+///         .set_view(840, 640, 3, 50, 50, 20)   
+///         .add_data(
+///             Series::from((vec!["1982", "1986", "2010", "2020", ], "%Y", "year")),
+///             Series::from(vec![3., 2.0, 1., 4.]),        
+///         )
+///         .add_data(
+///             Series::from((vec!["1982", "1986", "2017", "2020"], "%Y", "year")),
+///             Series::from(vec![0., 1.0, 2., 3.]),        
+///         );
 ///
 ///     view!{ cx,
-///         <BarChart data=data />
+///         <LineChartGroup chart=chart />
 ///     }
 /// }
 /// ```
-///
-/// ## Set view for BarChart
-///
+/// ## Set view for LineChart
 /// ```ignore
 ///     ...
 ///     .set_view(820, 620, 3, 100, 100, 20);
 ///     ...
 /// ```
-///
 /// ## Arguments
 /// - `width` : The width of SGV
 /// - `height` : The height of SGV
@@ -61,7 +63,7 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
+pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -79,8 +81,8 @@ pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
         rec_xa.get_origin().get_x(),
         rec_xa.get_origin().get_y()
     );
-    let series_x = chart.get_ax();
-    let axes_x = series_x.gen_axes();
+    let series_x_group = chart.get_ax_group();
+    let axes_x = series_x_group.gen_axes();
 
     // For y-axis
     let rec_ya = cview.get_rec_y_axis();
@@ -89,24 +91,23 @@ pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
         rec_ya.get_origin().get_x(),
         rec_ya.get_origin().get_y()
     );
-    let series_y = chart.get_ay();
-    let axes_y = series_y.gen_axes();
+    let series_y_group = chart.get_ay_group();
+
+    let axes_y = series_y_group.gen_axes();
 
     // For chart
-    let xseries = chart.get_ax();
-    let yseries = chart.get_ay();
-    let xsticks = xseries.to_stick();
-    let ysticks = yseries.to_stick();
-
-    let mut x_is_label = true;
-    match xseries {
-        Series::Label(_) => (),
-        _ => x_is_label = false,
+    let data = chart.get_data();
+    let mut xseries: Vec<Series> = vec![];
+    let mut yseries: Vec<Series> = vec![];
+    for tup in data {
+        xseries.push(tup.0);
+        yseries.push(tup.1);
     }
 
     view! { cx,
 
         <SvgChart cview={cview}>
+
             <g class="axes">
                 <g class="x-axis" transform={translate_xa}>
                     <XAxis region=rec_xa axes=axes_x />
@@ -117,46 +118,44 @@ pub fn BarChart(cx: Scope, chart: coord::Cartesian) -> impl IntoView {
             </g>
             <g class="inner-chart"  transform={translate_chart}>
                 // For draw region of chart
-                {
+               {
                     #[cfg(feature = "debug")]
                     {
                         let vector = rec_chart.get_vector();
                         let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
                         view! {cx,
-                            <circle id="origin" cx="0" cy="0" r="3" />
+                            <circle id="originY" cx="0" cy="0" r="3" />
                             <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#00ff0033;stroke-width:2" />
-                            <path id="region" d=path  fill="#00ff0033" />
+                            <path id="regionY" d=path  fill="#00ff0033" />
                         }
                     }
                 }
-
                 {
                     let vector = rec_chart.get_vector();
-                    let color = Color::default();
-                    if x_is_label {
-                        let width_col = xseries.scale(0.9) * vector.get_x();
-                        let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
-                        xsticks.into_iter().enumerate().map(|(index, data)|  {
-                            let x: f64 = xseries.scale(data.value + 0.5) * vector.get_x();
-                            let y: f64 = yseries.scale(ysticks[index].value) *vector.get_y();
 
+                    xseries.into_iter().enumerate().map(|(index, datax)|  {
+                        let mut color = Color::default();
+                        if index !=0 {
+                            color = color.shift_hue();
+                        }
+
+                        let xsticks = datax.to_stick();
+                        let ysticks = yseries[index].to_stick();
+                        let mut line = "M".to_string();
+                        let point =  xsticks.iter().enumerate().map(|(i,d)|{
+                            let x: f64 = series_x_group.scale(d.value) * vector.get_x();
+                            let y: f64 = series_y_group.scale(ysticks[i].value) *vector.get_y();
+                            line.push_str(format!(" {:.0},{:.0} ", x, y).as_str());
                             view! {cx,
-                                <line x1=x y1="0" x2=x y2=y style=style.clone() />
+                                <circle cx={x} cy={y}  r="3"  fill=color.to_string_hex() />
                             }
-                        })
-                        .collect::<Vec<_>>()
-                    } else {
-                        let width_col = yseries.scale(0.9) * vector.get_y();
-                        let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
-                        xsticks.into_iter().enumerate().map(|(index, data)|  {
-                            let x: f64 = xseries.scale(data.value) * vector.get_x();
-                            let y: f64 = yseries.scale(ysticks[index].value +0.5) * vector.get_y();
-                            view! {cx,
-                                <line x1="0" y1=y x2=x y2=y style=style.clone() />
-                            }
-                        })
-                        .collect::<Vec<_>>()
-                    }
+                        }).collect::<Vec<_>>();
+
+                        view! {cx,
+                            {point}
+                            <path d={line} stroke={color.to_string_hex()} fill="none" stroke-width=2 />
+                        }
+                    }).collect::<Vec<_>>()
 
                 }
             </g>
