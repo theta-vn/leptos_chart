@@ -3,11 +3,11 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     let chart = CartesianGroup::new()
         .set_view(840, 640, 3, 50, 50, 20)
         .add_data(
@@ -19,7 +19,7 @@ pub fn App(cx: Scope) -> impl IntoView {
             Series::from(vec![0.3, 0.5, 0.9]),
         );
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8">
             <h1>"Bar chart group example"</h1>
             <BarChartGroup chart=chart />

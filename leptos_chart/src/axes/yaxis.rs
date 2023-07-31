@@ -1,11 +1,11 @@
-use leptos::{component, view, IntoView, Scope};
+use leptos::{component, view, IntoView};
 use theta_chart::coord::{Axes, Rec};
 
 use crate::core::REM;
 
 #[allow(non_snake_case)]
 #[component]
-pub fn YAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
+pub fn YAxis(region: Rec, axes: Axes) -> impl IntoView {
     let vector = region.get_vector();
     let mut mark_origin_x = REM;
     let mut text_anchor = "start";
@@ -21,7 +21,7 @@ pub fn YAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
             #[cfg(feature = "debug")]
             {
                 let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                view! {cx,
+                view! {
                     <circle id="originY" cx="0" cy="0" r="3" />
                     <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#0000ff33;stroke-width:2" />
                     <path id="regionY" d=path  fill="#0000ff33" />
@@ -36,7 +36,7 @@ pub fn YAxis(cx: Scope, region: Rec, axes: Axes) -> impl IntoView {
             {
                 axes.sticks.into_iter().map(|stick| {
                     let dy = stick.value * vector.get_y();
-                    view! {cx,
+                    view! {
                         <line x1="0" y1=dy x2={mark_origin_x/2.} y2=dy style="stroke:rgb(255,0,0)" />
                         <text
                             y=dy
