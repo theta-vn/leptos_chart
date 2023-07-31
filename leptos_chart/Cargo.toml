@@ -11,7 +11,7 @@ readme = "../README.md"
 [dependencies]
 leptos = {version = "0.4.1",  features = ["csr"]}
 theta-chart = { version = "0.0.5"}
-log = "0.4.6"
+# log = "0.4.6"
 
 [features]
 default = ["csr"]
