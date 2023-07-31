@@ -1,7 +1,6 @@
-# A visualization library for leptos.
+# A visualization library for leptos
 
 The project provides chart types to draw for leptos.
-
 
 - [x] PieChart
 - [x] BarChart
@@ -11,19 +10,18 @@ The project provides chart types to draw for leptos.
 - [x] LineChartGroup
 - [x] BarChartGroup
 
+## Examples and Usage
 
-# Examples and Usage
+### PieChart
 
-## PieChart
-
-### `Cargo.toml`
+#### Cargo.toml for PieChart
 
 ```toml
 leptos = {version = "0.4.1"}
 leptos_chart = {version = "0.1.0", features = ["PieChart"]}
 ```
 
-### `main.rs`
+#### main.rs for PieChart
 
 ```rust
 use leptos::*;
@@ -51,25 +49,24 @@ pub fn App(cx: Scope) -> impl IntoView {
 }
 ```
 
-### Result
+#### Result for PieChart
 
 ![PieChart](./examples/assets/pie_chart.png)
 
-### With feature debug
+#### Result with feature debug for PieChart
 
 ![PieChart with debug](./examples/assets/pie_chart_debug.png)
 
+### BarChart
 
-## BarChart
-
-### `Cargo.toml`
+#### Cargo.toml for BarChart
 
 ```toml
 leptos = {version = "0.4.1"}
 leptos_chart = {version = "0.1.0", features = ["BarChart"]}
 ```
 
-### `main.rs`
+#### main.rs for BarChart
 
 ```rust
 use leptos::*;
@@ -107,23 +104,23 @@ pub fn App(cx: Scope) -> impl IntoView {
 }
 
 ```
-### Result (debug)
+
+#### Result (debug) for BarChart
 
 ![BarChartV](./examples/assets/bar_chart_v.png)
 
 ![BarChartH](./examples/assets/bar_chart_h.png)
 
+### BarChartGroup
 
-## BarChartGroup
-
-### `Cargo.toml`
+#### Cargo.toml for BarChartGroup
 
 ```toml
 leptos = {version = "0.4.1"}
 leptos_chart = {version = "0.1.0", features = ["BarChart"]}
 ```
 
-### `main.rs`
+#### main.rs for BarChartGroup
 
 ```rust
 use leptos::*;
@@ -156,20 +153,21 @@ pub fn App(cx: Scope) -> impl IntoView {
 }
 
 ```
-### Result (debug)
+
+#### Result (debug) for BarChartGroup
 
 ![BarChartGroup](./examples/assets/bar_chart_group.png)
 
-## LineChart
+### LineChart
 
-### `Cargo.toml`
+#### Cargo.toml for LineChart
 
 ```toml
 leptos = {version = "0.4.1"}
 leptos_chart = {version = "0.1.0", features = ["LineChart"]}
 ```
 
-### `main.rs`
+#### main.rs for LineChart
 
 ```rust
 use leptos::*;
@@ -196,19 +194,21 @@ pub fn App(cx: Scope) -> impl IntoView {
     }
 }
 ```
-### Result (debug)
+
+#### Result (debug) for LineChart
+
 ![LineChart](./examples/assets/line_chart.png)
 
-## LineChartGroup
+### LineChartGroup
 
-### `Cargo.toml`
+#### Cargo.toml for LineChartGroup
 
 ```toml
 leptos = {version = "0.4.1"}
 leptos_chart = {version = "0.1.0", features = ["LineChartGroup"]}
 ```
 
-### `main.rs`
+#### main.rs for LineChartGroup
 
 ```rust
 use leptos::*;
@@ -241,19 +241,21 @@ pub fn App(cx: Scope) -> impl IntoView {
     }
 }
 ```
-### Result (debug)
+
+#### Result (debug) for LineChartGroup
+
 ![LineChart](./examples/assets/line_chart_group.png)
 
-## RadarChart
+### RadarChart
 
-### `Cargo.toml`
+#### Cargo.toml for RadarChart
 
 ```toml
 leptos = {version = "0.4.1"}
 leptos_chart = {version = "0.1.0", features = ["RadarChart"]}
 ```
 
-### `main.rs`
+#### main.rs for RadarChart
 
 ```rust
 use leptos::*;
@@ -281,20 +283,20 @@ pub fn App(cx: Scope) -> impl IntoView {
 }
 ```
 
-### Result (debug)
+#### Result (debug) for RadarChart
 
 ![RadarChart](./examples/assets/radar_chart.png)
 
-## ScatterChart
+### ScatterChart
 
-### `Cargo.toml`
+#### Cargo.toml for ScatterChart
 
 ```toml
 leptos = {version = "0.4.1"}
 leptos_chart = {version = "0.1.0", features = ["ScatterChart"]}
 ```
 
-### `main.rs`
+#### main.rs for ScatterChart
 
 ```rust
 use leptos::*;
@@ -324,6 +326,6 @@ pub fn App(cx: Scope) -> impl IntoView {
 }
 ```
 
-### Result (debug)
+#### Result (debug) for ScatterChart
 
 ![ScatterChart](./examples/assets/scatter_chart.png)
