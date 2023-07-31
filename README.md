@@ -111,7 +111,6 @@ pub fn App(cx: Scope) -> impl IntoView {
 
 ![BarChartH](./examples/assets/bar_chart_h.png)
 
-
 ### BarChartGroup
 
 #### Cargo.toml for BarChartGroup
@@ -197,6 +196,7 @@ pub fn App(cx: Scope) -> impl IntoView {
 ```
 
 #### Result (debug) for LineChart
+
 ![LineChart](./examples/assets/line_chart.png)
 
 ### LineChartGroup
