@@ -1,5 +1,5 @@
 use crate::core::{SvgPolar, REM};
-use leptos::{component, view, IntoView, Scope};
+use leptos::{component, view, IntoView};
 use theta_chart::{
     chart::{ScaleLabel, ScaleNumber},
     color::Color,
@@ -61,7 +61,7 @@ use theta_chart::{
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn RadarChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
+pub fn RadarChart(chart: coord::Polar) -> impl IntoView {
     let pview = chart.get_view();
 
     // For processing SNumber
@@ -80,15 +80,7 @@ pub fn RadarChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
         circle_chart.get_origin().get_y()
     );
 
-    // For label
-    // let rec_label = pview.get_rec_label();
-    // let translate_label = format!(
-    //     "translate({},{})",
-    //     rec_label.get_origin().get_x(),
-    //     rec_label.get_origin().get_y(),
-    // );
-
-    view! { cx,
+    view! {
         <SvgPolar pview={pview}>
             <g class="inner-chart" transform={translate_chart} >
                 {
@@ -107,7 +99,7 @@ pub fn RadarChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
                     grid_clone.into_iter().enumerate().map(|(index, vector)|  {
                         let point = vector.to_point();
                         let radius = radius *1.1;
-                        view! {cx,
+                        view! {
                             <line x1="0" y1="0" x2={point.get_x() * radius } y2={point.get_y() * radius} style="stroke:#00000011;stroke-width:1" />
                             <text x={point.get_x() * radius} y={point.get_y() * radius} dominant-baseline="middle" text-anchor="middle" opacity=0.5>{slabel.labels()[index].clone()}</text>
                         }
@@ -133,7 +125,7 @@ pub fn RadarChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
                     grid050.push_str(" Z");
                     line.push_str(" Z");
                     let color = Color::default();
-                    view! {cx,
+                    view! {
                         <text x=0 y={radius * -0.5} dominant-baseline="middle" text-anchor="middle" opacity=0.3>50</text>
                         <text x=0  y={radius * -1.} dominant-baseline="middle" text-anchor="middle" opacity=0.3>100</text>
                         <text x=0  y=0 dominant-baseline="middle" text-anchor="middle" opacity=0.3>0</text>
