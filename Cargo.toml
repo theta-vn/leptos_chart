@@ -1,11 +1,7 @@
 [workspace]
-members = [  
-  "leptos_chart",
-]
+resolver = "2"
+members = ["leptos_chart"]
 exclude = ["examples"]
 
 [workspace.package]
 version = "0.1.2"
-
-
-
