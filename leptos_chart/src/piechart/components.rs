@@ -1,5 +1,5 @@
 use crate::core::{SvgPolar, REM};
-use leptos::{component, view, IntoView, Scope};
+use leptos::{component, view, IntoView};
 use theta_chart::{
     chart::{ScaleLabel, ScaleNumber},
     coord,
@@ -13,7 +13,7 @@ use theta_chart::{
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.4.1"}
+/// leptos = {version = "0.5.1"}
 /// leptos_chart = {version = "0.1.0", features = ["PieChart"]}
 /// ```
 ///
@@ -23,14 +23,14 @@ use theta_chart::{
 /// use leptos_chart::*;
 ///
 /// #[component]
-/// pub fn App(cx: Scope) -> impl IntoView {
+/// pub fn App() -> impl IntoView {
 ///     let chart = Polar::new(
 ///         Series::from(vec![1.0, 2.0, 3.]),
 ///         Series::from(vec!["A", "B", "C"])
 ///     )
 ///     .set_view(740, 540, 2, 200, 20);
 ///
-///     view!{ cx,
+///     view!{
 ///         <PieChart chart=chart />
 ///     }
 /// }
@@ -56,7 +56,7 @@ use theta_chart::{
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
+pub fn PieChart(chart: coord::Polar) -> impl IntoView {
     let pview = chart.get_view();
 
     // For processing SNumber
@@ -83,7 +83,7 @@ pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
         rec_label.get_origin().get_y(),
     );
 
-    view! { cx,
+    view! {
         <SvgPolar pview={pview}>
 
             <g class="labels" transform={translate_label}>
@@ -93,7 +93,7 @@ pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
                     {
                         let vector = rec_label.get_vector();
                         let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                        view! {cx,
+                        view! {
                             <circle id="origin" cx="0" cy="0" r="3" />
                             <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#005bbe33;stroke-width:1" />
                             <path id="regionX" d=path  fill="#005bbe33" />
@@ -104,7 +104,7 @@ pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
                     slabel.labels().into_iter().enumerate().map(|(index, label)|  {
                         let color = &slabel.colors()[index];
                         let py = index as f64 * 1.5 * REM;
-                        view! {cx,
+                        view! {
                             <text x={1.5 * REM} y={py} dominant-baseline="text-before-edge">{format!("{}: {}",label, series[index])}</text>
                             <rect x={0} y={py + (1.5 - 1.0) * REM / 2.} width=REM height=REM fill={color.to_string_hex()}></rect>
                         }
@@ -117,7 +117,7 @@ pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
                     #[cfg(all(feature = "debug"))]
                     {
                         let radius = circle_chart.get_radius();
-                        view! {cx,
+                        view! {
                             <circle id="origin" cx=0 cy=0 r=3 />
                             <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"/>
                             <line x1="0" y1="0" x2=0 y2=-radius style="stroke:#00ff0033;stroke-width:2" />
@@ -129,7 +129,7 @@ pub fn PieChart(cx: Scope, chart: coord::Polar) -> impl IntoView {
                     vec_arc.into_iter().enumerate().map(|(index, data)|  {
                         let color = &slabel.colors()[index];
                         let radius = circle_chart.get_radius();
-                        view! {cx,
+                        view! {
                             <path  fill={color.to_string_hex()} stroke="#ffffff" stroke-width="1" d={data.gen_path(radius)} />
                         }
                     })

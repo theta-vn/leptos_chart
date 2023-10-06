@@ -9,8 +9,8 @@ description = "Chart library for leptos"
 readme = "../README.md"
 
 [dependencies]
-leptos = {version = "0.4",  features = ["csr"]}
-theta-chart = { version = "0.0.6"}
+leptos = { version = "0.5.1", features = ["csr"] }
+theta-chart = { version = "0.0.6" }
 log = "0.4"
 
 [features]
