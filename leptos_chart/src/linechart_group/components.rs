@@ -14,7 +14,7 @@ use theta_chart::{color::Color, coord, series::Series};
 /// ```toml
 /// [dependencies]
 /// leptos = {version = "0.5.1"}
-/// leptos_chart = {version = "0.1.0", features = ["LineChartGroup"]}
+/// leptos_chart = {version = "0.2.0", features = ["LineChartGroup"]}
 /// ```
 ///
 /// ## Component

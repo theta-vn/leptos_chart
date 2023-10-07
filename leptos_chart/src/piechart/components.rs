@@ -14,7 +14,7 @@ use theta_chart::{
 /// ```toml
 /// [dependencies]
 /// leptos = {version = "0.5.1"}
-/// leptos_chart = {version = "0.1.0", features = ["PieChart"]}
+/// leptos_chart = {version = "0.2.0", features = ["PieChart"]}
 /// ```
 ///
 /// ## Component
