@@ -3,11 +3,11 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     let chart_v = Cartesian::new(
         Series::from(vec!["A", "B", "C"]),
         Series::from(vec![1.0, 6.0, 9.]),
@@ -20,7 +20,7 @@ pub fn App(cx: Scope) -> impl IntoView {
     )
     .set_view(820, 620, 3, 30, 30, 20);
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8">
 
             <h1>"Bar chart example"</h1>

@@ -1,11 +1,13 @@
 [package]
-name = "pie_chart"
+name = "bar_chart_group"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-leptos = {version = "0.4.1", features=["csr"]}
-leptos_chart = {path = "../../leptos_chart", version = "0.1.0", features = ["BarChart", "debug"]}
+leptos = { version = "0.5", features = ["csr"] }
+leptos_chart = { path = "../../leptos_chart", version = "0.2.0", features = [
+    "BarChartGroup",
+    "debug",
+] }
 wasm-logger = "0.2.0"

@@ -17,8 +17,8 @@ The project provides chart types to draw for leptos.
 #### Cargo.toml for PieChart
 
 ```toml
-leptos = {version = "0.4.1"}
-leptos_chart = {version = "0.1.0", features = ["PieChart"]}
+leptos = {version = "0.5"}
+leptos_chart = {version = "0.2", features = ["PieChart"]}
 ```
 
 #### main.rs for PieChart
@@ -29,18 +29,18 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     let chart = Polar::new(
         Series::from(vec![1.0, 2.0, 3.]),
         Series::from(vec!["A", "B", "C"]),
     )
     .set_view(740, 540, 1, 200, 20);
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8" style="background:#00000077">
             <h1>"Pie chart example with right label"</h1>
             <PieChart chart=chart />
@@ -62,8 +62,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 #### Cargo.toml for BarChart
 
 ```toml
-leptos = {version = "0.4.1"}
-leptos_chart = {version = "0.1.0", features = ["BarChart"]}
+leptos = {version = "0.5"}
+leptos_chart = {version = "0.2", features = ["BarChart"]}
 ```
 
 #### main.rs for BarChart
@@ -74,11 +74,11 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     let chart_v = Cartesian::new(
         Series::from(vec!["A", "B", "C"]),
         Series::from(vec![1.0, 6.0, 9.]),
@@ -91,7 +91,7 @@ pub fn App(cx: Scope) -> impl IntoView {
     )
     .set_view(820, 620, 3, 30, 30, 20);
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8" style="background:#00000077">
 
             <h1>"Bar chart example"</h1>
@@ -116,8 +116,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 #### Cargo.toml for BarChartGroup
 
 ```toml
-leptos = {version = "0.4.1"}
-leptos_chart = {version = "0.1.0", features = ["BarChart"]}
+leptos = {version = "0.5"}
+leptos_chart = {version = "0.2", features = ["BarChartGroup"]}
 ```
 
 #### main.rs for BarChartGroup
@@ -128,11 +128,11 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     let chart = CartesianGroup::new()
         .set_view(840, 640, 3, 50, 50, 20)
         .add_data(
@@ -144,7 +144,7 @@ pub fn App(cx: Scope) -> impl IntoView {
             Series::from(vec![0.3, 0.5, 0.9]),
         );
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8">
             <h1>"Bar chart stack example"</h1>
             <BarChartGroup chart=chart />
@@ -163,8 +163,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 #### Cargo.toml for LineChart
 
 ```toml
-leptos = {version = "0.4.1"}
-leptos_chart = {version = "0.1.0", features = ["LineChart"]}
+leptos = {version = "0.5"}
+leptos_chart = {version = "0.2", features = ["LineChart"]}
 ```
 
 #### main.rs for LineChart
@@ -175,18 +175,18 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     let chart = Cartesian::new(
         Series::from(vec![0., 1.0, 2.]),
         Series::from(vec![3.0, 1.0, 5.]),
     )
     .set_view(820, 620, 3, 100, 100, 20);
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8" style="background:#00000077">
             <h1>"Line chart example"</h1>
             <LineChart chart=chart />
@@ -204,8 +204,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 #### Cargo.toml for LineChartGroup
 
 ```toml
-leptos = {version = "0.4.1"}
-leptos_chart = {version = "0.1.0", features = ["LineChartGroup"]}
+leptos = {version = "0.5"}
+leptos_chart = {version = "0.2", features = ["LineChartGroup"]}
 ```
 
 #### main.rs for LineChartGroup
@@ -216,24 +216,24 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
-    
-    let chart = CartesianGroup::new()    
-    .set_view(840, 640, 3, 50, 50, 20)   
+pub fn App() -> impl IntoView {
+
+    let chart = CartesianGroup::new()
+    .set_view(840, 640, 3, 50, 50, 20)
     .add_data(
         Series::from((vec!["1982", "1986", "2010", "2020", ], "%Y", "year")),
-        Series::from(vec![3., 2.0, 1., 4.]),        
+        Series::from(vec![3., 2.0, 1., 4.]),
     )
     .add_data(
         Series::from((vec!["1982", "1986", "2017", "2020"], "%Y", "year")),
-        Series::from(vec![0., 1.0, 2., 3.]),        
+        Series::from(vec![0., 1.0, 2., 3.]),
     );
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8">
             <h1>"Line chart group example"</h1>
             <LineChartGroup chart=chart />
@@ -251,8 +251,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 #### Cargo.toml for RadarChart
 
 ```toml
-leptos = {version = "0.4.1"}
-leptos_chart = {version = "0.1.0", features = ["RadarChart"]}
+leptos = {version = "0.5"}
+leptos_chart = {version = "0.2", features = ["RadarChart"]}
 ```
 
 #### main.rs for RadarChart
@@ -263,11 +263,11 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     let chart = Polar::new(
         Series::from(vec![85.0, 55.0, 45., 60., 40.]),
         Series::from(vec!["Reading", "Writing", "Listening", "Speaking", "React"]),
@@ -292,8 +292,8 @@ pub fn App(cx: Scope) -> impl IntoView {
 #### Cargo.toml for ScatterChart
 
 ```toml
-leptos = {version = "0.4.1"}
-leptos_chart = {version = "0.1.0", features = ["ScatterChart"]}
+leptos = {version = "0.5"}
+leptos_chart = {version = "0.2", features = ["ScatterChart"]}
 ```
 
 #### main.rs for ScatterChart
@@ -304,11 +304,11 @@ use leptos_chart::*;
 
 fn main() {
     wasm_logger::init(wasm_logger::Config::default());
-    leptos::mount_to_body(|cx| leptos::view! { cx,  <App/> })
+    leptos::mount_to_body(|| leptos::view! { <App/> })
 }
 
 #[component]
-pub fn App(cx: Scope) -> impl IntoView {
+pub fn App() -> impl IntoView {
     let chart = Cartesian::new(
         Series::from(vec![50,60,70,80,90,100,110,120,130,140,150])
             .set_range(40., 160.),
@@ -317,7 +317,7 @@ pub fn App(cx: Scope) -> impl IntoView {
     )
     .set_view(820, 620, 3, 100, 100, 20);
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8">
             <h1>"Scatter chart example"</h1>
             <ScatterChart chart=chart />

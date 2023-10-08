@@ -2,7 +2,7 @@ use crate::{
     axes::{XAxis, YAxis},
     core::SvgChart,
 };
-use leptos::{component, view, IntoView, Scope};
+use leptos::{component, view, IntoView};
 use theta_chart::{color::Color, coord, series::Series};
 
 /// Component LineChart for leptos
@@ -13,8 +13,8 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.4.1"}
-/// leptos_chart = {version = "0.1.0", features = ["BarChartGroup"]}
+/// leptos = {version = "0.5"}
+/// leptos_chart = {version = "0.2.0", features = ["BarChartGroup"]}
 /// ```
 ///
 /// ## Component
@@ -23,7 +23,7 @@ use theta_chart::{color::Color, coord, series::Series};
 /// use leptos_chart::*;
 ///
 /// #[component]
-/// pub fn App(cx: Scope) -> impl IntoView {
+/// pub fn App() -> impl IntoView {
 /// let chart = CartesianGroup::new()
 ///     .set_view(840, 640, 3, 50, 50, 20)
 ///     .add_data(
@@ -35,7 +35,7 @@ use theta_chart::{color::Color, coord, series::Series};
 ///         Series::from(vec![0.3, 0.5, 0.9]),
 ///     );
 ///
-///     view!{ cx,
+///     view!{
 ///         <BarChartGroup chart=chart />
 ///     }
 /// }
@@ -63,7 +63,7 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn BarChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView {
+pub fn BarChartGroup(chart: coord::CartesianGroup) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -110,8 +110,7 @@ pub fn BarChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView {
         _ => x_is_label = false,
     }
 
-    view! { cx,
-
+    view! {
         <SvgChart cview={cview}>
             <g class="axes">
                 <g class="x-axis" transform={translate_xa}>
@@ -128,7 +127,7 @@ pub fn BarChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView {
                     {
                         let vector = rec_chart.get_vector();
                         let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                        view! {cx,
+                        view! {
                             <circle id="origin" cx="0" cy="0" r="3" />
                             <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#00ff0033;stroke-width:2" />
                             <path id="region" d=path  fill="#00ff0033" />
@@ -161,7 +160,7 @@ pub fn BarChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView {
                                 let label = data.label;
                                 let x: f64 = ((series_x_group.scale_index(label.clone()) as f64/ (len_group as f64)) as f64) * vector.get_x() + (position * index as f64 + position/2. + 0.05) * interval ;
                                 let y: f64 = series_y_group.scale(ystick[indexi].value) *vector.get_y();
-                                view! {cx,
+                                view! {
                                     <line x1=x y1="0" x2=x y2=y style=style.clone() />
                                 }
                             })
@@ -191,7 +190,7 @@ pub fn BarChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView {
                                 let x: f64 = series_x_group.scale(xstick[indexi].value) *vector.get_x();
                                 let y: f64 = ((series_y_group.scale_index(label.clone()) as f64/ (len_group as f64)) as f64) * vector.get_y() + (position * index as f64 + position/2. + 0.05) * interval ;
 
-                                view! {cx,
+                                view! {
                                     <line x1="0" y1=y x2=x y2=y style=style.clone() />
                                 }
                             })
