@@ -15,7 +15,7 @@ pub fn YAxis(region: Rec, axes: Axes) -> impl IntoView {
         text_anchor = "end";
     }
 
-    view! {cx,
+    view! {
         // Draw region of y-axis
         {
             #[cfg(feature = "debug")]
