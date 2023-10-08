@@ -1,0 +1,5 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./leptos_chart/Cargo.toml"
+    ]
+}

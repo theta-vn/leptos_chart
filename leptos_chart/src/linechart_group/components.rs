@@ -2,7 +2,7 @@ use crate::{
     axes::{XAxis, YAxis},
     core::SvgChart,
 };
-use leptos::{component, view, IntoView, Scope};
+use leptos::{component, view, IntoView};
 use theta_chart::{color::Color, coord, series::Series};
 
 /// Component LineChart for leptos
@@ -13,8 +13,8 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.4.1"}
-/// leptos_chart = {version = "0.1.0", features = ["LineChartGroup"]}
+/// leptos = {version = "0.5"}
+/// leptos_chart = {version = "0.2", features = ["LineChartGroup"]}
 /// ```
 ///
 /// ## Component
@@ -23,7 +23,7 @@ use theta_chart::{color::Color, coord, series::Series};
 /// use leptos_chart::*;
 ///
 /// #[component]
-/// pub fn App(cx: Scope) -> impl IntoView {
+/// pub fn App() -> impl IntoView {
 ///     let chart = CartesianGroup::new()    
 ///         .set_view(840, 640, 3, 50, 50, 20)   
 ///         .add_data(
@@ -35,7 +35,7 @@ use theta_chart::{color::Color, coord, series::Series};
 ///             Series::from(vec![0., 1.0, 2., 3.]),        
 ///         );
 ///
-///     view!{ cx,
+///     view!{
 ///         <LineChartGroup chart=chart />
 ///     }
 /// }
@@ -63,7 +63,7 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView {
+pub fn LineChartGroup(chart: coord::CartesianGroup) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -104,10 +104,8 @@ pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView 
         yseries.push(tup.1);
     }
 
-    view! { cx,
-
+    view! {
         <SvgChart cview={cview}>
-
             <g class="axes">
                 <g class="x-axis" transform={translate_xa}>
                     <XAxis region=rec_xa axes=axes_x />
@@ -123,7 +121,7 @@ pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView 
                     {
                         let vector = rec_chart.get_vector();
                         let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                        view! {cx,
+                        view! {
                             <circle id="originY" cx="0" cy="0" r="3" />
                             <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#00ff0033;stroke-width:2" />
                             <path id="regionY" d=path  fill="#00ff0033" />
@@ -146,12 +144,12 @@ pub fn LineChartGroup(cx: Scope, chart: coord::CartesianGroup) -> impl IntoView 
                             let x: f64 = series_x_group.scale(d.value) * vector.get_x();
                             let y: f64 = series_y_group.scale(ysticks[i].value) *vector.get_y();
                             line.push_str(format!(" {:.0},{:.0} ", x, y).as_str());
-                            view! {cx,
+                            view! {
                                 <circle cx={x} cy={y}  r="3"  fill=color.to_string_hex() />
                             }
                         }).collect::<Vec<_>>();
 
-                        view! {cx,
+                        view! {
                             {point}
                             <path d={line} stroke={color.to_string_hex()} fill="none" stroke-width=2 />
                         }
