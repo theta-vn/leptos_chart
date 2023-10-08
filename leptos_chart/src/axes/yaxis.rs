@@ -43,6 +43,8 @@ pub fn YAxis(region: Rec, axes: Axes) -> impl IntoView {
                             x=mark_origin_x
                             dominant-baseline="middle"
                             text-anchor=text_anchor
+                            stroke="currentColor"
+                            fill="currentColor"
                         >
                             {stick.label}
                         </text>

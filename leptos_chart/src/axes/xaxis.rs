@@ -50,6 +50,8 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
                                 x={dx}
                                 dominant-baseline={baseline}
                                 text-anchor=text_anchor
+                                stroke="currentColor"
+                                fill="currentColor"
                                 style=style
                             >
                                 {stick.label}
