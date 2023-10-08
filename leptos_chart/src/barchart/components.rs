@@ -13,8 +13,8 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.4.1"}
-/// leptos_chart = {version = "0.1.0", features = ["BarChart"]}
+/// leptos = {version = "0.5"}
+/// leptos_chart = {version = "0.2.0", features = ["BarChart"]}
 /// ```
 ///
 /// ## Component
@@ -23,7 +23,7 @@ use theta_chart::{color::Color, coord, series::Series};
 /// use leptos_chart::*;
 ///
 /// #[component]
-/// pub fn App(cx: Scope) -> impl
+/// pub fn App() -> impl
 /// IntoView {
 ///     let chart_v = Cartesian::new(
 ///         Series::from(vec!["A", "B", "C"]),
@@ -31,7 +31,7 @@ use theta_chart::{color::Color, coord, series::Series};
 ///     )
 ///     .set_view(820, 620, 3, 50, 50, 20);
 ///
-///     view!{ cx,
+///     view!{
 ///         <BarChart data=data />
 ///     }
 /// }

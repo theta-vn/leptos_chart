@@ -1,10 +1,6 @@
-use crate::core::{SvgPolar, REM};
+use crate::core::SvgPolar;
 use leptos::{component, view, IntoView};
-use theta_chart::{
-    chart::{ScaleLabel, ScaleNumber},
-    color::Color,
-    coord,
-};
+use theta_chart::{chart::ScaleNumber, color::Color, coord};
 
 /// Component RadarChart for leptos
 ///
@@ -14,8 +10,8 @@ use theta_chart::{
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.4.1"}
-/// leptos_chart = {version = "0.1.0", features = ["RadarChart"]}
+/// leptos = {version = "0.5"}
+/// leptos_chart = {version = "0.2", features = ["RadarChart"]}
 /// ```
 ///
 /// ## Component
@@ -24,7 +20,7 @@ use theta_chart::{
 /// use leptos_chart::*;
 ///
 /// #[component]
-/// pub fn App(cx: Scope) -> impl IntoView {
+/// pub fn App() -> impl IntoView {
 ///
 ///     let chart = Polar::new(
 ///         Series::from(vec![85.0, 55.0, 45., 60., 40.]),
@@ -32,7 +28,7 @@ use theta_chart::{
 ///     )
 ///     .set_view(740, 540, 2, 0, 20);
 ///
-///     view! {cx,
+///     view! {
 ///         <div class="mx-auto p-8">
 ///             <RadarChart chart=chart />
 ///         </div>
@@ -87,7 +83,7 @@ pub fn RadarChart(chart: coord::Polar) -> impl IntoView {
                     #[cfg(all(feature = "debug"))]
                     {
                         let radius = circle_chart.get_radius();
-                        view! {cx,
+                        view! {
                             <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"/>
                         }
                     }

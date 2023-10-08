@@ -13,8 +13,8 @@ use theta_chart::coord;
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.4.1"}
-/// leptos_chart = {version = "0.1.0", features = ["LineChart"]}
+/// leptos = {version = "0.5"}
+/// leptos_chart = {version = "0.2", features = ["LineChart"]}
 /// ```
 ///
 /// ## Component
@@ -23,14 +23,14 @@ use theta_chart::coord;
 /// use leptos_chart::*;
 ///
 /// #[component]
-/// pub fn App(cx: Scope) -> impl IntoView {
+/// pub fn App() -> impl IntoView {
 ///     let chart = Cartesian::new(
 ///         Series::from(vec![1.0, 6.0, 9.]),
 ///         Series::from(vec![1.0, 3.0, 5.])
 ///     )
 ///     .set_view(820, 620, 3, 100, 100, 20);
 ///
-///     view!{ cx,
+///     view!{
 ///         <LineChart chart=chart />
 ///     }
 /// }
@@ -97,8 +97,7 @@ pub fn LineChart(chart: coord::Cartesian) -> impl IntoView {
     let ysticks = yseries.to_stick();
 
     if chart.get_error() == String::default() {
-        view! { cx,
-
+        view! {
             <SvgChart cview={cview}>
                 <g class="axes">
                     <g class="x-axis" transform={translate_xa}>
@@ -146,7 +145,7 @@ pub fn LineChart(chart: coord::Cartesian) -> impl IntoView {
     } else {
         let err = chart.get_error();
         log::error!("{}", err);
-        view! {cx,
+        view! {
             <SvgChart cview={cview} >
                 <g></g>
             </SvgChart>

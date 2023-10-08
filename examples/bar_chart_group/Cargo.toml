@@ -4,15 +4,10 @@ version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-leptos = { version = "0.5", features=["csr"]}
-leptos_chart = {path = "../../leptos_chart", version = "0.2.0", features = ["BarChartGroup", "debug"]}
+leptos = { version = "0.5", features = ["csr"] }
+leptos_chart = { path = "../../leptos_chart", version = "0.2.0", features = [
+    "BarChartGroup",
+    "debug",
+] }
 wasm-logger = "0.2.0"
-
-log = "0.4"
-
-[dev-dependencies]
-wasm-bindgen = "0.2"
-wasm-bindgen-test = "0.3"
-web-sys = "0.3" 

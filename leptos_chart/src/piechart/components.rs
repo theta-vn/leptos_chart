@@ -13,8 +13,8 @@ use theta_chart::{
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.4.1"}
-/// leptos_chart = {version = "0.1.0", features = ["PieChart"]}
+/// leptos = {version = "0.5"}
+/// leptos_chart = {version = "0.2", features = ["PieChart"]}
 /// ```
 ///
 /// ## Component
@@ -23,14 +23,14 @@ use theta_chart::{
 /// use leptos_chart::*;
 ///
 /// #[component]
-/// pub fn App(cx: Scope) -> impl IntoView {
+/// pub fn App() -> impl IntoView {
 ///     let chart = Polar::new(
 ///         Series::from(vec![1.0, 2.0, 3.]),
 ///         Series::from(vec!["A", "B", "C"])
 ///     )
 ///     .set_view(740, 540, 2, 200, 20);
 ///
-///     view!{ cx,
+///     view!{
 ///         <PieChart chart=chart />
 ///     }
 /// }
