@@ -274,7 +274,7 @@ pub fn App() -> impl IntoView {
     )
     .set_view(740, 540, 1, 0, 20);
 
-    view! {cx,
+    view! {
         <div class="mx-auto p-8">
             <h1>"Radar chart example"</h1>
             <RadarChart chart=chart />

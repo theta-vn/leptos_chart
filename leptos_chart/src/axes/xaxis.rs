@@ -37,7 +37,7 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
             }
         }
         // Draw x-axis
-        <g class="stick">
+        <g class="stick" dominant-baseline={baseline} text-anchor=text_anchor style=style>
             <line x1="0" y1="0" x2=vector.get_x() y2="0" style="stroke:rgb(255,0,0)" />
             <line x1="0" y1="0" x2="0" y2={mark_origin_y} style="stroke:rgb(255,0,0)" />
                 {
@@ -47,10 +47,7 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
                             <line x1=dx y1="0" x2=dx y2={mark_origin_y/2.} style="stroke:rgb(255,0,0)" />
                             <text
                                 y={mark_origin_y}
-                                x={dx}
-                                dominant-baseline={baseline}
-                                text-anchor=text_anchor
-                                style=style
+                                x={dx}                                
                             >
                                 {stick.label}
                             </text>
@@ -58,7 +55,6 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
                     })
                     .collect::<Vec<_>>()
                 }
-
         </g>
     }
 }

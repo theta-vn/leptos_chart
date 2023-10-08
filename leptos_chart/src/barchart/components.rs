@@ -157,7 +157,6 @@ pub fn BarChart(chart: coord::Cartesian) -> impl IntoView {
                         })
                         .collect::<Vec<_>>()
                     }
-
                 }
             </g>
         </SvgChart>
