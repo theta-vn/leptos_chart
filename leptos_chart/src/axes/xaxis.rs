@@ -47,7 +47,9 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
                             <line x1=dx y1="0" x2=dx y2={mark_origin_y/2.} style="stroke:rgb(255,0,0)" />
                             <text
                                 y={mark_origin_y}
-                                x={dx}
+                                x={dx}                                
+                                stroke="currentColor"
+                                fill="currentColor"
                                 style=style
                             >
                                 {stick.label}
