@@ -40,6 +40,8 @@ pub fn YAxis(region: Rec, axes: Axes) -> impl IntoView {
                         <text
                             y=dy
                             x=mark_origin_x
+                            stroke="currentColor"
+                            fill="currentColor"
                         >
                             {stick.label}
                         </text>

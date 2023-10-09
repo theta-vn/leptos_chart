@@ -8,6 +8,6 @@ edition = "2021"
 leptos = { version = "0.5", features = ["csr"] }
 leptos_chart = { path = "../../leptos_chart", version = "0.2.0", features = [
     "LineChartGroup",
-    "debug",
+    # "debug",
 ] }
 wasm-logger = "0.2.0"
