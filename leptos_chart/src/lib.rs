@@ -29,6 +29,9 @@ mod core;
 #[cfg(any(doc, feature = "core"))]
 pub use self::core::Series;
 
+#[cfg(any(doc, feature = "core"))]
+pub use self::core::Color;
+
 #[cfg(any(doc, feature = "Axes"))]
 mod axes;
 

@@ -49,6 +49,7 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
                                 y={mark_origin_y}
                                 x={dx}
                                 style=style
+                                fill="currentColor"
                             >
                                 {stick.label}
                             </text>

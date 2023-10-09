@@ -39,7 +39,8 @@ pub fn YAxis(region: Rec, axes: Axes) -> impl IntoView {
                         <line x1="0" y1=dy x2={mark_origin_x/2.} y2=dy />
                         <text
                             y=dy
-                            x=mark_origin_x                            
+                            x=mark_origin_x  
+                            fill="currentColor"                          
                         >
                             {stick.label}
                         </text>
