@@ -9,14 +9,20 @@ description = "Chart library for leptos"
 readme = "../README.md"
 
 [dependencies]
+<<<<<<< HEAD
 leptos = {version = "0.5",  features = ["csr"]}
 theta-chart = { version = "0.0.7"}
+=======
+leptos = { version = "0.5", features = ["csr"] }
+theta-chart = { version = "0.0.6" }
+>>>>>>> e07dd27 (Make SvgChart and Axes public.)
 log = "0.4"
 
 [features]
 default = ["csr"]
 core = []
-Axes = []
+SvgChart = ["core"]
+Axes = ["core"]
 debug = []
 
 PieChart = ["core"]

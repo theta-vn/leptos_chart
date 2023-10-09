@@ -24,6 +24,9 @@
 
 #![warn(missing_docs)]
 
+#[cfg(any(doc, feature = "SvgChart"))]
+pub use self::core::svg_chart::*;
+
 #[cfg(any(doc, feature = "core"))]
 mod core;
 #[cfg(any(doc, feature = "core"))]
@@ -34,6 +37,8 @@ pub use self::core::Color;
 
 #[cfg(any(doc, feature = "Axes"))]
 mod axes;
+#[cfg(any(doc, feature = "Axes"))]
+pub use self::axes::*;
 
 #[cfg(any(doc, feature = "PieChart"))]
 mod piechart;

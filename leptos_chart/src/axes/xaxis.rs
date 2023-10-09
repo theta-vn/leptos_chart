@@ -1,8 +1,6 @@
-use leptos::{component, view, IntoView};
-use theta_chart::coord::{Axes, Rec};
-
 use crate::core::REM;
-
+use leptos::{component, tracing, view, IntoView};
+use theta_chart::coord::{Axes, Rec};
 #[allow(non_snake_case)]
 #[component]
 pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
@@ -48,6 +46,8 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
                             <text
                                 y={mark_origin_y}
                                 x={dx}
+                                stroke="currentColor"
+                                fill="currentColor"
                                 style=style
                                 fill="currentColor"
                                 stroke="none"

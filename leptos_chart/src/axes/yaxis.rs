@@ -1,4 +1,4 @@
-use leptos::{component, view, IntoView};
+use leptos::{component, tracing, view, IntoView};
 use theta_chart::coord::{Axes, Rec};
 
 use crate::core::REM;

@@ -1,4 +1,4 @@
-mod svg_chart;
+pub mod svg_chart;
 pub use self::svg_chart::*;
 
 mod svg_polar;

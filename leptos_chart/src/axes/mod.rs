@@ -1,5 +1,5 @@
 mod xaxis;
-pub(crate) use self::xaxis::XAxis;
+pub use self::xaxis::XAxis;
 
 mod yaxis;
-pub(crate) use self::yaxis::YAxis;
+pub use self::yaxis::YAxis;
