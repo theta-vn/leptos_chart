@@ -29,7 +29,7 @@ pub fn YAxis(region: Rec, axes: Axes) -> impl IntoView {
             }
         }
         // Draw y-axis
-        <g class="stick">
+        <g class="stick" dominant-baseline="middle" text-anchor=text_anchor >
             <line x1="0" y1="0" x2="0" y2=vector.get_y() style="stroke:rgb(0,0,255)" />
             <line x1="0" y1="0" x2=mark_origin_x y2="0" style="stroke:rgb(0,0,255)" />
 
@@ -41,8 +41,6 @@ pub fn YAxis(region: Rec, axes: Axes) -> impl IntoView {
                         <text
                             y=dy
                             x=mark_origin_x
-                            dominant-baseline="middle"
-                            text-anchor=text_anchor
                             stroke="currentColor"
                             fill="currentColor"
                         >
