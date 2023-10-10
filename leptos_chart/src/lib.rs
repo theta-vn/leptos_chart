@@ -69,3 +69,8 @@ pub use self::scatterchart::*;
 mod radarchart;
 #[cfg(any(doc, feature = "RadarChart"))]
 pub use self::radarchart::*;
+
+#[cfg(any(doc, feature = "Delaunay"))]
+mod delaunay;
+#[cfg(any(doc, feature = "Delaunay"))]
+pub use self::delaunay::*;

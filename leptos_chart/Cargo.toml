@@ -27,6 +27,7 @@ BarChartGroup = ["core", "Axes"]
 LineChart = ["core", "Axes"]
 LineChartGroup = ["core", "Axes"]
 ScatterChart = ["core", "Axes"]
+Delaunay = ["core", "Axes"]
 
 csr = ["leptos/csr"]
 hydrate = ["leptos/hydrate"]
