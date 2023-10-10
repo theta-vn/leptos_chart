@@ -65,6 +65,7 @@ pub fn Delaunay(
     #[prop(default = Color::default())] color: Color,
 ) -> impl IntoView {
     let cview = chart.get_view();
+    
 
     // For Chart
     let rec_chart = cview.get_rec_chart();
@@ -82,6 +83,7 @@ pub fn Delaunay(
         rec_xa.get_origin().get_y()
     );
     let series_x = chart.get_ax();
+    
     let axes_x = series_x.gen_axes();
 
     // For y-axis
@@ -99,6 +101,9 @@ pub fn Delaunay(
     let yseries = chart.get_ay();
     let xsticks = xseries.to_stick();
     let ysticks = yseries.to_stick();
+
+    // For delaunay
+    log::debug!("{:#?}", xseries);
 
     view! {
         <SvgChart cview={cview}>
