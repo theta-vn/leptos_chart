@@ -13,11 +13,13 @@ pub fn App() -> impl IntoView {
         Series::from(vec!["A", "B", "C"]),
     )
     .set_view(740, 540, 1, 200, 20);
+    let color = Color::from("#ff0000");
+    let shift_degrees = 120.;
 
     view! {
         <div class="mx-auto p-8">
             <h1>"Pie chart example with right label"</h1>
-            <PieChart chart=chart />
+            <PieChart chart=chart color=color shift_degrees=shift_degrees/>
         </div>
     }
 }

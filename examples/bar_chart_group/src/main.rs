@@ -19,10 +19,13 @@ pub fn App() -> impl IntoView {
             Series::from(vec![0.3, 0.5, 0.9]),
         );
 
+    let color = Color::from("#ff0000");
+    let shift_degrees = 180.0;
+
     view! {
         <div class="mx-auto p-8">
             <h1>"Bar chart group example"</h1>
-            <BarChartGroup chart=chart />
+            <BarChartGroup chart=chart color=color shift_degrees=shift_degrees />
         </div>
     }
 }

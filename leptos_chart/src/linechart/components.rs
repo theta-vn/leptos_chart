@@ -3,7 +3,7 @@ use crate::{
     core::SvgChart,
 };
 use leptos::{component, view, IntoView};
-use theta_chart::coord;
+use theta_chart::{color::Color, coord};
 
 /// Component LineChart for leptos
 ///
@@ -29,9 +29,11 @@ use theta_chart::coord;
 ///         Series::from(vec![1.0, 3.0, 5.])
 ///     )
 ///     .set_view(820, 620, 3, 100, 100, 20);
+///     let color = Color::from("#ff0000");
 ///
+///     // color is option
 ///     view!{
-///         <LineChart chart=chart />
+///         <LineChart chart=chart color=color />
 ///     }
 /// }
 /// ```
@@ -58,7 +60,10 @@ use theta_chart::coord;
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn LineChart(chart: coord::Cartesian) -> impl IntoView {
+pub fn LineChart(
+    chart: coord::Cartesian,
+    #[prop(default = Color::default())] color: Color,
+) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -136,7 +141,7 @@ pub fn LineChart(chart: coord::Cartesian) -> impl IntoView {
 
                         view! {
                             {point}
-                            <path d={line} stroke="red" fill="none"/>
+                            <path d={line} stroke={color.to_string_hex()} fill="none"/>
                         }
                     }
                 </g>

@@ -34,9 +34,13 @@ use theta_chart::{color::Color, coord, series::Series};
 ///         Series::from(vec!["A", "B", "C"]),
 ///         Series::from(vec![0.3, 0.5, 0.9]),
 ///     );
+///     
+///     let color = Color::from("#ff0000");
+///     let shift_degrees = 180.0;
 ///
 ///     view!{
-///         <BarChartGroup chart=chart />
+///         // color and shift_degrees are options
+///         <BarChartGroup chart=chart color=color shift_degrees=shift_degrees />
 ///     }
 /// }
 /// ```
@@ -63,7 +67,11 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn BarChartGroup(chart: coord::CartesianGroup) -> impl IntoView {
+pub fn BarChartGroup(
+    chart: coord::CartesianGroup,
+    #[prop(default = Color::default())] color: Color,
+    #[prop(default = 70.)] shift_degrees: f32,
+) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -142,12 +150,11 @@ pub fn BarChartGroup(chart: coord::CartesianGroup) -> impl IntoView {
                         let len = xseries.len();
                         let position = 0.9 / len as f64;
                         let len_group = series_x_group.get_count();
-                        let mut color = Color::default();
+
 
                         xseries.into_iter().enumerate().map(|(index, series_x)|  {
-                            if index !=0 {
-                                color = color.shift_hue();
-                            }
+                            let color = color.shift_hue_degrees_index(shift_degrees, index);
+
                             let xstick = series_x.to_stick();
                             let ystick = yseries[index].to_stick();
 
@@ -171,13 +178,9 @@ pub fn BarChartGroup(chart: coord::CartesianGroup) -> impl IntoView {
                         let len = yseries.len();
                         let position = 0.9 / len as f64;
                         let len_group = series_y_group.get_count();
-                        let mut color = Color::default();
 
                         yseries.into_iter().enumerate().map(|(index, series_y)|  {
-                            if index !=0 {
-                                color = color.shift_hue();
-                            }
-
+                            let color = color.shift_hue_degrees_index(shift_degrees, index);
                             let xstick = xseries[index].to_stick();
                             let ystick = series_y.to_stick();
 

@@ -10,3 +10,6 @@ pub(crate) const REM: f64 = 16.;
 
 #[cfg(any(doc, feature = "core"))]
 pub use theta_chart::series::Series;
+
+#[cfg(any(doc, feature = "core"))]
+pub use theta_chart::color::Color;

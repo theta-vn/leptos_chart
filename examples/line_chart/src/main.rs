@@ -13,11 +13,12 @@ pub fn App() -> impl IntoView {
         Series::from((vec!["1982-03", "1982-07", "1983-02", "1983-04"], "%Y-%m", "month")),        
     )
     .set_view(820, 620, 3, 100, 100, 20);
+    let color = Color::from("#ff0000");
 
     view! {
         <div class="mx-auto p-8">
             <h1>"Line chart example"</h1>
-            <LineChart chart=chart />
+            <LineChart chart=chart color=color />
         </div>
     }
 }
