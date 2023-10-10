@@ -30,8 +30,10 @@ use theta_chart::{color::Color, coord};
 ///     )
 ///     .set_view(820, 620, 3, 100, 100, 20);
 ///
+///     let color = Color::from("#ff0000");
 ///     view!{
-///         <ScatterChart chart=chart />
+///         // color is option
+///         <ScatterChart chart=chart color=color />
 ///     }
 /// }
 /// ```
@@ -58,7 +60,10 @@ use theta_chart::{color::Color, coord};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn ScatterChart(chart: coord::Cartesian) -> impl IntoView {
+pub fn ScatterChart(
+    chart: coord::Cartesian,
+    #[prop(default = Color::default())] color: Color,
+) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -120,7 +125,6 @@ pub fn ScatterChart(chart: coord::Cartesian) -> impl IntoView {
                     }
                 }
                 {
-                    let color = Color::default();
                     let vector = rec_chart.get_vector();
                     xsticks.into_iter().enumerate().map(|(index, data)|  {
                         let x: f64 = xseries.scale(data.value) * vector.get_x();

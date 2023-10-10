@@ -36,6 +36,7 @@ use theta_chart::{color::Color, coord, series::Series};
 ///         );
 ///
 ///     view!{
+///         // color and shift_degrees are options
 ///         <LineChartGroup chart=chart />
 ///     }
 /// }
@@ -63,7 +64,11 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn LineChartGroup(chart: coord::CartesianGroup) -> impl IntoView {
+pub fn LineChartGroup(
+    chart: coord::CartesianGroup,
+    #[prop(default = Color::default())] color: Color,
+    #[prop(default = 70.)] shift_degrees: f32,
+) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -132,10 +137,7 @@ pub fn LineChartGroup(chart: coord::CartesianGroup) -> impl IntoView {
                     let vector = rec_chart.get_vector();
 
                     xseries.into_iter().enumerate().map(|(index, datax)|  {
-                        let mut color = Color::default();
-                        if index !=0 {
-                            color = color.shift_hue();
-                        }
+                        let color = color.shift_hue_degrees_index(shift_degrees, index);
 
                         let xsticks = datax.to_stick();
                         let ysticks = yseries[index].to_stick();

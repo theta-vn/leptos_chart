@@ -2,6 +2,7 @@
 members = [  
   "leptos_chart",
 ]
+resolver = "2"
 exclude = ["examples"]
 
 [workspace.package]

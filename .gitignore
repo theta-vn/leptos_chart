@@ -4,5 +4,4 @@
 **/target
 **/dist
 **/node_modules
-
-
+.vscode/

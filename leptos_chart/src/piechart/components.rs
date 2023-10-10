@@ -1,9 +1,6 @@
 use crate::core::{SvgPolar, REM};
 use leptos::{component, view, IntoView};
-use theta_chart::{
-    chart::{ScaleLabel, ScaleNumber},
-    coord,
-};
+use theta_chart::{chart::ScaleNumber, color::Color, coord};
 
 /// Component PieChart for leptos
 ///
@@ -30,8 +27,12 @@ use theta_chart::{
 ///     )
 ///     .set_view(740, 540, 2, 200, 20);
 ///
+///     let color = Color::from("#ff0000");
+///     let shift_degrees = 120.;
+///     
 ///     view!{
-///         <PieChart chart=chart />
+///         // color and shift_degrees are options
+///         <PieChart chart=chart color=color shift_degrees=shift_degrees />
 ///     }
 /// }
 /// ```
@@ -56,7 +57,11 @@ use theta_chart::{
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn PieChart(chart: coord::Polar) -> impl IntoView {
+pub fn PieChart(
+    chart: coord::Polar,
+    #[prop(default = Color::default())] color: Color,
+    #[prop(default = 70.)] shift_degrees: f32,
+) -> impl IntoView {
     let pview = chart.get_view();
 
     // For processing SNumber
@@ -102,7 +107,7 @@ pub fn PieChart(chart: coord::Polar) -> impl IntoView {
                 }
                 {
                     slabel.labels().into_iter().enumerate().map(|(index, label)|  {
-                        let color = &slabel.colors()[index];
+                        let color = color.shift_hue_degrees_index(shift_degrees, index);
                         let py = index as f64 * 1.5 * REM;
                         view! {
                             <text x={1.5 * REM} y={py} dominant-baseline="text-before-edge">{format!("{}: {}",label, series[index])}</text>
@@ -127,7 +132,7 @@ pub fn PieChart(chart: coord::Polar) -> impl IntoView {
 
                 {
                     vec_arc.into_iter().enumerate().map(|(index, data)|  {
-                        let color = &slabel.colors()[index];
+                        let color = color.shift_hue_degrees_index(shift_degrees, index);
                         let radius = circle_chart.get_radius();
                         view! {
                             <path  fill={color.to_string_hex()} stroke="#ffffff" stroke-width="1" d={data.gen_path(radius)} />

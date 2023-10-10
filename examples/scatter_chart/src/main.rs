@@ -13,11 +13,12 @@ pub fn App() -> impl IntoView {
         Series::from(vec![7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15]).set_range(6., 16.),
     )
     .set_view(820, 620, 3, 100, 100, 20);
+    let color = Color::from("#ff0000");
 
     view! {
         <div class="mx-auto p-8">
             <h1>"Scatter chart example"</h1>
-            <ScatterChart chart=chart />
+            <ScatterChart chart=chart color=color />
         </div>
     }
 }

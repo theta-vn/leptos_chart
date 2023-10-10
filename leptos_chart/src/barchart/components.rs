@@ -31,8 +31,11 @@ use theta_chart::{color::Color, coord, series::Series};
 ///     )
 ///     .set_view(820, 620, 3, 50, 50, 20);
 ///
+///     let color = Color::from("#ff0000");  
+///
 ///     view!{
-///         <BarChart data=data />
+///         // color is option
+///         <BarChart data=data color=color />
 ///     }
 /// }
 /// ```
@@ -62,7 +65,10 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn BarChart(chart: coord::Cartesian) -> impl IntoView {
+pub fn BarChart(
+    chart: coord::Cartesian,
+    #[prop(default = Color::default())] color: Color,
+) -> impl IntoView {
     let cview = chart.get_view();
 
     // For Chart
@@ -107,7 +113,7 @@ pub fn BarChart(chart: coord::Cartesian) -> impl IntoView {
 
     view! {
         <SvgChart cview={cview}>
-            <g class="axes">
+            <g class="axes" >
                 <g class="x-axis" transform={translate_xa}>
                     <XAxis region=rec_xa axes=axes_x />
                 </g>
@@ -132,7 +138,6 @@ pub fn BarChart(chart: coord::Cartesian) -> impl IntoView {
 
                 {
                     let vector = rec_chart.get_vector();
-                    let color = Color::default();
                     if x_is_label {
                         let width_col = xseries.scale(0.9) * vector.get_x();
                         let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
@@ -157,7 +162,6 @@ pub fn BarChart(chart: coord::Cartesian) -> impl IntoView {
                         })
                         .collect::<Vec<_>>()
                     }
-
                 }
             </g>
         </SvgChart>

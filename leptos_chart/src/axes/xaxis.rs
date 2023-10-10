@@ -37,20 +37,20 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
             }
         }
         // Draw x-axis
-        <g class="stick" dominant-baseline={baseline} text-anchor=text_anchor>
-            <line x1="0" y1="0" x2=vector.get_x() y2="0" style="stroke:rgb(255,0,0)" />
-            <line x1="0" y1="0" x2="0" y2={mark_origin_y} style="stroke:rgb(255,0,0)" />
+        <g class="stick" dominant-baseline={baseline} text-anchor=text_anchor stroke="currentColor">
+            <line x1="0" y1="0" x2=vector.get_x() y2="0" />
+            <line x1="0" y1="0" x2="0" y2={mark_origin_y} />
                 {
                     axes.sticks.into_iter().map(|stick| {
                         let dx = stick.value * vector.get_x();
                         view! {
-                            <line x1=dx y1="0" x2=dx y2={mark_origin_y/2.} style="stroke:rgb(255,0,0)" />
+                            <line x1=dx y1="0" x2=dx y2={mark_origin_y/2.} />
                             <text
                                 y={mark_origin_y}
-                                x={dx}                                
-                                stroke="currentColor"
-                                fill="currentColor"
+                                x={dx}
                                 style=style
+                                fill="currentColor"
+                                stroke="none"
                             >
                                 {stick.label}
                             </text>
@@ -58,7 +58,6 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
                     })
                     .collect::<Vec<_>>()
                 }
-
         </g>
     }
 }

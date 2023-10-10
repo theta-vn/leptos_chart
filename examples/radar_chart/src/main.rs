@@ -13,11 +13,11 @@ pub fn App() -> impl IntoView {
         Series::from(vec!["Reading", "Writing", "Listening", "Speaking", "React"]),
     )
     .set_view(740, 540, 1, 0, 20);
-
+    let color = Color::from("#ff0000");
     view! {
         <div class="mx-auto p-8">
             <h1>"Radar chart example"</h1>
-            <RadarChart chart=chart />
+            <RadarChart chart=chart color=color />
         </div>
     }
 }
