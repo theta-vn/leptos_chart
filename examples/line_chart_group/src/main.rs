@@ -19,11 +19,13 @@ pub fn App() -> impl IntoView {
         Series::from((vec!["1982", "1986", "2017", "2020"], "%Y", "year")),
         Series::from(vec![0., 1.0, 2., 3.]),        
     );
+    let color = Color::from("#ff0000");
+    let shift_degrees = 180.0;
 
     view! {
         <div class="mx-auto p-8">
             <h1>"Line chart group example"</h1>
-            <LineChartGroup chart=chart />
+            <LineChartGroup chart=chart color=color shift_degrees=shift_degrees/>
         </div>
     }
 }

@@ -50,6 +50,7 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
                                 x={dx}
                                 style=style
                                 fill="currentColor"
+                                stroke="none"
                             >
                                 {stick.label}
                             </text>

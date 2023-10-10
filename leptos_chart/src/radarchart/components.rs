@@ -27,10 +27,11 @@ use theta_chart::{chart::ScaleNumber, color::Color, coord};
 ///         Series::from(vec!["Reading", "Writing", "Listening", "Speaking", "React"]),
 ///     )
 ///     .set_view(740, 540, 2, 0, 20);
-///
+///     let color = Color::from("#ff0000");
 ///     view! {
 ///         <div class="mx-auto p-8">
-///             <RadarChart chart=chart />
+///             // color is option
+///             <RadarChart chart=chart color=color />
 ///         </div>
 ///     }
 /// }
@@ -57,7 +58,10 @@ use theta_chart::{chart::ScaleNumber, color::Color, coord};
 ///
 #[allow(non_snake_case)]
 #[component]
-pub fn RadarChart(chart: coord::Polar) -> impl IntoView {
+pub fn RadarChart(
+    chart: coord::Polar,
+    #[prop(default = Color::default())] color: Color,
+) -> impl IntoView {
     let pview = chart.get_view();
 
     // For processing SNumber
@@ -120,7 +124,6 @@ pub fn RadarChart(chart: coord::Polar) -> impl IntoView {
                     grid100.push_str(" Z");
                     grid050.push_str(" Z");
                     line.push_str(" Z");
-                    let color = Color::default();
                     view! {
                         <text x=0 y={radius * -0.5} dominant-baseline="middle" text-anchor="middle" opacity=0.3>50</text>
                         <text x=0  y={radius * -1.} dominant-baseline="middle" text-anchor="middle" opacity=0.3>100</text>

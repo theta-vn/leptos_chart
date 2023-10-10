@@ -10,7 +10,7 @@ fn main() {
 pub fn App() -> impl IntoView {
     let chart_v = Cartesian::new(
         Series::from(vec!["A", "B", "C"]),
-        Series::from(vec![1.0, 6.0, 9.]),
+        Series::from(vec![1.0, 6.0, 9.0]),
     )
     .set_view(820, 620, 3, 50, 50, 20);
 
@@ -19,15 +19,14 @@ pub fn App() -> impl IntoView {
         Series::from(vec!["A", "B", "C"]),
     )
     .set_view(820, 620, 3, 30, 30, 20);
-    
+
     let color = Color::from("#ff0000");
-    let axis_color = Color::from("#ffff00");
-    
+
     view! {
         <div class="mx-auto p-8">
 
             <h1>"Bar chart example"</h1>
-            <BarChart chart=chart_v color=color axis_color=axis_color />
+            <BarChart chart=chart_v color=color />
 
             <h1>"Bar chart example"</h1>
             <BarChart chart=chart_h />

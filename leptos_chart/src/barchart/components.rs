@@ -31,8 +31,11 @@ use theta_chart::{color::Color, coord, series::Series};
 ///     )
 ///     .set_view(820, 620, 3, 50, 50, 20);
 ///
+///     let color = Color::from("#ff0000");  
+///
 ///     view!{
-///         <BarChart data=data />
+///         // color is option
+///         <BarChart data=data color=color />
 ///     }
 /// }
 /// ```
@@ -66,8 +69,6 @@ pub fn BarChart(
     chart: coord::Cartesian,
     #[prop(default = Color::default())] color: Color,
 ) -> impl IntoView {
-    // log::debug!("{:#?}", axis_color);
-
     let cview = chart.get_view();
 
     // For Chart
@@ -136,7 +137,7 @@ pub fn BarChart(
                 }
 
                 {
-                    let vector = rec_chart.get_vector();                    
+                    let vector = rec_chart.get_vector();
                     if x_is_label {
                         let width_col = xseries.scale(0.9) * vector.get_x();
                         let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
