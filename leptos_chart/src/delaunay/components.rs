@@ -3,7 +3,7 @@ use crate::{
     core::SvgChart,
 };
 use leptos::{component, view, IntoView};
-use theta_chart::{color::Color, coord};
+use theta_chart::{color::Color, coord, delaunator::*};
 
 /// Component ScatterChart for leptos
 ///
@@ -65,7 +65,6 @@ pub fn Delaunay(
     #[prop(default = Color::default())] color: Color,
 ) -> impl IntoView {
     let cview = chart.get_view();
-    
 
     // For Chart
     let rec_chart = cview.get_rec_chart();
@@ -83,7 +82,7 @@ pub fn Delaunay(
         rec_xa.get_origin().get_y()
     );
     let series_x = chart.get_ax();
-    
+
     let axes_x = series_x.gen_axes();
 
     // For y-axis
@@ -103,7 +102,17 @@ pub fn Delaunay(
     let ysticks = yseries.to_stick();
 
     // For delaunay
-    log::debug!("{:#?}", xseries);
+
+    let triangle = triangle(xseries.clone(), yseries.clone());
+    log::debug!("{:#?}", triangle);
+    let mut vec_trianle: Vec<(usize, usize, usize)> = [].to_vec();
+    for index in (0..triangle.triangles.len()).step_by(3) {
+        let p1_i = triangle.triangles[index];
+        let p2_i = triangle.triangles[index + 1];
+        let p3_i = triangle.triangles[index + 2];
+        vec_trianle.push((p1_i, p2_i, p3_i))
+    }
+    log::debug!("{:#?}", vec_trianle);
 
     view! {
         <SvgChart cview={cview}>
@@ -131,11 +140,31 @@ pub fn Delaunay(
                 }
                 {
                     let vector = rec_chart.get_vector();
-                    xsticks.into_iter().enumerate().map(|(index, data)|  {
+                    xsticks.clone().into_iter().enumerate().map(|(index, data)|  {
                         let x: f64 = xseries.scale(data.value) * vector.get_x();
                         let y: f64 = yseries.scale(ysticks[index].value) *vector.get_y();
                         view! {
                             <circle cx={x} cy={y}  r="4" fill=color.to_string_hex() />
+                        }
+                    }).collect::<Vec<_>>()
+                }
+                // For triangle
+                {
+                    let vector = rec_chart.get_vector();
+                    
+                    vec_trianle.into_iter().enumerate().map(|(_index, data)|  {
+                        let mut points = "".to_string();
+                        let px1 = xseries.scale(xsticks[data.0].value) * vector.get_x();
+                        let py1 = yseries.scale(ysticks[data.0].value) * vector.get_y();
+                        let px2 = xseries.scale(xsticks[data.1].value) * vector.get_x();
+                        let py2 = yseries.scale(ysticks[data.1].value) * vector.get_y();
+                        let px3 = xseries.scale(xsticks[data.2].value) * vector.get_x();
+                        let py3 = yseries.scale(ysticks[data.2].value) * vector.get_y();
+                        
+                        points.push_str(format!("{:.0},{:.0} {:.0},{:.0} {:.0},{:.0}", px1, py1, px2, py2, px3, py3).as_str());                        
+                        
+                        view! {
+                            <polygon points={points.clone()} class="triangle" fill="none" stroke={color.to_string_hex()}/>
                         }
                     }).collect::<Vec<_>>()
                 }

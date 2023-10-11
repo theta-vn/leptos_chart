@@ -9,15 +9,15 @@ fn main() {
 #[component]
 pub fn App() -> impl IntoView {
     let chart = Cartesian::new(
-        Series::from(vec![50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150]).set_range(40., 160.),
-        Series::from(vec![7, 8, 8, 9, 9, 9, 10, 11, 14, 14, 15]).set_range(6., 16.),
+        Series::from(vec![1, 12, 7, 9, 2, 4, 9]).set_range(0., 13.),
+        Series::from(vec![2, 4, 7, 1, 12, 4, 11]).set_range(0., 13.),
     )
-    .set_view(820, 620, 3, 100, 100, 20);
-    let color = Color::from("#ff0000");
+    .set_view(720, 720, 3, 80, 80, 20);
+    let color = Color::from("#0000ff");
 
     view! {
         <div class="mx-auto p-8">
-            <h1>"Scatter chart example"</h1>
+            <h1>"Delaunay example"</h1>
             <Delaunay chart=chart color=color />
         </div>
     }
