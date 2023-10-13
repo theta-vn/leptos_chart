@@ -9,6 +9,7 @@
 //! - [x] ScatterChart
 //! - [x] BarChartGroup
 //! - [x] LineChartGroup
+//! - [x] Voronoi
 //!
 //! ## Examples and Usage
 //! - [`PieChart`]
@@ -17,7 +18,7 @@
 //! - [`RadarChart`]
 //! - [`ScatterChart`]
 //! - [`BarChartGroup`]
-//! - [`LineChartGroup`]
+//! - [`Voronoi`]
 //!
 //! Check out the examples folder for helpful snippets of code, as well as minimal configurations that fit some of the most
 //! popular chart types. For more explanation, see the crate documentation.
@@ -69,3 +70,8 @@ pub use self::scatterchart::*;
 mod radarchart;
 #[cfg(any(doc, feature = "RadarChart"))]
 pub use self::radarchart::*;
+
+#[cfg(any(doc, feature = "Voronoi"))]
+mod voronoi;
+#[cfg(any(doc, feature = "Voronoi"))]
+pub use self::voronoi::*;

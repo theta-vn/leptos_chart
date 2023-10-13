@@ -89,58 +89,91 @@ pub fn PieChart(
     );
 
     view! {
-        <SvgPolar pview={pview}>
+      <SvgPolar pview=pview>
 
-            <g class="labels" transform={translate_label}>
-                // For draw region of label
-                {
-                    #[cfg(feature = "debug")]
-                    {
-                        let vector = rec_label.get_vector();
-                        let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                        view! {
-                            <circle id="origin" cx="0" cy="0" r="3" />
-                            <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#005bbe33;stroke-width:1" />
-                            <path id="regionX" d=path  fill="#005bbe33" />
-                        }
-                    }
-                }
-                {
-                    slabel.labels().into_iter().enumerate().map(|(index, label)|  {
-                        let color = color.shift_hue_degrees_index(shift_degrees, index);
-                        let py = index as f64 * 1.5 * REM;
-                        view! {
-                            <text x={1.5 * REM} y={py} dominant-baseline="text-before-edge">{format!("{}: {}",label, series[index])}</text>
-                            <rect x={0} y={py + (1.5 - 1.0) * REM / 2.} width=REM height=REM fill={color.to_string_hex()}></rect>
-                        }
-                    })
-                    .collect::<Vec<_>>()
-                }
-            </g>
-            <g class="inner-chart" transform={translate_chart} >
-                {
-                    #[cfg(all(feature = "debug"))]
-                    {
-                        let radius = circle_chart.get_radius();
-                        view! {
-                            <circle id="origin" cx=0 cy=0 r=3 />
-                            <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"/>
-                            <line x1="0" y1="0" x2=0 y2=-radius style="stroke:#00ff0033;stroke-width:2" />
-                        }
-                    }
-                }
+        <g class="labels" transform=translate_label>
+          // For draw region of label
 
-                {
-                    vec_arc.into_iter().enumerate().map(|(index, data)|  {
-                        let color = color.shift_hue_degrees_index(shift_degrees, index);
-                        let radius = circle_chart.get_radius();
-                        view! {
-                            <path  fill={color.to_string_hex()} stroke="#ffffff" stroke-width="1" d={data.gen_path(radius)} />
-                        }
-                    })
-                    .collect::<Vec<_>>()
-                }
-            </g>
-        </SvgPolar>
+          {#[cfg(feature = "debug")]
+          {
+              let vector = rec_label.get_vector();
+              let path = format!(
+                  "M {},{} l {},{} l {},{} l {},{} Z",
+                  0,
+                  0,
+                  vector.get_x(),
+                  0,
+                  0,
+                  vector.get_y(),
+                  -vector.get_x(),
+                  0,
+              );
+              view! {
+                <circle id="origin" cx="0" cy="0" r="3"></circle>
+                <line
+                  x1="0"
+                  y1="0"
+                  x2=vector.get_x()
+                  y2=vector.get_y()
+                  style="stroke:#005bbe33;stroke-width:1"
+                ></line>
+                <path id="regionX" d=path fill="#005bbe33"></path>
+              }
+          }}
+
+          {slabel
+              .labels()
+              .into_iter()
+              .enumerate()
+              .map(|(index, label)| {
+                  let color = color.shift_hue_degrees_index(shift_degrees, index);
+                  let py = index as f64 * 1.5 * REM;
+                  view! {
+                    <text x=1.5 * REM y=py dominant-baseline="text-before-edge">
+                      {format!("{}: {}", label, series[index])}
+                    </text>
+                    <rect
+                      x=0
+                      y=py + (1.5 - 1.0) * REM / 2.
+                      width=REM
+                      height=REM
+                      fill=color.to_string_hex()
+                    ></rect>
+                  }
+              })
+              .collect::<Vec<_>>()}
+
+        </g>
+        <g class="inner-chart" transform=translate_chart>
+
+          {#[cfg(all(feature = "debug"))]
+          {
+              let radius = circle_chart.get_radius();
+              view! {
+                <circle id="origin" cx=0 cy=0 r=3></circle>
+                <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"></circle>
+                <line x1="0" y1="0" x2=0 y2=-radius style="stroke:#00ff0033;stroke-width:2"></line>
+              }
+          }}
+
+          {vec_arc
+              .into_iter()
+              .enumerate()
+              .map(|(index, data)| {
+                  let color = color.shift_hue_degrees_index(shift_degrees, index);
+                  let radius = circle_chart.get_radius();
+                  view! {
+                    <path
+                      fill=color.to_string_hex()
+                      stroke="#ffffff"
+                      stroke-width="1"
+                      d=data.gen_path(radius)
+                    ></path>
+                  }
+              })
+              .collect::<Vec<_>>()}
+
+        </g>
+      </SvgPolar>
     }
 }

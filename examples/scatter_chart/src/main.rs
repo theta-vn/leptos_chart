@@ -16,9 +16,9 @@ pub fn App() -> impl IntoView {
     let color = Color::from("#ff0000");
 
     view! {
-        <div class="mx-auto p-8">
-            <h1>"Scatter chart example"</h1>
-            <ScatterChart chart=chart color=color />
-        </div>
+      <div class="mx-auto p-8">
+        <h1>"Scatter chart example"</h1>
+        <ScatterChart chart=chart color=color/>
+      </div>
     }
 }

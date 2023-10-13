@@ -16,9 +16,9 @@ pub fn App() -> impl IntoView {
     let color = Color::from("#ff0000");
 
     view! {
-        <div class="mx-auto p-8">
-            <h1>"Line chart example"</h1>
-            <LineChart chart=chart color=color />
-        </div>
+      <div class="mx-auto p-8">
+        <h1>"Line chart example"</h1>
+        <LineChart chart=chart color=color/>
+      </div>
     }
 }
