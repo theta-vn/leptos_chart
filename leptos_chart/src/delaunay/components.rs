@@ -105,21 +105,6 @@ pub fn Delaunay(
 
     let triangle = triangle(xseries.clone(), yseries.clone());
     log::debug!("{:#?}", triangle);
-    let mut vec_trianle: Vec<(usize, usize, usize)> = [].to_vec();
-    for index in (0..triangle.triangles.len()).step_by(3) {
-        let p1_i = triangle.triangles[index];
-        let p2_i = triangle.triangles[index + 1];
-        let p3_i = triangle.triangles[index + 2];
-        vec_trianle.push((p1_i, p2_i, p3_i))
-    }
-
-    let mut vec_hafledge: Vec<(usize, usize, usize)> = [].to_vec();
-    for index in (0..triangle.halfedges.len()).step_by(3) {
-        let e1_i = triangle.halfedges[index];
-        let e2_i = triangle.halfedges[index + 1];
-        let e3_i = triangle.halfedges[index + 2];
-        vec_hafledge.push((e1_i, e2_i, e3_i))
-    }
 
     view! {
         <SvgChart cview={cview}>
@@ -153,59 +138,81 @@ pub fn Delaunay(
                         let x: f64 = xseries.scale(data.value) * vector.get_x();
                         let y: f64 = yseries.scale(ysticks[index].value) *vector.get_y();
                         view! {
-                            <circle cx={x} cy={y}  r="4" fill=color.to_string_hex() />
+                            // <circle cx={x} cy={y}  r="4" fill=color.to_string_hex() />
+                            <circle cx={x} cy={y}  r="4" fill="red" />
                         }
                     }).collect::<Vec<_>>()
                 }
                 // For triangle
                 {
                     let vector = rec_chart.get_vector();
-                    vec_trianle.into_iter().enumerate().map(|(index, data)|  {
+                    triangle.tuple_triangles.into_iter().enumerate().map(|(index, data)|  {
                         let mut points = "".to_string();
-                        let px1 = xseries.scale(xsticks[data.0].value) * vector.get_x();
-                        let py1 = yseries.scale(ysticks[data.0].value) * vector.get_y();
-                        let px2 = xseries.scale(xsticks[data.1].value) * vector.get_x();
-                        let py2 = yseries.scale(ysticks[data.1].value) * vector.get_y();
-                        let px3 = xseries.scale(xsticks[data.2].value) * vector.get_x();
-                        let py3 = yseries.scale(ysticks[data.2].value) * vector.get_y();
+                        let px1 = xseries.scale(xsticks[data[0]].value) * vector.get_x();
+                        let py1 = yseries.scale(ysticks[data[0]].value) * vector.get_y();
+                        let px2 = xseries.scale(xsticks[data[1]].value) * vector.get_x();
+                        let py2 = yseries.scale(ysticks[data[1]].value) * vector.get_y();
+                        let px3 = xseries.scale(xsticks[data[2]].value) * vector.get_x();
+                        let py3 = yseries.scale(ysticks[data[2]].value) * vector.get_y();
 
                         points.push_str(format!("{:.0},{:.0} {:.0},{:.0} {:.0},{:.0}", px1, py1, px2, py2, px3, py3).as_str());
                         let center = triangle.vertices[index].clone();
                         let cx = xseries.scale(center.get_x()) * vector.get_x();
                         let cy = yseries.scale(center.get_y()) * vector.get_y();
-                        let halfedge = vec_hafledge[index];
+                        // let halfedge = triangle.tuple_halfedges[index].clone();
 
-                        log::debug!("Index: {:#?} Data: {:#?} Halfedge:{:#?}",index, data, halfedge);
+                        // log::debug!("Index: {:#?} Data: {:#?} Halfedge:{:#?}",index, data, halfedge);
 
                         view! {
                             // <polygon points={points.clone()} class="triangle" fill={format!("{}80", color.shift_hue_degrees_index(36., index).to_string_hex())} stroke={color.to_string_hex()}/>
                             <polygon points={points.clone()} class="triangle" fill="none" stroke={color.to_string_hex()}/>
-                            <circle cx=cx cy=cy  r="4" fill={color.shift_hue_degrees_index(180., 1).to_string_hex()} />
-                            // <text x=cx y=cy fill={color.shift_hue_degrees_index(36., index).to_string_hex()}>{format!("{}:({}-{}-{})", index, data.0, data.1, data.2)}</text>
-                            // <text x=px1 y=py1 >{data.0}</text>
-                            // <text x=px2 y=py2 >{data.1}</text>
-                            // <text x=px3 y=py3 >{data.2}</text>
+                            // <circle cx=cx cy=cy  r="4" fill={color.shift_hue_degrees_index(180., 1).to_string_hex()} />
+                            // <text x=cx y=cy fill={color.shift_hue_degrees_index(36., index).to_string_hex()}>{format!("{}:({}-{}-{})", index, data[0], data[1], data[2])}</text>
+                            // <text x=px1 y=py1 >{data[0]}</text>
+                            // <text x=px2 y=py2 >{data[1]}</text>
+                            // <text x=px3 y=py3 >{data[2]}</text>
                         }
                     }).collect::<Vec<_>>()
                 }
-                // For voronol
+                // For voronols
                 {
                     let vector = rec_chart.get_vector();
-                    triangle.voronols.clone().into_iter().enumerate().map(|(index, data)|  {
-                    
+                    triangle.voronols.clone().into_iter().enumerate().map(|(_index, data)|  {
+
                     let mut points = "".to_string();
                     for vectex in data {
                         let px = xseries.scale(triangle.vertices[vectex].get_x()) * vector.get_x();
                         let py = yseries.scale(triangle.vertices[vectex].get_y()) * vector.get_y();
                         points.push_str(format!("{:.0},{:.0} ", px, py).as_str());
-                    }                    
-                    
+                    }
+
                     view! {
                         // <polygon points={points.clone()} class="voronol" fill={format!("{}dd", color.shift_hue_degrees_index(36., index).to_string_hex())} stroke={color.to_string_hex()}/>
                         <polygon points={points.clone()} class="voronol" fill="none" stroke={color.shift_hue_degrees_index(180., 1).to_string_hex()}/>
                     }
                   }).collect::<Vec<_>>()
-              }
+                }
+
+                // For voronol_edges
+                {
+                    let vector = rec_chart.get_vector();
+                    triangle.voronol_edges.clone().into_iter().enumerate().map(|(_index, data)|  {
+
+                        
+                        log::debug!("{:#?}", data);
+                // let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
+                        let x1 = xseries.scale(data.get_origin().get_x()) * vector.get_x();
+                        let y1 = yseries.scale(data.get_origin().get_y()) * vector.get_y();
+                        let end = data.get_end_point();
+                        let x2 = xseries.scale(end.get_x()) * vector.get_x();
+                        let y2 = yseries.scale(end.get_y()) * vector.get_y();
+                        view! {
+                            // <line x1=x1 y1=y1 x2=0 y2=0 style={color.shift_hue_degrees_index(180., 1).to_string_hex()} />
+                            <line x1=x1 y1=y1 x2=x2 y2=y2 stroke={color.shift_hue_degrees_index(180., 1).to_string_hex()}/> //stroke="red" />
+                            // <polygon points={points.clone()} class="voronol" fill="none" stroke={color.shift_hue_degrees_index(180., 1).to_string_hex()}/>
+                        }
+                    }).collect::<Vec<_>>()
+                }
             </g>
         </SvgChart>
     }
