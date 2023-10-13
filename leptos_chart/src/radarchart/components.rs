@@ -81,59 +81,117 @@ pub fn RadarChart(
     );
 
     view! {
-        <SvgPolar pview={pview}>
-            <g class="inner-chart" transform={translate_chart} >
-                {
-                    #[cfg(all(feature = "debug"))]
-                    {
-                        let radius = circle_chart.get_radius();
-                        view! {
-                            <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"/>
-                        }
-                    }
-                }
-                // For grid
-                {
-                    let grid_clone = grid_radar.clone();
-                    let radius = circle_chart.get_radius();
-                    grid_clone.into_iter().enumerate().map(|(index, vector)|  {
-                        let point = vector.to_point();
-                        let radius = radius *1.1;
-                        view! {
-                            <line x1="0" y1="0" x2={point.get_x() * radius } y2={point.get_y() * radius} style="stroke:#00000011;stroke-width:1" />
-                            <text x={point.get_x() * radius} y={point.get_y() * radius} dominant-baseline="middle" text-anchor="middle" opacity=0.5>{slabel.labels()[index].clone()}</text>
-                        }
-                    })
-                    .collect::<Vec<_>>()
-                }
-                {
-                    let mut line = "M".to_string();
-                    let radius = circle_chart.get_radius();
-                    let mut grid100 = "M".to_string();
-                    let mut grid050 = "M".to_string();
-                    for index in 0..percents.len() {
-                        let vector = &grid_radar[index];
-                        let point = vector.to_point();
-                        let percent = percents[index];
+      <SvgPolar pview=pview>
+        <g class="inner-chart" transform=translate_chart>
 
-                        grid100.push_str(format!(" {:.0},{:.0} ", point.get_x()* radius , point.get_y() * radius).as_str());
-                        grid050.push_str(format!(" {:.0},{:.0} ", point.get_x()* radius * 0.5, point.get_y() * radius * 0.5 ).as_str());
-                        line.push_str(format!(" {:.0},{:.0} ", point.get_x()* radius * percent, point.get_y() * radius * percent).as_str());
+          {#[cfg(all(feature = "debug"))]
+          {
+              let radius = circle_chart.get_radius();
+              view! { <circle id="circle" cx=0 cy=0 r=radius fill="#00ff0033"></circle> }
+          }}
 
-                    };
-                    grid100.push_str(" Z");
-                    grid050.push_str(" Z");
-                    line.push_str(" Z");
-                    view! {
-                        <text x=0 y={radius * -0.5} dominant-baseline="middle" text-anchor="middle" opacity=0.3>50</text>
-                        <text x=0  y={radius * -1.} dominant-baseline="middle" text-anchor="middle" opacity=0.3>100</text>
-                        <text x=0  y=0 dominant-baseline="middle" text-anchor="middle" opacity=0.3>0</text>
-                        <path d={grid100} stroke="#00000022" fill="none"/>
-                        <path d={grid050} stroke="#00000011" fill="none"/>
-                        <path d={line} stroke=color.to_string_hex() stroke-width="2" fill=format!("{}33",color.to_string_hex())/>
-                    }}
+          // For grid
 
-            </g>
-        </SvgPolar>
+          {
+              let grid_clone = grid_radar.clone();
+              let radius = circle_chart.get_radius();
+              grid_clone
+                  .into_iter()
+                  .enumerate()
+                  .map(|(index, vector)| {
+                      let point = vector.to_point();
+                      let radius = radius * 1.1;
+                      view! {
+                        <line
+                          x1="0"
+                          y1="0"
+                          x2=point.get_x() * radius
+                          y2=point.get_y() * radius
+                          style="stroke:#00000011;stroke-width:1"
+                        ></line>
+                        <text
+                          x=point.get_x() * radius
+                          y=point.get_y() * radius
+                          dominant-baseline="middle"
+                          text-anchor="middle"
+                          opacity=0.5
+                        >
+                          {slabel.labels()[index].clone()}
+                        </text>
+                      }
+                  })
+                  .collect::<Vec<_>>()
+          }
+
+          {
+              let mut line = "M".to_string();
+              let radius = circle_chart.get_radius();
+              let mut grid100 = "M".to_string();
+              let mut grid050 = "M".to_string();
+              for index in 0..percents.len() {
+                  let vector = &grid_radar[index];
+                  let point = vector.to_point();
+                  let percent = percents[index];
+                  grid100
+                      .push_str(
+                          format!(" {:.0},{:.0} ", point.get_x() * radius, point.get_y() * radius)
+                              .as_str(),
+                      );
+                  grid050
+                      .push_str(
+                          format!(
+                              " {:.0},{:.0} ",
+                              point.get_x() * radius * 0.5,
+                              point.get_y() * radius * 0.5,
+                          )
+                              .as_str(),
+                      );
+                  line.push_str(
+                      format!(
+                          " {:.0},{:.0} ",
+                          point.get_x() * radius * percent,
+                          point.get_y() * radius * percent,
+                      )
+                          .as_str(),
+                  );
+              }
+              grid100.push_str(" Z");
+              grid050.push_str(" Z");
+              line.push_str(" Z");
+              view! {
+                <text
+                  x=0
+                  y=radius * -0.5
+                  dominant-baseline="middle"
+                  text-anchor="middle"
+                  opacity=0.3
+                >
+                  50
+                </text>
+                <text
+                  x=0
+                  y=radius * -1.
+                  dominant-baseline="middle"
+                  text-anchor="middle"
+                  opacity=0.3
+                >
+                  100
+                </text>
+                <text x=0 y=0 dominant-baseline="middle" text-anchor="middle" opacity=0.3>
+                  0
+                </text>
+                <path d=grid100 stroke="#00000022" fill="none"></path>
+                <path d=grid050 stroke="#00000011" fill="none"></path>
+                <path
+                  d=line
+                  stroke=color.to_string_hex()
+                  stroke-width="2"
+                  fill=format!("{}33", color.to_string_hex())
+                ></path>
+              }
+          }
+
+        </g>
+      </SvgPolar>
     }
 }

@@ -119,90 +119,132 @@ pub fn BarChartGroup(
     }
 
     view! {
-        <SvgChart cview={cview}>
-            <g class="axes">
-                <g class="x-axis" transform={translate_xa}>
-                    <XAxis region=rec_xa axes=axes_x />
-                </g>
-                <g class="y-axis" transform={translate_ya}>
-                    <YAxis region=rec_ya axes=axes_y />
-                </g>
-            </g>
-            <g class="inner-chart"  transform={translate_chart}>
-                // For draw region of chart
-                {
-                    #[cfg(feature = "debug")]
-                    {
-                        let vector = rec_chart.get_vector();
-                        let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                        view! {
-                            <circle id="origin" cx="0" cy="0" r="3" />
-                            <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#00ff0033;stroke-width:2" />
-                            <path id="region" d=path  fill="#00ff0033" />
-                        }
-                    }
-                }
+      <SvgChart cview=cview>
+        <g class="axes">
+          <g class="x-axis" transform=translate_xa>
+            <XAxis region=rec_xa axes=axes_x/>
+          </g>
+          <g class="y-axis" transform=translate_ya>
+            <YAxis region=rec_ya axes=axes_y/>
+          </g>
+        </g>
+        <g class="inner-chart" transform=translate_chart>
+          // For draw region of chart
 
-                {
-                    let vector = rec_chart.get_vector();
+          {#[cfg(feature = "debug")]
+          {
+              let vector = rec_chart.get_vector();
+              let path = format!(
+                  "M {},{} l {},{} l {},{} l {},{} Z",
+                  0,
+                  0,
+                  vector.get_x(),
+                  0,
+                  0,
+                  vector.get_y(),
+                  -vector.get_x(),
+                  0,
+              );
+              view! {
+                <circle id="origin" cx="0" cy="0" r="3"></circle>
+                <line
+                  x1="0"
+                  y1="0"
+                  x2=vector.get_x()
+                  y2=vector.get_y()
+                  style="stroke:#00ff0033;stroke-width:2"
+                ></line>
+                <path id="region" d=path fill="#00ff0033"></path>
+              }
+          }}
 
-                    if x_is_label {
-                        let len = xseries.len();
-                        let position = 0.9 / len as f64;
-                        let len_group = series_x_group.get_count();
+          {
+              let vector = rec_chart.get_vector();
+              if x_is_label {
+                  let len = xseries.len();
+                  let position = 0.9 / len as f64;
+                  let len_group = series_x_group.get_count();
+                  xseries
+                      .into_iter()
+                      .enumerate()
+                      .map(|(index, series_x)| {
+                          let color = color.shift_hue_degrees_index(shift_degrees, index);
+                          let xstick = series_x.to_stick();
+                          let ystick = yseries[index].to_stick();
+                          let width_col = series_x_group.scale(position) * vector.get_x();
+                          let style = format!(
+                              "stroke:{};stroke-width:{}",
+                              color.to_string_hex(),
+                              width_col.abs() as u64,
+                          );
+                          let interval = vector.get_x() / len_group as f64;
+                          xstick
+                              .into_iter()
+                              .enumerate()
+                              .map(|(indexi, data)| {
+                                  let label = data.label;
+                                  let x: f64 = ((series_x_group.scale_index(label.clone()) as f64
+                                      / (len_group as f64)) as f64) * vector.get_x()
+                                      + (position * index as f64 + position / 2. + 0.05) * interval;
+                                  let y: f64 = series_y_group.scale(ystick[indexi].value)
+                                      * vector.get_y();
+                                  view! {
+                                    // len as f64;
 
+                                    <line x1=x y1="0" x2=x y2=y style=style.clone()></line>
+                                  }
+                              })
+                              .collect::<Vec<_>>()
+                      })
+                      .collect::<Vec<_>>()
+              } else {
+                  let len = yseries.len();
+                  let position = 0.9 / len as f64;
+                  let len_group = series_y_group.get_count();
+                  yseries
+                      .into_iter()
+                      .enumerate()
+                      .map(|(index, series_y)| {
+                          let color = color.shift_hue_degrees_index(shift_degrees, index);
+                          let xstick = xseries[index].to_stick();
+                          let ystick = series_y.to_stick();
+                          let width_col = series_y_group.scale(position) * vector.get_y();
+                          let style = format!(
+                              "stroke:{};stroke-width:{}",
+                              color.to_string_hex(),
+                              width_col.abs() as u64,
+                          );
+                          let interval = vector.get_y() / len_group as f64;
+                          ystick
+                              .into_iter()
+                              .enumerate()
+                              .map(|(indexi, data)| {
+                                  let label = data.label;
+                                  let x: f64 = series_x_group.scale(xstick[indexi].value)
+                                      * vector.get_x();
+                                  let y: f64 = ((series_y_group.scale_index(label.clone()) as f64
+                                      / (len_group as f64)) as f64) * vector.get_y()
+                                      + (position * index as f64 + position / 2. + 0.05) * interval;
+                                  view! {
+                                    // len as f64;
 
-                        xseries.into_iter().enumerate().map(|(index, series_x)|  {
-                            let color = color.shift_hue_degrees_index(shift_degrees, index);
+                                    // len as f64;
 
-                            let xstick = series_x.to_stick();
-                            let ystick = yseries[index].to_stick();
+                                    // len as f64;
 
+                                    // len as f64;
 
-                            let width_col = series_x_group.scale(position) * vector.get_x(); // len as f64;
-                            let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
-                            let interval = vector.get_x() / len_group as f64;
+                                    <line x1="0" y1=y x2=x y2=y style=style.clone()></line>
+                                  }
+                              })
+                              .collect::<Vec<_>>()
+                      })
+                      .collect::<Vec<_>>()
+              }
+          }
 
-                            xstick.into_iter().enumerate().map(|(indexi, data)|  {
-                                let label = data.label;
-                                let x: f64 = ((series_x_group.scale_index(label.clone()) as f64/ (len_group as f64)) as f64) * vector.get_x() + (position * index as f64 + position/2. + 0.05) * interval ;
-                                let y: f64 = series_y_group.scale(ystick[indexi].value) *vector.get_y();
-                                view! {
-                                    <line x1=x y1="0" x2=x y2=y style=style.clone() />
-                                }
-                            })
-                            .collect::<Vec<_>>()
-                        }).collect::<Vec<_>>()
+        </g>
 
-                    } else {
-                        let len = yseries.len();
-                        let position = 0.9 / len as f64;
-                        let len_group = series_y_group.get_count();
-
-                        yseries.into_iter().enumerate().map(|(index, series_y)|  {
-                            let color = color.shift_hue_degrees_index(shift_degrees, index);
-                            let xstick = xseries[index].to_stick();
-                            let ystick = series_y.to_stick();
-
-                            let width_col = series_y_group.scale(position) * vector.get_y(); // len as f64;
-                            let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
-                            let interval = vector.get_y() / len_group as f64;
-
-                            ystick.into_iter().enumerate().map(|(indexi, data)|  {
-                                let label = data.label;
-                                let x: f64 = series_x_group.scale(xstick[indexi].value) *vector.get_x();
-                                let y: f64 = ((series_y_group.scale_index(label.clone()) as f64/ (len_group as f64)) as f64) * vector.get_y() + (position * index as f64 + position/2. + 0.05) * interval ;
-
-                                view! {
-                                    <line x1="0" y1=y x2=x y2=y style=style.clone() />
-                                }
-                            })
-                            .collect::<Vec<_>>()
-                        }).collect::<Vec<_>>()
-                    }
-                }
-            </g>
-
-        </SvgChart>
+      </SvgChart>
     }
 }

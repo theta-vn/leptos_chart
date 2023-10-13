@@ -23,13 +23,13 @@ pub fn App() -> impl IntoView {
     let color = Color::from("#ff0000");
 
     view! {
-        <div class="mx-auto p-8">
+      <div class="mx-auto p-8">
 
-            <h1>"Bar chart example"</h1>
-            <BarChart chart=chart_v color=color />
+        <h1>"Bar chart example"</h1>
+        <BarChart chart=chart_v color=color/>
 
-            <h1>"Bar chart example"</h1>
-            <BarChart chart=chart_h />
-        </div>
+        <h1>"Bar chart example"</h1>
+        <BarChart chart=chart_h/>
+      </div>
     }
 }

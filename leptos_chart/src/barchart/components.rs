@@ -112,58 +112,83 @@ pub fn BarChart(
     }
 
     view! {
-        <SvgChart cview={cview}>
-            <g class="axes" >
-                <g class="x-axis" transform={translate_xa}>
-                    <XAxis region=rec_xa axes=axes_x />
-                </g>
-                <g class="y-axis" transform={translate_ya}>
-                    <YAxis region=rec_ya axes=axes_y />
-                </g>
-            </g>
-            <g class="inner-chart"  transform={translate_chart}>
-                // For draw region of chart
-                {
-                    #[cfg(feature = "debug")]
-                    {
-                        let vector = rec_chart.get_vector();
-                        let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
-                        view! {
-                            <circle id="origin" cx="0" cy="0" r="3" />
-                            <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#00ff0033;stroke-width:2" />
-                            <path id="region" d=path  fill="#00ff0033" />
-                        }
-                    }
-                }
+      <SvgChart cview=cview>
+        <g class="axes">
+          <g class="x-axis" transform=translate_xa>
+            <XAxis region=rec_xa axes=axes_x/>
+          </g>
+          <g class="y-axis" transform=translate_ya>
+            <YAxis region=rec_ya axes=axes_y/>
+          </g>
+        </g>
+        <g class="inner-chart" transform=translate_chart>
+          // For draw region of chart
 
-                {
-                    let vector = rec_chart.get_vector();
-                    if x_is_label {
-                        let width_col = xseries.scale(0.9) * vector.get_x();
-                        let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
-                        xsticks.into_iter().enumerate().map(|(index, data)|  {
-                            let x: f64 = xseries.scale(data.value + 0.5) * vector.get_x();
-                            let y: f64 = yseries.scale(ysticks[index].value) *vector.get_y();
+          {#[cfg(feature = "debug")]
+          {
+              let vector = rec_chart.get_vector();
+              let path = format!(
+                  "M {},{} l {},{} l {},{} l {},{} Z",
+                  0,
+                  0,
+                  vector.get_x(),
+                  0,
+                  0,
+                  vector.get_y(),
+                  -vector.get_x(),
+                  0,
+              );
+              view! {
+                <circle id="origin" cx="0" cy="0" r="3"></circle>
+                <line
+                  x1="0"
+                  y1="0"
+                  x2=vector.get_x()
+                  y2=vector.get_y()
+                  style="stroke:#00ff0033;stroke-width:2"
+                ></line>
+                <path id="region" d=path fill="#00ff0033"></path>
+              }
+          }}
 
-                            view! {
-                                <line x1=x y1="0" x2=x y2=y style=style.clone() />
-                            }
-                        })
-                        .collect::<Vec<_>>()
-                    } else {
-                        let width_col = yseries.scale(0.9) * vector.get_y();
-                        let style = format!("stroke:{};stroke-width:{}", color.to_string_hex() ,width_col.abs() as u64);
-                        xsticks.into_iter().enumerate().map(|(index, data)|  {
-                            let x: f64 = xseries.scale(data.value) * vector.get_x();
-                            let y: f64 = yseries.scale(ysticks[index].value +0.5) * vector.get_y();
-                            view! {
-                                <line x1="0" y1=y x2=x y2=y style=style.clone() />
-                            }
-                        })
-                        .collect::<Vec<_>>()
-                    }
-                }
-            </g>
-        </SvgChart>
+          {
+              let vector = rec_chart.get_vector();
+              if x_is_label {
+                  let width_col = xseries.scale(0.9) * vector.get_x();
+                  let style = format!(
+                      "stroke:{};stroke-width:{}",
+                      color.to_string_hex(),
+                      width_col.abs() as u64,
+                  );
+                  xsticks
+                      .into_iter()
+                      .enumerate()
+                      .map(|(index, data)| {
+                          let x: f64 = xseries.scale(data.value + 0.5) * vector.get_x();
+                          let y: f64 = yseries.scale(ysticks[index].value) * vector.get_y();
+                          view! { <line x1=x y1="0" x2=x y2=y style=style.clone()></line> }
+                      })
+                      .collect::<Vec<_>>()
+              } else {
+                  let width_col = yseries.scale(0.9) * vector.get_y();
+                  let style = format!(
+                      "stroke:{};stroke-width:{}",
+                      color.to_string_hex(),
+                      width_col.abs() as u64,
+                  );
+                  xsticks
+                      .into_iter()
+                      .enumerate()
+                      .map(|(index, data)| {
+                          let x: f64 = xseries.scale(data.value) * vector.get_x();
+                          let y: f64 = yseries.scale(ysticks[index].value + 0.5) * vector.get_y();
+                          view! { <line x1="0" y1=y x2=x y2=y style=style.clone()></line> }
+                      })
+                      .collect::<Vec<_>>()
+              }
+          }
+
+        </g>
+      </SvgChart>
     }
 }
