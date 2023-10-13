@@ -9,7 +9,7 @@ The project provides chart types to draw for leptos.
 - [x] ScatterChart
 - [x] LineChartGroup
 - [x] BarChartGroup
-
+- [x] Voronoi Diagram
 ## Examples and Usage
 
 ### PieChart
