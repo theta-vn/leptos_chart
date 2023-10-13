@@ -10,7 +10,7 @@ readme = "../README.md"
 
 [dependencies]
 leptos = {version = "0.5",  features = ["csr"]}
-theta-chart = { path = "../../theta-chart", version = "0.0.7"}
+theta-chart = { path = "../../theta-chart", version = "0.0.8"}
 log = "0.4"
 
 [features]
@@ -27,7 +27,7 @@ BarChartGroup = ["core", "Axes"]
 LineChart = ["core", "Axes"]
 LineChartGroup = ["core", "Axes"]
 ScatterChart = ["core", "Axes"]
-Delaunay = ["core", "Axes"]
+Voronoi = ["core", "Axes"]
 
 csr = ["leptos/csr"]
 hydrate = ["leptos/hydrate"]

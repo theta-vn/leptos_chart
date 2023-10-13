@@ -24,40 +24,51 @@ pub fn XAxis(region: Rec, axes: Axes) -> impl IntoView {
     }
 
     view! {
-        // Draw region of x-axis
-        {
-            #[cfg(feature = "debug")]
-            {
-                let path = format!("M {},{} l {},{} l {},{} l {},{} Z", 0, 0, vector.get_x(), 0, 0,vector.get_y(), -vector.get_x(), 0);
+      {#[cfg(feature = "debug")]
+      {
+          let path = format!(
+              "M {},{} l {},{} l {},{} l {},{} Z",
+              0,
+              0,
+              vector.get_x(),
+              0,
+              0,
+              vector.get_y(),
+              -vector.get_x(),
+              0,
+          );
+          view! {
+            <circle id="originX" cx="0" cy="0" r="3"></circle>
+            <line
+              x1="0"
+              y1="0"
+              x2=vector.get_x()
+              y2=vector.get_y()
+              style="stroke:#ff000033;stroke-width:1"
+            ></line>
+            <path id="regionX" d=path fill="#ff000033"></path>
+          }
+      }}
+
+      // Draw x-axis
+      <g class="stick" dominant-baseline=baseline text-anchor=text_anchor stroke="currentColor">
+        <line x1="0" y1="0" x2=vector.get_x() y2="0"></line>
+        <line x1="0" y1="0" x2="0" y2=mark_origin_y></line>
+
+        {axes
+            .sticks
+            .into_iter()
+            .map(|stick| {
+                let dx = stick.value * vector.get_x();
                 view! {
-                    <circle id="originX" cx="0" cy="0" r="3" />
-                    <line x1="0" y1="0" x2=vector.get_x() y2=vector.get_y() style="stroke:#ff000033;stroke-width:1" />
-                    <path id="regionX" d=path  fill="#ff000033" />
+                  <line x1=dx y1="0" x2=dx y2=mark_origin_y / 2.></line>
+                  <text y=mark_origin_y x=dx style=style fill="currentColor" stroke="none">
+                    {stick.label}
+                  </text>
                 }
-            }
-        }
-        // Draw x-axis
-        <g class="stick" dominant-baseline={baseline} text-anchor=text_anchor stroke="currentColor">
-            <line x1="0" y1="0" x2=vector.get_x() y2="0" />
-            <line x1="0" y1="0" x2="0" y2={mark_origin_y} />
-                {
-                    axes.sticks.into_iter().map(|stick| {
-                        let dx = stick.value * vector.get_x();
-                        view! {
-                            <line x1=dx y1="0" x2=dx y2={mark_origin_y/2.} />
-                            <text
-                                y={mark_origin_y}
-                                x={dx}
-                                style=style
-                                fill="currentColor"
-                                stroke="none"
-                            >
-                                {stick.label}
-                            </text>
-                        }
-                    })
-                    .collect::<Vec<_>>()
-                }
-        </g>
+            })
+            .collect::<Vec<_>>()}
+
+      </g>
     }
 }

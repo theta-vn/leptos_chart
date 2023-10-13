@@ -17,9 +17,9 @@ pub fn App() -> impl IntoView {
     let shift_degrees = 120.;
 
     view! {
-        <div class="mx-auto p-8">
-            <h1>"Pie chart example with right label"</h1>
-            <PieChart chart=chart color=color shift_degrees=shift_degrees/>
-        </div>
+      <div class="mx-auto p-8">
+        <h1>"Pie chart example with right label"</h1>
+        <PieChart chart=chart color=color shift_degrees=shift_degrees/>
+      </div>
     }
 }

@@ -70,7 +70,7 @@ mod radarchart;
 #[cfg(any(doc, feature = "RadarChart"))]
 pub use self::radarchart::*;
 
-#[cfg(any(doc, feature = "Delaunay"))]
-mod delaunay;
-#[cfg(any(doc, feature = "Delaunay"))]
-pub use self::delaunay::*;
+#[cfg(any(doc, feature = "Voronoi"))]
+mod voronoi;
+#[cfg(any(doc, feature = "Voronoi"))]
+pub use self::voronoi::*;
