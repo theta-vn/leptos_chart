@@ -232,6 +232,8 @@ pub fn BarChartGroup(
 
                                     // len as f64;
 
+                                    // len as f64;
+
                                     <line x1="0" y1=y x2=x y2=y style=style.clone()></line>
                                   }
                               })

@@ -171,6 +171,7 @@ pub fn Voronoi(
           }}
 
           // Point
+
           {
               let vector = rec_chart.get_vector();
               xsticks
@@ -190,6 +191,7 @@ pub fn Voronoi(
           }
 
           // For voronois
+
           {
               let vector = rec_chart.get_vector();
               triangle
@@ -219,6 +221,7 @@ pub fn Voronoi(
           }
 
           // For voronoi_edges
+
           {
               let vector = rec_chart.get_vector();
               triangle
@@ -248,6 +251,7 @@ pub fn Voronoi(
 
           // For triangle
           <Show when=move || { delaunay } fallback=|| view! {}>
+
             {
                 let vector = rec_chart.get_vector();
                 triangle
@@ -285,6 +289,7 @@ pub fn Voronoi(
                     })
                     .collect::<Vec<_>>()
             }
+
           </Show>
         </g>
       </SvgChart>
