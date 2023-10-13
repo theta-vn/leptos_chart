@@ -27,6 +27,8 @@ pub fn App() -> impl IntoView {
     )
     .set_view(720, 720, 3, 80, 80, 20);
 
+    let color = Color::from("#ff0000");
+
     view! {
       <div class="mx-auto p-8">
         <h1>"Voronoi diagram example"</h1>
@@ -35,8 +37,7 @@ pub fn App() -> impl IntoView {
 
       <div class="mx-auto p-8">
         <h1>"Voronoi diagram with triangle example"</h1>
-        <Voronoi chart=chart delaunay=true/>
+        <Voronoi chart=chart delaunay=true color=color/>
       </div>
     }
-   
 }

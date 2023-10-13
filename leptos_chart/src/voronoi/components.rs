@@ -24,17 +24,34 @@ use theta_chart::{color::Color, coord, delaunator::*};
 ///
 /// #[component]
 /// pub fn App() -> impl IntoView {
-///     let chart = Cartesian::new(
-///         Series::from(vec![50,60,70,80,90,100,110,120,130,140,150]).set_range(40., 160.),
-///         Series::from(vec![7,8,8,9,9,9,10,11,14,14,15]).set_range(6., 16.),
-///     )
-///     .set_view(820, 620, 3, 100, 100, 20);
+///    // fill the unit square with points
+///    let mut rng = rand::thread_rng();
+///    let vx = (0..100)
+///        .map(|_| (96_f64 * rng.gen::<f64>() + 2_f64) )
+///        .collect::<Vec<_>>();
+///    let vy = (0..100)
+///        .map(|_| (96_f64 * rng.gen::<f64>() + 2_f64) )
+///        .collect::<Vec<_>>();
+///    
+///    let chart = Cartesian::new(
+///        Series::from(vx).set_range(0., 100.),
+///        Series::from(vy).set_range(0., 100.),
+///    )
+///    .set_view(720, 720, 3, 80, 80, 20);
 ///
-///     let color = Color::from("#ff0000");
-///     view!{
-///         // color is option
-///         <Voronoi chart=chart color=color delaunay=true />
-///     }
+///    let color = Color::from("#ff0000");
+///
+///    view! {
+///      <div class="mx-auto p-8">
+///        <h1>"Voronoi diagram example"</h1>
+///        <Voronoi chart=chart.clone()/>
+///      </div>
+///
+///      <div class="mx-auto p-8">
+///        <h1>"Voronoi diagram with triangle example"</h1>
+///        <Voronoi chart=chart delaunay=true color=color/>
+///      </div>
+///    }
 /// }
 /// ```
 /// ## Set view for Voronoi
