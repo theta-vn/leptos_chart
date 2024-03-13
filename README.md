@@ -17,7 +17,7 @@ The project provides chart types to draw for leptos.
 #### Cargo.toml for PieChart
 
 ```toml
-leptos = {version = "0.5"}
+leptos = {version = "0.6"}
 leptos_chart = {version = "0.2", features = ["PieChart"]}
 ```
 
@@ -66,7 +66,7 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for BarChart
 
 ```toml
-leptos = {version = "0.5"}
+leptos = {version = "0.6"}
 leptos_chart = {version = "0.2", features = ["BarChart"]}
 ```
 
@@ -120,7 +120,7 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for BarChartGroup
 
 ```toml
-leptos = {version = "0.5"}
+leptos = {version = "0.6"}
 leptos_chart = {version = "0.2", features = ["BarChartGroup"]}
 ```
 
@@ -167,7 +167,7 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for LineChart
 
 ```toml
-leptos = {version = "0.5"}
+leptos = {version = "0.6"}
 leptos_chart = {version = "0.2", features = ["LineChart"]}
 ```
 
@@ -208,7 +208,7 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for LineChartGroup
 
 ```toml
-leptos = {version = "0.5"}
+leptos = {version = "0.6"}
 leptos_chart = {version = "0.2", features = ["LineChartGroup"]}
 ```
 
@@ -255,7 +255,7 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for RadarChart
 
 ```toml
-leptos = {version = "0.5"}
+leptos = {version = "0.6"}
 leptos_chart = {version = "0.2", features = ["RadarChart"]}
 ```
 
@@ -296,7 +296,7 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for ScatterChart
 
 ```toml
-leptos = {version = "0.5"}
+leptos = {version = "0.6"}
 leptos_chart = {version = "0.2", features = ["ScatterChart"]}
 ```
 
@@ -339,7 +339,7 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for Voronoi
 
 ```toml
-leptos = {version = "0.5"}
+leptos = {version = "0.6"}
 leptos_chart = {version = "0.2", features = ["Voronoi"]}
 rand = "0.8"
 ```

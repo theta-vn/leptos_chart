@@ -13,7 +13,7 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.5"}
+/// leptos = {version = "0.6"}
 /// leptos_chart = {version = "0.2.0", features = ["BarChart"]}
 /// ```
 ///
