@@ -7,8 +7,8 @@ edition = "2021"
 
 [dependencies]
 leptos = { version = "0.6", features = ["csr"] }
-leptos_chart = { path = "../../leptos_chart", version = "0.2.0", features = [
+leptos_chart = { path = "../../leptos_chart", version = "0.3", features = [
     "BarChart",
     "debug",
 ] }
-wasm-logger = "0.2.0"
+wasm-logger = "0.2"

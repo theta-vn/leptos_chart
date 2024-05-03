@@ -13,8 +13,8 @@ use theta_chart::{color::Color, coord, series::Series};
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.5"}
-/// leptos_chart = {version = "0.2.0", features = ["BarChartGroup"]}
+/// leptos = {version = "0.6"}
+/// leptos_chart = {version = "0.3", features = ["BarChartGroup"]}
 /// ```
 ///
 /// ## Component
@@ -226,12 +226,6 @@ pub fn BarChartGroup(
                                       / (len_group as f64)) as f64) * vector.get_y()
                                       + (position * index as f64 + position / 2. + 0.05) * interval;
                                   view! {
-                                    // len as f64;
-
-                                    // len as f64;
-
-                                    // len as f64;
-
                                     // len as f64;
 
                                     <line x1="0" y1=y x2=x y2=y style=style.clone()></line>

@@ -19,7 +19,7 @@ The project provides chart types to draw for leptos.
 
 ```toml
 leptos = {version = "0.6"}
-leptos_chart = {version = "0.2", features = ["PieChart"]}
+leptos_chart = {version = "0.3", features = ["PieChart"]}
 ```
 
 #### main.rs for PieChart
@@ -68,7 +68,7 @@ pub fn App() -> impl IntoView {
 
 ```toml
 leptos = {version = "0.6"}
-leptos_chart = {version = "0.2", features = ["BarChart"]}
+leptos_chart = {version = "0.3", features = ["BarChart"]}
 ```
 
 #### main.rs for BarChart
@@ -122,7 +122,7 @@ pub fn App() -> impl IntoView {
 
 ```toml
 leptos = {version = "0.6"}
-leptos_chart = {version = "0.2", features = ["BarChartGroup"]}
+leptos_chart = {version = "0.3", features = ["BarChartGroup"]}
 ```
 
 #### main.rs for BarChartGroup
@@ -169,7 +169,7 @@ pub fn App() -> impl IntoView {
 
 ```toml
 leptos = {version = "0.6"}
-leptos_chart = {version = "0.2", features = ["LineChart"]}
+leptos_chart = {version = "0.3", features = ["LineChart"]}
 ```
 
 #### main.rs for LineChart
@@ -210,7 +210,7 @@ pub fn App() -> impl IntoView {
 
 ```toml
 leptos = {version = "0.6"}
-leptos_chart = {version = "0.2", features = ["LineChartGroup"]}
+leptos_chart = {version = "0.3", features = ["LineChartGroup"]}
 ```
 
 #### main.rs for LineChartGroup
@@ -257,7 +257,7 @@ pub fn App() -> impl IntoView {
 
 ```toml
 leptos = {version = "0.6"}
-leptos_chart = {version = "0.2", features = ["RadarChart"]}
+leptos_chart = {version = "0.3", features = ["RadarChart"]}
 ```
 
 #### main.rs for RadarChart
@@ -298,7 +298,7 @@ pub fn App() -> impl IntoView {
 
 ```toml
 leptos = {version = "0.6"}
-leptos_chart = {version = "0.2", features = ["ScatterChart"]}
+leptos_chart = {version = "0.3", features = ["ScatterChart"]}
 ```
 
 #### main.rs for ScatterChart
@@ -341,7 +341,7 @@ pub fn App() -> impl IntoView {
 
 ```toml
 leptos = {version = "0.6"}
-leptos_chart = {version = "0.2", features = ["Voronoi"]}
+leptos_chart = {version = "0.3", features = ["Voronoi"]}
 rand = "0.8"
 ```
 

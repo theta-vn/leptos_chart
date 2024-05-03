@@ -10,6 +10,6 @@ leptos_chart = { path = "../../leptos_chart", version = "0.2", features = [
     "Voronoi",
     "debug",
 ] }
-wasm-logger = "0.2.0"
+wasm-logger = "0.2"
 rand = "0.8"
 log ="0.4"
