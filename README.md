@@ -10,6 +10,7 @@ The project provides chart types to draw for leptos.
 - [x] LineChartGroup
 - [x] BarChartGroup
 - [x] Voronoi Diagram
+
 ## Examples and Usage
 
 ### PieChart
@@ -17,8 +18,8 @@ The project provides chart types to draw for leptos.
 #### Cargo.toml for PieChart
 
 ```toml
-leptos = {version = "0.5"}
-leptos_chart = {version = "0.2", features = ["PieChart"]}
+leptos = {version = "0.6"}
+leptos_chart = {version = "0.3", features = ["PieChart"]}
 ```
 
 #### main.rs for PieChart
@@ -66,8 +67,8 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for BarChart
 
 ```toml
-leptos = {version = "0.5"}
-leptos_chart = {version = "0.2", features = ["BarChart"]}
+leptos = {version = "0.6"}
+leptos_chart = {version = "0.3", features = ["BarChart"]}
 ```
 
 #### main.rs for BarChart
@@ -120,8 +121,8 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for BarChartGroup
 
 ```toml
-leptos = {version = "0.5"}
-leptos_chart = {version = "0.2", features = ["BarChartGroup"]}
+leptos = {version = "0.6"}
+leptos_chart = {version = "0.3", features = ["BarChartGroup"]}
 ```
 
 #### main.rs for BarChartGroup
@@ -167,8 +168,8 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for LineChart
 
 ```toml
-leptos = {version = "0.5"}
-leptos_chart = {version = "0.2", features = ["LineChart"]}
+leptos = {version = "0.6"}
+leptos_chart = {version = "0.3", features = ["LineChart"]}
 ```
 
 #### main.rs for LineChart
@@ -208,8 +209,8 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for LineChartGroup
 
 ```toml
-leptos = {version = "0.5"}
-leptos_chart = {version = "0.2", features = ["LineChartGroup"]}
+leptos = {version = "0.6"}
+leptos_chart = {version = "0.3", features = ["LineChartGroup"]}
 ```
 
 #### main.rs for LineChartGroup
@@ -255,8 +256,8 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for RadarChart
 
 ```toml
-leptos = {version = "0.5"}
-leptos_chart = {version = "0.2", features = ["RadarChart"]}
+leptos = {version = "0.6"}
+leptos_chart = {version = "0.3", features = ["RadarChart"]}
 ```
 
 #### main.rs for RadarChart
@@ -296,8 +297,8 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for ScatterChart
 
 ```toml
-leptos = {version = "0.5"}
-leptos_chart = {version = "0.2", features = ["ScatterChart"]}
+leptos = {version = "0.6"}
+leptos_chart = {version = "0.3", features = ["ScatterChart"]}
 ```
 
 #### main.rs for ScatterChart
@@ -339,8 +340,8 @@ pub fn App() -> impl IntoView {
 #### Cargo.toml for Voronoi
 
 ```toml
-leptos = {version = "0.5"}
-leptos_chart = {version = "0.2", features = ["Voronoi"]}
+leptos = {version = "0.6"}
+leptos_chart = {version = "0.3", features = ["Voronoi"]}
 rand = "0.8"
 ```
 

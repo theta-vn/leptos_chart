@@ -10,8 +10,8 @@ use theta_chart::{chart::ScaleNumber, color::Color, coord};
 ///
 /// ```toml
 /// [dependencies]
-/// leptos = {version = "0.5"}
-/// leptos_chart = {version = "0.2", features = ["PieChart"]}
+/// leptos = {version = "0.6"}
+/// leptos_chart = {version = "0.3", features = ["PieChart"]}
 /// ```
 ///
 /// ## Component
