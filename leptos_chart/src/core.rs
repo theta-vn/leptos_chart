@@ -1,7 +1,9 @@
 mod svg_chart;
+#[cfg(any(doc, feature = "core_chart"))]
 pub use self::svg_chart::*;
 
 mod svg_polar;
+#[cfg(any(doc, feature = "core_polar"))]
 pub use self::svg_polar::*;
 
 // Font size for text in SVG
